@@ -1,0 +1,19 @@
+.top-statusbar{
+    position: absolute;
+    width: 45vw;
+    height: max-content;
+    top: 0vh;
+    left: clamp(50vh,400px,55vh);
+
+    border-bottom-right-radius: 2vh;
+    border-bottom-left-radius: 2vh;
+    background: var(--dark-navbar);
+}
+
+.top-statusbar-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:1vh;
+    font-size: clamp(1.5vh, 13px, 2.0vh);
+}

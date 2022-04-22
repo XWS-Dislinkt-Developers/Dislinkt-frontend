@@ -1,0 +1,39 @@
+:host {
+    --dark-main: #2A2F35;
+	--dark-navbar: #1E2126;
+	--dark-navbar-icon-background: #2A2F35;
+	--dark-navbar-icon-active-background: #3c4046;
+
+	--dark-important-text-color: #F4F4F4;
+	--dark-text-color: #A4A4A4;
+
+    --full-white: #fff;
+	--full-black: #000;
+
+    --icon-color: #A4A4A4;
+
+	--color-blurple: #7289da;
+	--color-not-quite-black: #23272a;
+	--color-dark: #2c2f33;
+	--color-lighter-dark: #45494e;
+	--color-grey-white: #B9BBBE;
+	--color-grey-dark: #242629;
+	--color-actually-black: #000000;
+	--color-fantastic-green: #00ae7a;
+}
+
+.homepage-component {
+
+    background-image: url('/assets/images/logo-background.svg');
+    background-size: 70% 70%;
+    -webkit-background-size: 70% 70%;
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+	background-color: var(--dark-main);
+    color: var(--full-white);
+    min-height: 100vh;
+	position: relative;
+
+}
