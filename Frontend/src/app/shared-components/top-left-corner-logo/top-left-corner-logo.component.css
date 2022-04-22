@@ -1,0 +1,19 @@
+.top-left-corner-logo{
+    position: fixed;
+    width: 40vh;
+    top: 0vh;
+    left: clamp(4vh, 50px, 11.5vh);
+    height: 11.5vh;
+
+    border-bottom-right-radius: 2vh;
+
+    background: var(--dark-navbar);
+}
+
+.logo-with-text{
+    float: right;
+    width: 30vh;
+    padding-right: 2vh;
+    padding-top: 2vh;
+
+}

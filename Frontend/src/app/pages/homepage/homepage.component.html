@@ -1,93 +1,16 @@
 <div class="homepage-component">
 
-    <div class="left-navbar">
-        <ul class="guilds-container">
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/logo-icon.svg" alt="dislinkt-logo-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Home</h4>
-                </div>
-            </li>
-            <li class="divider"></li>
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-feed.svg" alt="feed-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Feed</h4>
-                </div>
-            </li>
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-chats.svg" alt="chats-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Chats</h4>
-                </div>
-            </li>
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-friends.svg" alt="friends-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Friends</h4>
-                </div>
-            </li>
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-notifications.svg" alt="notifications-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Notifications</h4>
-                </div>
-            </li>
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-jobs.svg" alt="jobs-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Job offers</h4>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-left-corner-logo></app-top-left-corner-logo>
 
-    <div class="top-left-corner-logo">
-        <img class="logo-with-text" src = "/assets/images/logo-dislinkt-text.svg" alt="dislinkt-logo-text"/>
-    </div>
+    <app-top-status-bar></app-top-status-bar>
+    
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
 
-    <div class="top-statusbar">
-        <div class="top-statusbar-content">
-            <h4  style="color: var(--dark-important-text-color); font-weight: 900;">3</h4>
-            <p style="color: var(--dark-text-color); font-weight: 500;"> new messages</p>
-            <h4  style="color: var(--dark-important-text-color); font-weight: 900;">2</h4>
-            <p style="color: var(--dark-text-color); font-weight: 500;">new notifications</p>
-        </div>
-    </div>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
 
-    <div class="top-right-corner-menubar">
-        <ul class="top-right-corner-menubar-content">
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-my-profile.svg" alt="my-profile-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">My profile</h4>
-                </div>
-            </li>
-            <li class="squircle" (click)="redirectRegister()">
-                <img class="icons" src = "/assets/images/icon-register.svg" alt="register-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Register</h4>
-                </div>
-            </li>
-            <li class="squircle" (click)="redirectSignIn()">
-                <img class="icons" src = "/assets/images/icon-sign-in.svg" alt="sign-inicon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Sign in</h4>
-                </div>
-            </li>
-        </ul>
-    </div>
 
-    <div class="bottom-right-corner-menubar">
-        <ul class="bottom-right-corner-menubar-content">
-            <li class="squircle">
-                <img class="icons" src = "/assets/images/icon-feedback.svg" alt="feedback-icon"/>
-                <div class="popper">
-                    <h4 class="popper-text">Send feedback</h4>
-                </div>
-            </li>
-        </ul>
-    </div>
+
 
 
 </div>
