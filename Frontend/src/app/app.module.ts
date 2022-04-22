@@ -6,12 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageComponent } from './pages/homepage/homepage.component';
+import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
+import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    RegistrationPageComponent,
+    SignInPageComponent
   ],
   imports: [
     BrowserModule,

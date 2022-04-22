@@ -12,4 +12,9 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  // Redirections
+  redirectRegister()  {window.location.href = "/register";}
+  redirectSignIn() {window.location.href = "/sign-in";}
+
 }
