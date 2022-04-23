@@ -12,4 +12,8 @@ export class LeftVerticalNavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    // Redirections
+    redirectHomepage()  {window.location.href = "";}
+
+
 }

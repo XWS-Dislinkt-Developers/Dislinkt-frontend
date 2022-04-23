@@ -1,0 +1,29 @@
+<div id="id-sign-in-modal" class="modal">
+  
+    <form class="modal-content animate">
+      <div class="modal-title-container">
+        <span onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img class="modal-title-icon" src = "/assets/images/icon-sign-in.svg" alt="sign-in-icon"/>
+        <span class="modal-title-text">Sign in</span>
+      </div>
+  
+      <div class="form-container">
+        <label class="form-label" for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+  
+        <label class="form-label" for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+          
+        <button type="submit">Sign in</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="form-container">
+        <button type="button" onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+                                       document.getElementById('id-registration-modal').style.display = 'block'"> Register?</a></span>
+      </div>
+    </form>
+  </div>

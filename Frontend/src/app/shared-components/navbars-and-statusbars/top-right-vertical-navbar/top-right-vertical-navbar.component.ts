@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-top-right-vertical-navbar',
@@ -7,13 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopRightVerticalNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit(): void {
+
   }
 
-  // Redirections
-  redirectRegister()  {window.location.href = "/register";}
-  redirectSignIn() {window.location.href = "/sign-in";}
+
+  // Modals
+  signInModal() { this.document.getElementById('id-sign-in-modal')!.style.display = 'block';}
+  registerModal() { this.document.getElementById('id-registration-modal')!.style.display = 'block';}
+  signOutModal() { this.document.getElementById('id-sign-out-modal')!.style.display = 'block';}
 
 }

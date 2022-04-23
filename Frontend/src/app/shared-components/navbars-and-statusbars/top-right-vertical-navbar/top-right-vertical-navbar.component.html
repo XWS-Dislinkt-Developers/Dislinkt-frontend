@@ -6,14 +6,20 @@
                 <h4 class="popper-text">My profile</h4>
             </div>
         </li>
-        <li class="squircle" (click)="redirectRegister()">
+        <li class="squircle" (click)="registerModal()">
             <img class="icons" src = "/assets/images/icon-register.svg" alt="register-icon"/>
             <div class="popper">
                 <h4 class="popper-text">Register</h4>
             </div>
         </li>
-        <li class="squircle" (click)="redirectSignIn()">
-            <img class="icons" src = "/assets/images/icon-sign-in.svg" alt="sign-inicon"/>
+        <li class="squircle" (click)="signInModal()">
+            <img class="icons" src = "/assets/images/icon-sign-in.svg" alt="sign-out-icon"/>
+            <div class="popper">
+                <h4 class="popper-text">Sign in</h4>
+            </div>
+        </li>
+        <li class="squircle" (click)="signOutModal()">
+            <img class="icons" src = "/assets/images/icon-sign-out.svg" alt="sign-out-icon"/>
             <div class="popper">
                 <h4 class="popper-text">Sign in</h4>
             </div>

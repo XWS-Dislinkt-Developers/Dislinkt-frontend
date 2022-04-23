@@ -3,7 +3,25 @@
 html, body { 
     height: 100%; 
     background-color: #2A2F35;
+
+    scrollbar-face-color: #646464;
+    scrollbar-base-color: #646464;
+    scrollbar-3dlight-color: #646464;
+    scrollbar-highlight-color: #646464;
+    scrollbar-track-color: #000;
+    scrollbar-arrow-color: #000;
+    scrollbar-shadow-color: #646464;
+    scrollbar-dark-shadow-color: #646464;
+
+
 }
+
+::-webkit-scrollbar { width: clamp(1vh, 4px, 1.5vh); height: 0px;}
+::-webkit-scrollbar-track {  background-color: #646464;}
+::-webkit-scrollbar-track-piece { background-color: #1E2126;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #646464;}
+::-webkit-resizer { background-color: #666;}
 
 body { 
     margin: 0; 
@@ -12,4 +30,12 @@ body {
 
 h1, h2, h3, h4, h5{
     font-weight: bold !important;
+}
+
+a{
+    color: gray;
+    font-weight: 700;
+    font-family: 'Ubuntu';
+    text-decoration: underline;
+    cursor: pointer;
 }
