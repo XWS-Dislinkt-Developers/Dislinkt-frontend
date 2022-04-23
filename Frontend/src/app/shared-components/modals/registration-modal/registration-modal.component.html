@@ -1,0 +1,35 @@
+<div id="id-registration-modal" class="modal">
+  
+    <form class="modal-content animate">
+      <div class="modal-title-container">
+        <span onclick="document.getElementById('id-registration-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img class="modal-title-icon" src = "/assets/images/icon-register.svg" alt="register-icon"/>
+        <span class="modal-title-text">Registration</span>
+      </div>
+  
+      <div class="form-container">
+        <label class="form-label" for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+
+        <label class="form-label" for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+  
+        <label class="form-label" for="name"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label class="form-label" for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <label class="form-label" for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+          
+        <button type="submit">Register</button>
+      </div>
+  
+      <div class="form-container">
+        <button type="button" onclick="document.getElementById('id-registration-modal').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw"><a onclick="document.getElementById('id-registration-modal').style.display='none'; 
+                                      document.getElementById('id-sign-in-modal').style.display = 'block'">Sign in.</a></span>
+      </div>
+    </form>
+  </div>

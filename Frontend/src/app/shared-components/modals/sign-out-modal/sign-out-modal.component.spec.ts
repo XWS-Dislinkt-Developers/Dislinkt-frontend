@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SignInPageComponent } from './sign-in-page.component';
+import { SignOutModalComponent } from './sign-out-modal.component';
 
-describe('SignInPageComponent', () => {
-  let component: SignInPageComponent;
-  let fixture: ComponentFixture<SignInPageComponent>;
+describe('SignOutModalComponent', () => {
+  let component: SignOutModalComponent;
+  let fixture: ComponentFixture<SignOutModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SignInPageComponent ]
+      declarations: [ SignOutModalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SignInPageComponent);
+    fixture = TestBed.createComponent(SignOutModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
