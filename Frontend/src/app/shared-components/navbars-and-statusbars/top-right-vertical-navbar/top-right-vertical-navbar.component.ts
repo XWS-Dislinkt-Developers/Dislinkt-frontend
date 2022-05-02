@@ -16,9 +16,12 @@ export class TopRightVerticalNavbarComponent implements OnInit {
   }
 
 
+  //Redirections
+  redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy";  }; /* user/:id/settings-and-privacy */
+
   // Modals
-  signInModal() { this.document.getElementById('id-sign-in-modal')!.style.display = 'block';}
+  signInModal()   { this.document.getElementById('id-sign-in-modal')!.style.display = 'block';}
   registerModal() { this.document.getElementById('id-registration-modal')!.style.display = 'block';}
-  signOutModal() { this.document.getElementById('id-sign-out-modal')!.style.display = 'block';}
+  signOutModal()  { this.document.getElementById('id-sign-out-modal')!.style.display = 'block';}
 
 }

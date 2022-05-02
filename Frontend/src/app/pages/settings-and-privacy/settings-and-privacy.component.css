@@ -1,0 +1,148 @@
+:host {
+    --dark-main: #2A2F35;
+	--dark-navbar: #1E2126;
+	--dark-navbar-icon-background: #2A2F35;
+	--dark-navbar-icon-active-background: #3c4046;
+
+	--dark-important-text-color: #F4F4F4;
+	--dark-text-color: #A4A4A4;
+
+    --full-white: #fff;
+	--full-black: #000;
+
+    --icon-color: #A4A4A4;
+
+	--color-blurple: #7289da;
+	--color-not-quite-black: #23272a;
+	--color-dark: #2c2f33;
+	--color-lighter-dark: #45494e;
+	--color-grey-white: #B9BBBE;
+	--color-grey-dark: #242629;
+	--color-actually-black: #000000;
+	--color-fantastic-green: #00ae7a;
+}
+
+.settings-and-privacy-component {
+
+    background-size: 70% 70%;
+    -webkit-background-size: 70% 70%;
+	background-color: var(--dark-main);
+    color: var(--full-white);
+    min-height: 100vh;
+
+}
+
+.settings-and-privacy-content{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+}
+
+.settings-and-privacy-card{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    white-space: normal;
+
+
+    height: clamp(50vh,30px,60vh);
+    width: clamp(65vh,400px,75vh);
+
+    border: clamp(0.2vh,3px,0.5vh) solid #A4A4A4;
+    background-color: #1E2126;
+    border-radius: clamp(0.5vh,5px,1vh);
+}
+
+
+.settings-and-privacy-card-content{
+    
+    height: clamp(50vh,30px,60vh);
+    width: clamp(65vh,400px,75vh);
+
+    overflow-y: auto;
+
+}
+
+
+.card-title{
+    margin-left: 1vh;
+    margin-bottom: 2vh;
+}
+
+.card-title-icon{
+    height: clamp(3vh, 18px, 4vh);
+    width: clamp(3vh, 18px, 4vh);
+    margin-right:1vh;
+}
+
+.card-title-text{
+    font-size: clamp(3vh, 18px, 4vh);
+    font-weight: 900;
+    color: #A4A4A4;
+    margin-top: 0;
+}
+
+.container{
+    margin: 2% 5%;
+    padding: 0vh;
+}
+
+
+.centralizer-containter{
+    text-align: center;
+}
+
+.inline-left-align-container{
+    display:flex;
+    text-align: left;
+    align-items: center;
+    height: min-content;
+}
+
+.primary-menu-button{
+    background-color: #2A2F35;
+    color: #A4A4A4;
+    border: 0px;
+    border-radius: 2vh;
+
+    font-family: Ubuntu;
+    font-weight: bold;
+    font-size: clamp(2.2vh, 15px, 3.3vh);
+
+
+    margin-top: 2vh;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    width: clamp(50vh,275px,60vh);
+
+    padding: 0px 1.5vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+    transition-duration: 0.4s;
+    transition-property: background-color, color;
+    cursor: pointer;
+}
+
+
+.primary-menu-button:hover {
+    background-color: #A4A4A4;
+    color: #2A2F35;
+  }
+
+.primary-menu-button .card-title-icon{
+    transition-duration: 0.4s;
+    transition-property: filter;
+}
+
+.primary-menu-button:hover .card-title-icon {
+	filter: brightness(30%);
+}
