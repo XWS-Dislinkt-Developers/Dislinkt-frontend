@@ -15,6 +15,11 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { RegistrationModalComponent } from './shared-components/modals/registration-modal/registration-modal.component';
 import { SignInModalComponent } from './shared-components/modals/sign-in-modal/sign-in-modal.component';
 import { SignOutModalComponent } from './shared-components/modals/sign-out-modal/sign-out-modal.component';
+import { SettingsAndPrivacyComponent } from './pages/settings-and-privacy/settings-and-privacy.component';
+import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update-personal-data/update-personal-data.component';
+import { UpdateWorkAndEducationComponent } from './pages/settings-and-privacy/update-work-and-education/update-work-and-education.component';
+import { UpdateSkillsAndInterestsComponent } from './pages/settings-and-privacy/update-skills-and-interests/update-skills-and-interests.component';
+import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
 
 
 
@@ -27,9 +32,14 @@ import { SignOutModalComponent } from './shared-components/modals/sign-out-modal
         TopLeftCornerLogoComponent,
         TopRightVerticalNavbarComponent,
         BottomRightVerticalNavbarComponent,
-        RegistrationModalComponent,
-        SignInModalComponent,
-        SignOutModalComponent
+      RegistrationModalComponent,
+      SignInModalComponent,
+      SignOutModalComponent,
+      SettingsAndPrivacyComponent,
+      UpdatePersonalDataComponent,
+      UpdateWorkAndEducationComponent,
+      UpdateSkillsAndInterestsComponent,
+      PrivacyAndNotificationSettingsComponent
   ],
   imports: [
     BrowserModule,

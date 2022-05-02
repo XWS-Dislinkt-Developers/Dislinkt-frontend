@@ -1,0 +1,76 @@
+<div class="update-skills-and-interests-component">
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-left-corner-logo></app-top-left-corner-logo>
+
+    <app-top-status-bar></app-top-status-bar>
+    
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
+    <app-sign-out-modal></app-sign-out-modal>
+
+    <div class="update-skills-and-interests-content">
+
+        <div class="update-skills-and-interests-card">
+
+            <div class="update-skills-and-interests-card-content">
+
+                <div class="container">
+
+                    <div class="card-title">
+                        <div (click)="redirectSettingsAndPrivacy()" style="cursor: pointer">
+                            <img class="card-title-icon" src = "/assets/images/icon-settings-and-privacy.svg" alt="setting-and-privacy-icon"/>
+                            <span class="card-title-text">Settings & Privacy</span>
+                        </div>
+                        <div class="card-subtitle">
+                            <img class="card-subtitle-icon" src = "/assets/images/icon-skills-and-interests.svg" alt="skills-and-interests-icon"/>
+                            <span class="card-subtitle-text">Update skills and interests</span>
+                        </div>
+                    </div>
+
+                    <div class="centralizer-containter">
+
+                        <form>
+                            <div class="container">
+                                
+                                <p class="info-txt"> <b>Update </b> your skills and interests.<br> When you're done, click on <b> Review changes</b>,  
+                                                    and <b>save the changes </b> if you're pleased with the result!</p>
+
+                                <div class="settings-section">
+    
+                                    <label class="label-text" for="skills"><b>Update skills</b></label>
+                                    <textarea class="input-text" style="resize: none;" name="skills" id="skills" cols="30" rows="3"></textarea>
+
+                                        
+                                    <label class="label-text" for="interests"><b>Update interests</b></label>
+                                    <textarea class="input-text" style="resize: none;" name="interests" id="interests" cols="30" rows="3"></textarea>
+
+                                </div>
+
+                                <div class="centralizer-containter">
+                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Review changes">
+                                </div>
+                            </div>
+                            
+                            <div class="centralizer-containter">
+                                
+                                <div  style="display:flex;justify-content: space-between; padding: 0px 20px;">
+                                    <input type="reset" class="button no-button" style="font-size:clamp(1.2vh,11px,1.8vh);" value="Cancel" (click)="redirectSettingsAndPrivacy()">
+                                    <span><input type="reset" class="button reset-button" style="font-size:clamp(1.2vh,11px,1.8vh);" svalue="Reset"></span>
+                                </div>
+                            </div>
+            
+                          </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
