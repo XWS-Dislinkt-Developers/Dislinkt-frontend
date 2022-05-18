@@ -9,10 +9,10 @@
   
       <div class="form-container">
         <label class="form-label" for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <input type="text" placeholder="Enter Username" name="uname" required [(ngModel)]="username">
   
         <label class="form-label" for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required >
+        <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
           
         <button type="submit" (click)="logIn()">Sign in</button>
         <label>

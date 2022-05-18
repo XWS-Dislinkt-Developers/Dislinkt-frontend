@@ -11,7 +11,11 @@ export class AuthenticationServiceService {
   constructor(private _http: HttpClient) { }
 
   logIn(username: string, password: string) : Observable<ILogInInfo> {
-    return this._http.post<ILogInInfo>('http://localhost:8000/login', {"username": "aaa", "password": "aaa"});
+    console.log("AJDE SERVIS")
+    var body = {"username": username, "password": password}
+    console.log(username)
+    console.log(password)
+    return this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
   }
 
 }
