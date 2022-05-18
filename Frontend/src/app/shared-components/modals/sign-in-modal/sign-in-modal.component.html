@@ -9,19 +9,19 @@
   
       <div class="form-container">
         <label class="form-label" for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required [(ngModel)]="username">
+        <input type="text" class="form-control" placeholder="Enter Username" name="uname" required [(ngModel)]="username">
   
         <label class="form-label" for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
+        <input type="password" class="form-control" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
           
-        <button type="submit" (click)="logIn()">Sign in</button>
+        <button type="submit" data-dismiss="modal"  (click)="logIn()" onclick="document.getElementById('id-sign-in-modal').style.display='none'">Sign in</button>
         <label>
-          <input type="checkbox" checked="checked" name="remember"> Remember me
+          <input type="checkbox" class="form-control" checked="checked" name="remember"> Remember me
         </label>
       </div>
   
       <div class="form-container">
-        <button type="button" onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="cancelbtn" data-dismiss="modal">Cancel</button>
         <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
                                        document.getElementById('id-registration-modal').style.display = 'block'"> Register?</a></span>
       </div>
