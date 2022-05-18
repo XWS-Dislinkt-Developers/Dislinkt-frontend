@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -47,7 +47,8 @@ import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-pr
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule, 
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

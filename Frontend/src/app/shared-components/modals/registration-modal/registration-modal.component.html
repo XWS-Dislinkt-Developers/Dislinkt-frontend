@@ -1,6 +1,6 @@
 <div id="id-registration-modal" class="modal">
   
-    <form class="modal-content animate">
+    <form class="modal-content animate " [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="modal-title-container">
         <span onclick="document.getElementById('id-registration-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
         <img class="modal-title-icon" src = "/assets/images/icon-register.svg" alt="register-icon"/>
@@ -8,24 +8,73 @@
       </div>
   
       <div class="form-container">
-        <label class="form-label" for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <div class="form-group">
+           <label class="form-label" for="username"  ><b>Username</b></label>
+    
+        <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control" placeholder="Enter Username"   >
+        <div *ngIf="submitted && registerForm.controls.username.errors" class="text-danger" >
+          <div *ngIf="submitted && registerForm.controls.username.errors.required">
+            Username is required
+          </div>
+        </div>
 
-        <label class="form-label" for="name"><b>Name</b></label>
-        <input type="text" placeholder="Enter Name" name="name" required>
-  
-        <label class="form-label" for="name"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
+        </div>
+       
+        <div class="form-group">
+        <label class="form-label" for="name" ><b>Name</b></label>
+        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid" placeholder="Enter Name" name="name"  >
+        <div *ngIf="submitted && registerForm.controls.name.errors" class="text-danger" >
+          <div *ngIf="submitted && registerForm.controls.name.errors.required">
+            Name is required
+          </div>
+        </div>
 
-        <label class="form-label" for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <label class="form-label" for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-          
-        <button type="submit">Register</button>
+       
       </div>
-  
+        <div class="form-group"> 
+        <label class="form-label" for="email"><b>Email</b></label>
+        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid" placeholder="Enter Email" name="email" required>
+        <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger" >
+          <div *ngIf="submitted  && registerForm.controls.email.errors.email ">
+            Email is not correct
+          </div>
+          <div *ngIf="submitted && registerForm.controls.email.errors.required">
+            Email is required
+          </div>
+        </div>
+      </div>
+
+        <div class="form-group">
+        <label class="form-label" for="psw"><b>Password</b></label>
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid" placeholder="Enter Password" name="psw" required>
+        <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger" >
+          <div *ngIf="submitted  && registerForm.controls.password.errors.minlength ">
+            Password must have atleast 8 characters
+          </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.required">
+            Password is required
+          </div>
+        </div>
+      
+      </div>
+        <div class="form-group">
+        <label class="form-label" for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid" placeholder="Repeat Password" name="psw-repeat" required>
+     
+        <div *ngIf="submitted && registerForm.controls.confirmPassword.errors" class="text-danger" >
+          
+          <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.minlength">
+           Password must be atleast 8 caracters
+          </div>
+          <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.required">
+            Password is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" ng-disabled="registerForm.$submitted" onclick="register()" >Register</button>
+      </div>
+   </div>
       <div class="form-container">
         <button type="button" onclick="document.getElementById('id-registration-modal').style.display='none'" class="cancelbtn">Cancel</button>
         <span class="psw"><a onclick="document.getElementById('id-registration-modal').style.display='none'; 

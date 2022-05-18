@@ -24,6 +24,7 @@ export class SignInModalComponent implements OnInit {
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userRole", response.role);
     });
+    console.log("")
   }
 
 }
