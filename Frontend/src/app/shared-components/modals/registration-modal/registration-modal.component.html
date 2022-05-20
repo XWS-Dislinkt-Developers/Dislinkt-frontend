@@ -16,6 +16,9 @@
           <div *ngIf="submitted && registerForm.controls.username.errors.required">
             Username is required
           </div>
+          <div *ngIf="submitted && registerForm.controls.username.errors">
+            Username already exist
+          </div>
         </div>
 
         </div>
@@ -27,6 +30,7 @@
           <div *ngIf="submitted && registerForm.controls.name.errors.required">
             Name is required
           </div>
+          
         </div>
 
        

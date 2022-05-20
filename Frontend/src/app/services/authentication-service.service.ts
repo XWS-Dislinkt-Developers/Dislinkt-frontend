@@ -10,7 +10,10 @@ import { IUserInfo } from '../models/auth/IUserInfo';
 export class AuthenticationServiceService {
 
   checkUsername(value: any) {
-    return this._http.post<IUserInfo>('http://localhost:8000/user', value)
+    console.log("PROVERAVAM USERNAME ")
+    console.log(value)
+    return this._http.post<IUserInfo>('http://localhost:8000/user', {"username": value})
+  
   }
 
   constructor(private _http: HttpClient) { }
