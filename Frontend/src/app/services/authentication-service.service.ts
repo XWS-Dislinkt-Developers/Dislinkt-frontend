@@ -10,7 +10,8 @@ import { IUserInfo } from '../models/auth/IUserInfo';
   providedIn: 'root'
 })
 export class AuthenticationServiceService {
- checked: any
+  checked: any
+
   constructor(private _http: HttpClient) { 
    
   }
@@ -21,13 +22,10 @@ export class AuthenticationServiceService {
   return  this._http.post<any>('http://localhost:8000/user', {"username": value}).pipe()
   }
 
-
-
   logIn(username: string, password: string) : Observable<ILogInInfo> {
     var body = {"username": username, "password": password}
     return this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
   }
-
 
   sendPasswordRecoveryRequest(email: string): Observable<IResponse> {
     return this._http.post<IResponse>('http://localhost:8000/passwordRecoveryRequest', {"email": email}).pipe();
@@ -42,13 +40,30 @@ export class AuthenticationServiceService {
     }).pipe();
   }
  
-
  register(pearson: any):any{
    console.log("U SERVISU ZA REG SAM")
    return this._http.post<IResponse>('http://localhost:8000/register', pearson).pipe(
     
    )
  }
+
+ sendPasswordlessLoginRequest(email: string): Observable<IResponse> {
+  return this._http.post<IResponse>("http://localhost:8000/passwordlessLoginRequest",
+  {
+    "email": email
+  }).pipe();
+ }
+
+  PasswordlessLoginRequest(code: string) : Observable<ILogInInfo>{
+    return this._http.post<ILogInInfo>("http://localhost:8000/passwordlessLogin",
+    {
+      "code": code
+    }).pipe();
+  }
+    
+ 
+
+
 
 
 
