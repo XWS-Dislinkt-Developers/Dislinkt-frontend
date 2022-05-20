@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
+import {  Observable } from 'rxjs';
 import { ILogInInfo } from '../models/auth/ILogInInfo';
 import { IResponse } from '../models/auth/IResponse';
 import { IUserInfo } from '../models/auth/IUserInfo';
@@ -9,17 +10,24 @@ import { IUserInfo } from '../models/auth/IUserInfo';
   providedIn: 'root'
 })
 export class AuthenticationServiceService {
-
-  checkUsername(value: any) {
-    return this._http.post<IUserInfo>('http://localhost:8000/user', value)
+ checked: any
+  constructor(private _http: HttpClient) { 
+   
   }
 
-  constructor(private _http: HttpClient) { }
+  checkUsername(value: any) {
+    console.log("PROVERAVAM USERNAME ")
+    console.log(value)
+  return  this._http.post<any>('http://localhost:8000/user', {"username": value}).pipe()
+  }
+
+
 
   logIn(username: string, password: string) : Observable<ILogInInfo> {
     var body = {"username": username, "password": password}
     return this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
   }
+
 
   sendPasswordRecoveryRequest(email: string): Observable<IResponse> {
     return this._http.post<IResponse>('http://localhost:8000/passwordRecoveryRequest', {"email": email}).pipe();
@@ -34,4 +42,16 @@ export class AuthenticationServiceService {
     }).pipe();
   }
  
+
+ register(pearson: any):any{
+   console.log("U SERVISU ZA REG SAM")
+   return this._http.post<IResponse>('http://localhost:8000/register', pearson).pipe(
+    
+   )
+ }
+
+
+
+
+
 }

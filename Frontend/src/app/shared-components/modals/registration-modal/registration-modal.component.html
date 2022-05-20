@@ -11,10 +11,16 @@
         <div class="form-group">
            <label class="form-label" for="username"  ><b>Username</b></label>
     
-        <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control" placeholder="Enter Username"   >
+        <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control" placeholder="Enter Username" [ngModel]="username"  >
         <div *ngIf="submitted && registerForm.controls.username.errors" class="text-danger" >
           <div *ngIf="submitted && registerForm.controls.username.errors.required">
             Username is required
+          </div>
+          <div *ngIf="submitted && registerForm.controls.username.errors">
+            Username can include only numbers and digits
+          </div>
+          <div *ngIf="submitted && registerForm.controls.username.errors.usernameTaken">
+            Username is already taken
           </div>
         </div>
 
@@ -22,7 +28,7 @@
        
         <div class="form-group">
         <label class="form-label" for="name" ><b>Name</b></label>
-        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid" placeholder="Enter Name" name="name"  >
+        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid" placeholder="Enter Name" name="name"  [ngModel]="name" >
         <div *ngIf="submitted && registerForm.controls.name.errors" class="text-danger" >
           <div *ngIf="submitted && registerForm.controls.name.errors.required">
             Name is required
@@ -33,8 +39,9 @@
       </div>
         <div class="form-group"> 
         <label class="form-label" for="email"><b>Email</b></label>
-        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid" placeholder="Enter Email" name="email" required>
+        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid" placeholder="Enter Email" name="email" required [ngModel]="email" >
         <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger" >
+        
           <div *ngIf="submitted  && registerForm.controls.email.errors.email ">
             Email is not correct
           </div>
@@ -46,25 +53,27 @@
 
         <div class="form-group">
         <label class="form-label" for="psw"><b>Password</b></label>
-        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid" placeholder="Enter Password" name="psw" required>
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid" placeholder="Enter Password" name="psw" required [ngModel]="password" >
         <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger" >
           <div *ngIf="submitted  && registerForm.controls.password.errors.minlength ">
-            Password must have atleast 10 characters
+            Password must have minimum 10 characters
           </div>
           <div *ngIf="submitted && registerForm.controls.password.errors.required">
             Password is required
           </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.confirmedValidator" > Password and confirm password can not contain email and username </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors" > Must contain at least one upper case, lover case, digit an special character <i>(?=.*?[#?!@$%^&*-])</i> </div>
         </div>
       
       </div>
         <div class="form-group">
         <label class="form-label" for="psw-repeat"><b>Repeat Password</b></label>
-        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid" placeholder="Repeat Password" name="psw-repeat" required>
+        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid" placeholder="Repeat Password" name="psw-repeat" required [ngModel]="confirmPassword" >
      
         <div *ngIf="submitted && registerForm.controls.confirmPassword.errors" class="text-danger" >
           
           <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.minlength">
-           Confirm password must be atleast 10 caracters
+           Confirm password have minimum 10 caracters
           </div>
           <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.required">
             Confirm password is required
@@ -74,7 +83,7 @@
          
       </div>
       <div class="form-group">
-        <button type="submit" ng-disabled="registerForm.$submitted" (click)="register()" >Register</button>
+        <button type="submit" ng-disabled="registerForm.$submitted" (onclick)="register()" >Register</button>
       </div>
    </div>
       <div class="form-container">
