@@ -20,6 +20,12 @@ import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update
 import { UpdateWorkAndEducationComponent } from './pages/settings-and-privacy/update-work-and-education/update-work-and-education.component';
 import { UpdateSkillsAndInterestsComponent } from './pages/settings-and-privacy/update-skills-and-interests/update-skills-and-interests.component';
 import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
+import { FeedComponent } from './pages/feed/feed.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { TopSearchBarComponent } from './shared-components/navbars-and-statusbars/top-search-bar/top-search-bar.component';
+import { UserPostCardComponent } from './shared-components/cards/user-post-card/user-post-card.component';
+import { CreatePostCardComponent } from './shared-components/cards/create-post-card/create-post-card.component';
+import { CreatePostModalComponent } from './shared-components/modals/create-post-modal/create-post-modal.component';
 
 
 
@@ -39,7 +45,13 @@ import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-pr
       UpdatePersonalDataComponent,
       UpdateWorkAndEducationComponent,
       UpdateSkillsAndInterestsComponent,
-      PrivacyAndNotificationSettingsComponent
+      PrivacyAndNotificationSettingsComponent,
+      FeedComponent,
+      ProfileComponent,
+      TopSearchBarComponent,
+      UserPostCardComponent,
+      CreatePostCardComponent,
+      CreatePostModalComponent
   ],
   imports: [
     BrowserModule,

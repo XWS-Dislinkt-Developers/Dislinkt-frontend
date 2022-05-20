@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserPost } from 'src/app/models/userPost.model';
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
+  userPosts!: UserPost[];
+
+  
+  ngOnInit(): void { 
+    this.getUserPosts().subscribe(userPosts => {
+      this.userPosts = userPosts;
+
+    })
+
+  }
+
+  getUserPosts(): Observable<UserPost[]> {
+    return this.http.get<UserPost[]>("localhost:8000" + '/' + "userPosts");
   }
 
 }

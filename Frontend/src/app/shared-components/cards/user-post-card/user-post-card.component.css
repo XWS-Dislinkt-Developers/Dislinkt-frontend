@@ -1,0 +1,163 @@
+/*************
+* BASE STYLE * 
+**************/
+
+.user-post-card{
+    position: relative;
+    max-width: 45vw;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #1E2126;
+    border-radius: 1vh;
+    box-shadow: 0 0 1px 0.25px #A4A4A4;
+    margin-bottom: 2vh;
+    padding: 1vh;
+    font-size: 16px;
+    font-family: Ubuntu;
+    font-weight: 300;
+
+}
+
+.user-post-card a{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    color: inherit;
+}
+
+/**************
+* POST HEADER * 
+***************/
+
+.post-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4vh, 0.6vh, 0.6vh;
+}
+
+.post-header-left{
+    flex: 1;
+}
+
+.author-name:hover,
+.post-date:hover{
+    text-decoration: underline;
+}
+
+.author-verified,
+.post-privacy,
+.options-icon{
+    display: inline-block;
+    width: 0.4vh;
+    height: 0.4vh;
+    /*
+    background-image: url(../images/icons-list-1.png); - 8:20
+    */   
+}
+
+.author-name{
+    margin-right: 0.1vh;
+}
+
+.post-author-picture{
+    float: left;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 0.5px solid #a4a4a4
+}
+
+
+.post-author-picture:hover{
+    filter: brightness(0.85);
+}
+
+.post-author a{
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.post-date a{
+    font-size: 11px;
+    font-weight: 300;
+}
+
+.post-header-right{
+    flex: 2;
+}
+
+.post-options{
+    float:right;
+}
+
+
+/**************
+* POST CONTENT * 
+***************/
+
+.content-paragraph{
+    font-size: 12px;
+}
+
+.content-image{
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+.content-image:hover{
+    cursor: pointer;
+}
+
+
+/**************
+* POST FOOTER * 
+***************/
+
+/* REACTIONS */
+
+.footer-reactions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4vh 0.8vh 0.8vh;
+    font-size: 15px;
+}
+
+.reactions-emojis{
+    display: flex;
+    align-items: center;
+}
+
+.emoji-like,
+.emoji-dislike{
+   width: 20px;
+   height: 20px;
+   position: relative;
+   cursor: pointer;
+}
+
+.emoji-like{
+    z-index: 2;
+}
+
+.emoji-like{
+    z-index: 1;
+    left: -4px;
+}
+
+.emoji-count{
+    margin-left: 3px;
+}
+
+.comment-shares-comments{
+    margin-left: 2px;
+}
+
+.emoji-count:hover,
+.comment-shares-comments:hover,
+.comment-shares-shares:hover{
+    text-decoration: underline;
+}

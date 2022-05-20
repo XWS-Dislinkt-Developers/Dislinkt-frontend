@@ -1,0 +1,25 @@
+<div id="id-create-post-modal" class="modal">
+  
+    <form class="modal-content animate">
+      <div class="modal-title-container">
+        <span onclick="document.getElementById('id-create-post-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img class="modal-title-icon" src = "/assets/images/icon-create-post.svg" alt="create-post-3icon"/>
+        <span class="modal-title-text">Create post</span>
+      </div>
+  
+      <div class="form-container">
+
+        <div class="create-post-section">
+          <label class="label-text" for="skills"><b>Create post</b></label>
+          <textarea class="input-text" style="resize: none;" name="skills" id="skills" cols="30" rows="3"></textarea>
+        </div>
+
+        <div class="form-container" style="display:flex; justify-content: space-evenly; align-items: center">
+          <button type="button" onclick="document.getElementById('id-create-post-modal').style.display='none'" style="height: max-content;" class="cancelbtn">Discard</button>
+          <button type="button" onclick="document.getElementById('id-create-post-modal').style.display='none'" style="height: max-content;" class="add-button">Add picture</button>
+          <button type="button" onclick="document.getElementById('id-create-post-modal').style.display='none'" style="height: max-content;" class="yes-button">Post</button>
+        </div>
+
+      </div>
+    </form>
+  </div>

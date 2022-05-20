@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FeedComponent } from './pages/feed/feed.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
 import { SettingsAndPrivacyComponent } from './pages/settings-and-privacy/settings-and-privacy.component';
 import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update-personal-data/update-personal-data.component';
@@ -14,6 +16,8 @@ const routes: Routes = [
           { path: 'settings-and-privacy/update-skills-and-interests', component: UpdateSkillsAndInterestsComponent},
           { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent},
           { path: 'settings-and-privacy/privacy-and-notification-settings', component: PrivacyAndNotificationSettingsComponent},
+  { path: 'feed', component: FeedComponent},
+  { path: 'profile', component: ProfileComponent},
   { path:'**', redirectTo: ''}
 ];
 
