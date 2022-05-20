@@ -17,14 +17,12 @@ export class SignInModalComponent implements OnInit {
   }
 
   logIn() {
-    console.log("AJDE")
     this._authenticationServiceService.logIn(this.username, this.password).subscribe(
       response => {
         localStorage.setItem("userId", response.id);
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userRole", response.role);
     });
-    console.log("")
   }
 
 }
