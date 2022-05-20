@@ -26,6 +26,9 @@ export class PasswordlessLoginComponent implements OnInit {
 PasswordlessLoginRequest() {
   this._authenticationServiceService.PasswordlessLoginRequest(this.code).subscribe(
     response => {
+      localStorage.setItem("userId", response.id);
+      localStorage.setItem("userToken", response.token);
+      localStorage.setItem("userRole", response.role);
       alert(response.error)
     }
   )
