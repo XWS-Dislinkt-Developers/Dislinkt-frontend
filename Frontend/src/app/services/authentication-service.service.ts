@@ -23,5 +23,24 @@ export class AuthenticationServiceService {
     return this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
   }
 
+  loggedIn() {
+    return !!localStorage.getItem('userToken')
+  }
+
+  adminAccess() {
+    var lsUser = localStorage.getItem('userRole')
+    if (lsUser == "admin"){
+      return true
+    }
+    return false
+  }
+
+  userAccess() {
+    var lsUser = localStorage.getItem('userRole')
+    if (lsUser == "user"){
+      return true
+    }
+    return false
+  }
  
 }

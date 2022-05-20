@@ -23,6 +23,7 @@ import { UpdateSkillsAndInterestsComponent } from './pages/settings-and-privacy/
 import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
 import { ForgotPasswordComponent } from './shared-components/modals/forgot-password/forgot-password.component';
 import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
+import { AuthGuard } from './services/auth_guard/auth.guard';
 
 
 
@@ -55,7 +56,7 @@ import { PasswordlessLoginComponent } from './shared-components/modals/passwordl
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
