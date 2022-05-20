@@ -15,9 +15,13 @@
         <input type="password" class="form-control" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
           
         <button type="submit" data-dismiss="modal"  (click)="logIn()" onclick="document.getElementById('id-sign-in-modal').style.display='none'">Sign in</button>
-        <label>
-          <input type="checkbox" class="form-control" checked="checked" name="remember"> Remember me
-        </label>
+        <!--<label>
+          <input type="checkbox" style="max-width: 10px;" class="form-control" checked="checked" name="remember"> Remember me
+        </label> -->
+        <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+          document.getElementById('id-forgot-password-modal').style.display = 'block'"> Forgot password?</a></span>
+            <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+              document.getElementById('id-passwordless-modal').style.display = 'block'"> Passwordless sign in?</a></span>
       </div>
   
       <div class="form-container">

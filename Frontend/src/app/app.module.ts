@@ -21,6 +21,8 @@ import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update
 import { UpdateWorkAndEducationComponent } from './pages/settings-and-privacy/update-work-and-education/update-work-and-education.component';
 import { UpdateSkillsAndInterestsComponent } from './pages/settings-and-privacy/update-skills-and-interests/update-skills-and-interests.component';
 import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
+import { ForgotPasswordComponent } from './shared-components/modals/forgot-password/forgot-password.component';
+import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
 
 
 
@@ -40,7 +42,9 @@ import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-pr
       UpdatePersonalDataComponent,
       UpdateWorkAndEducationComponent,
       UpdateSkillsAndInterestsComponent,
-      PrivacyAndNotificationSettingsComponent
+      PrivacyAndNotificationSettingsComponent,
+      ForgotPasswordComponent,
+      PasswordlessLoginComponent
   ],
   imports: [
     BrowserModule,
