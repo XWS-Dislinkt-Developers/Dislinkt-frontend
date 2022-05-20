@@ -33,7 +33,7 @@
 }
 
 .settings-and-privacy-content{
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,6 @@
     align-items: center;
 
     white-space: normal;
-
 
     height: clamp(50vh,30px,60vh);
     width: clamp(65vh,400px,75vh);

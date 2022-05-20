@@ -18,6 +18,8 @@ export class TopRightVerticalNavbarComponent implements OnInit {
 
   //Redirections
   redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy";  }; /* user/:id/settings-and-privacy */
+  redirectProfile() { window.location.href = "/profile";  }; /* user/:id/profile */
+
 
   // Modals
   signInModal()   { this.document.getElementById('id-sign-in-modal')!.style.display = 'block';}
