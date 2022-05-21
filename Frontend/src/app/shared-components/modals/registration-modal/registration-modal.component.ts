@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registration-modal',
@@ -66,11 +67,22 @@ export class RegistrationModalComponent implements OnInit {
 
 register(){
   if (this.doesPasswordContainUsername()){ 
-    alert ("Password contains your username. Please, pick another password.")
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "Password contains your username. Please, pick another password.",
+    
+    })
     return
     }
   if (this.doesPasswordRepeatCharacters()) {
-    alert ("You have too many repeating characters in a row. Please, pick another password.")
+    
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: "You have too many repeating characters in a row. Please, pick another password.",
+    
+    })
     return
   }
   console.log("Usao sam u metodu za registraciju")
