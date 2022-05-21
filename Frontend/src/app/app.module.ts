@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -26,6 +27,9 @@ import { TopSearchBarComponent } from './shared-components/navbars-and-statusbar
 import { UserPostCardComponent } from './shared-components/cards/user-post-card/user-post-card.component';
 import { CreatePostCardComponent } from './shared-components/cards/create-post-card/create-post-card.component';
 import { CreatePostModalComponent } from './shared-components/modals/create-post-modal/create-post-modal.component';
+import { ForgotPasswordComponent } from './shared-components/modals/forgot-password/forgot-password.component';
+import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
+import { AuthGuard } from './services/auth_guard/auth.guard';
 
 
 
@@ -51,15 +55,20 @@ import { CreatePostModalComponent } from './shared-components/modals/create-post
       TopSearchBarComponent,
       UserPostCardComponent,
       CreatePostCardComponent,
-      CreatePostModalComponent
+      CreatePostModalComponent,
+      ForgotPasswordComponent,
+      PasswordlessLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule, 
+    FormsModule,
+    ReactiveFormsModule
+
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserPost } from 'src/app/models/userPost.model';
+import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 
 @Component({
   selector: 'app-homepage',
@@ -10,7 +11,10 @@ import { UserPost } from 'src/app/models/userPost.model';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  
+  username: string = "";
+  password: string = "";
+  constructor(private _authenticationServiceService: AuthenticationServiceService, private http: HttpClient) { }
 
   userPosts!: UserPost[];
 
@@ -26,5 +30,15 @@ export class HomepageComponent implements OnInit {
   getUserPosts(): Observable<UserPost[]> {
     return this.http.get<UserPost[]>("localhost:8000" + '/' + "userPosts");
   }
-
+  logIn() {
+    console.log("AJDE")
+    this._authenticationServiceService.logIn(this.username, this.password).subscribe(
+      response => {
+        localStorage.setItem("userId", response.id);
+        localStorage.setItem("userToken", response.token);
+        localStorage.setItem("userRole", response.role);
+    });
+    
+    console.log("")
+  }
 }
