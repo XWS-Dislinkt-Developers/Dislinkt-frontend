@@ -11,7 +11,9 @@ import { AuthenticationServiceService } from 'src/app/services/authentication-se
 })
 export class HomepageComponent implements OnInit {
 
-  
+ 
+admin: boolean=false;
+user: boolean=false;
   username: string = "";
   password: string = "";
   constructor(private _authenticationServiceService: AuthenticationServiceService, private http: HttpClient) { }
@@ -24,6 +26,11 @@ export class HomepageComponent implements OnInit {
       this.userPosts = userPosts;
 
     })
+    this.admin = this._authenticationServiceService.adminAccess()
+    console.log(this.admin)
+    this.user = this._authenticationServiceService.userAccess()
+    console.log(this.user)
+  
 
   }
 
@@ -39,6 +46,6 @@ export class HomepageComponent implements OnInit {
         localStorage.setItem("userRole", response.role);
     });
     
-    console.log("")
+   
   }
 }

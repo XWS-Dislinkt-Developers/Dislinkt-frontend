@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-out-modal.component.css']
 })
 export class SignOutModalComponent implements OnInit {
-show: boolean=false;
+
 
   constructor( private router: Router) { }
 
@@ -16,6 +16,7 @@ show: boolean=false;
 
   signOut(){
     localStorage.clear();
-    this.router.navigate([''])
+   window.location.reload(); //OVDE RADI
+  
   }
 }

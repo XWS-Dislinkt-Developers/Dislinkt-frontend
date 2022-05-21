@@ -12,6 +12,7 @@ import { IUserInfo } from '../models/auth/IUserInfo';
 })
 export class AuthenticationServiceService {
   checked: any
+  data: any;
 
   constructor(private _http: HttpClient) { 
    
@@ -25,7 +26,9 @@ export class AuthenticationServiceService {
 
   logIn(username: string, password: string) : Observable<ILogInInfo> {
     var body = {"username": username, "password": password}
-    return this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
+   return   this._http.post<ILogInInfo>('http://localhost:8000/login', body).pipe();
+  
+    
   }
 
   sendPasswordRecoveryRequest(email: string): Observable<IResponse> {
@@ -47,16 +50,24 @@ export class AuthenticationServiceService {
   adminAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "admin"){
+      console.log("PROVERAVAM USER ACCESS ZA ADMINA I TRUE JE ")
+     
       return true
     }
+    console.log("PROVERAVAM USER ACCESS ZA ADMINA I false JE ")
+   
     return false
   }
 
   userAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "user"){
+      console.log("PROVERAVAM USER ACCESS ZA usera I TRUE JE ")
+   
       return true
     }
+    console.log("PROVERAVAM USER ACCESS ZA usera I false JE ")
+    
     return false
   }
  

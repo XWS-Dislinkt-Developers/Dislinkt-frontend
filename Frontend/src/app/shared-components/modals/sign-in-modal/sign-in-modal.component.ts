@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 import Swal from 'sweetalert2';
 
@@ -16,7 +17,8 @@ export class SignInModalComponent implements OnInit {
  
   submitted=false
 
-  constructor(private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService) { }
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService) { }
 
   ngOnInit(): void {
     //validations 
@@ -41,6 +43,10 @@ export class SignInModalComponent implements OnInit {
         localStorage.setItem("userId", response.id);
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userRole", response.role);
+        localStorage.setItem("username", response.username)
+        this.router.navigate(['/profile']) //OVO RADI!!
+    
+     
         if(response.error){
           Swal.fire({
             icon: 'error',
@@ -48,9 +54,16 @@ export class SignInModalComponent implements OnInit {
             text: response.error,
           
           })
+        } else{
+      
+        document.getElementById("id-sign-in-modal")!.style.display="none"
+        
+         
         }
+     
     });
-    
+
   }
  }
+
 }

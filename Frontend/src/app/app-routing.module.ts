@@ -14,7 +14,7 @@ import { RoleGuardUser } from './services/role_guard_user/role.guard_user';
 
 const routes: Routes = [
   { path:'', component: HomepageComponent },
-  { path:'settings-and-privacy', component: SettingsAndPrivacyComponent,/* canActivate: [AuthGuard, RoleGuardAdmin, RoleGuardUser]*/},
+  { path:'settings-and-privacy', component: SettingsAndPrivacyComponent, canActivate: [AuthGuard, RoleGuardAdmin, RoleGuardUser]},
           { path: 'settings-and-privacy/update-personal-data', component: UpdatePersonalDataComponent},
           { path: 'settings-and-privacy/update-skills-and-interests', component: UpdateSkillsAndInterestsComponent},
           { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent},

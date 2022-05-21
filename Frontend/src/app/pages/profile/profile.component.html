@@ -9,9 +9,19 @@
     <app-sign-in-modal></app-sign-in-modal>
     <app-sign-out-modal></app-sign-out-modal>
     <app-create-post-modal></app-create-post-modal>
+    <app-forgot-password></app-forgot-password>
+    <app-passwordless-login></app-passwordless-login>
 
 
-
+<div style="margin-left: 20rem; margin-top: 20rem">
+   <div *ngIf="admin"> 
+Cao admine
+   </div> 
+   <div *ngIf="user"> 
+    Cao korisnice <i [(ngModel)]="usernameInfo">{{usernameInfo}}</i>
+       </div> 
+</div>
+<!--
     <div class="user-post-cards">
         <app-create-post-card></app-create-post-card>
         <app-user-post-card></app-user-post-card>
@@ -29,6 +39,6 @@
         <app-user-post-card></app-user-post-card>
         <app-user-post-card></app-user-post-card> 
     </div>
-
+-->
 
 </div>

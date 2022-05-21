@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 
 
 @Component({
@@ -9,13 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./top-right-vertical-navbar.component.css']
 })
 export class TopRightVerticalNavbarComponent implements OnInit {
-user: boolean = false;
-admin: boolean = false;
-incognito: boolean= true;
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) {}
+//user$: Observable<boolean> | undefined;
+//admin$: Observable<boolean> | undefined;
+admin: boolean=false;
+user: boolean=false;
+
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private authService: AuthenticationServiceService) {}
 
   ngOnInit(): void {
-this.isUserLogedIn()
+
+   this.admin = this.authService.adminAccess()
+   console.log(this.admin)
+   this.user = this.authService.userAccess()
+   console.log(this.user)
+ 
+   
 
   }
 
@@ -28,27 +38,7 @@ this.isUserLogedIn()
   // Modals
   signInModal()   { this.document.getElementById('id-sign-in-modal')!.style.display = 'block';}
   registerModal() { this.document.getElementById('id-registration-modal')!.style.display = 'block';}
-  signOutModal()  { this.document.getElementById('id-sign-out-modal')!.style.display = 'block';}
+  signOutModal()  { this.document.getElementById('id-sign-out-modal')!.style.display = 'block'; }
 
-
-  //check is user logged and which type is 
-  isUserLogedIn(){
-    console.log( localStorage.getItem("userRole"))
-  if(localStorage.getItem("userRole") =='user'){
-    this.user =true;
-    this.incognito = false;
-  
-  }if(localStorage.getItem("userRole") =='admin'){
-    this.admin = true;
-    this.incognito = false;
-  }
-  if(localStorage == null){
-    this.incognito =true
-  }
- 
-  else {
-    this.incognito = true;
-  }
-  this.router.navigate([''])
-  }
 }
+ 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 
 @Component({
   selector: 'app-left-vertical-navbar',
@@ -8,29 +10,20 @@ import { Component, OnInit } from '@angular/core';
 export class LeftVerticalNavbarComponent implements OnInit {
   user: boolean = false;
   admin: boolean = false;
-  incognito: boolean= false;
+ 
 
-  constructor() { }
+  constructor( private authService: AuthenticationServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isUserLogedIn()
+    this.admin = this.authService.adminAccess()
+    console.log(this.admin)
+    this.user = this.authService.userAccess()
+    console.log(this.user)
+    this.router.navigate(['/']) //da bi mi se osvezio prikaz
   }
 
     // Redirections
     redirectHomepage()  {window.location.href = "";}
     redirectFeed() {window.location.href = "/feed";}
-    isUserLogedIn(){
-      console.log( localStorage.getItem("userRole"))
-    if(localStorage.getItem("userRole") =='user'){
-      this.user =true;
-    }if(localStorage.getItem("userRole") =='admin'){
-      this.admin = true;
-    }
-    if(localStorage == null){
-      this.incognito =true
-    }
    
-    
-   
-    }
 }
