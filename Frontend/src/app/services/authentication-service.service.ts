@@ -39,6 +39,25 @@ export class AuthenticationServiceService {
      "confirmPassword" : confirmPassword
     }).pipe();
   }
+  loggedIn() {
+    return !!localStorage.getItem('userToken')
+  }
+
+  adminAccess() {
+    var lsUser = localStorage.getItem('userRole')
+    if (lsUser == "admin"){
+      return true
+    }
+    return false
+  }
+
+  userAccess() {
+    var lsUser = localStorage.getItem('userRole')
+    if (lsUser == "user"){
+      return true
+    }
+    return false
+  }
  
  register(pearson: any):any{
    console.log("U SERVISU ZA REG SAM")
