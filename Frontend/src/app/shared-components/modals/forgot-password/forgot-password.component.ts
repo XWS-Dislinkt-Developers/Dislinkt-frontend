@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,7 +21,13 @@ export class ForgotPasswordComponent implements OnInit {
   sendPasswordRecoveryRequest(){
     this._authenticationServiceService.sendPasswordRecoveryRequest(this.email).subscribe(
       response => {
-        alert(response.error)
+        if(response.error !="")
+Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: response.error,
+
+})
       }
     )
   }
@@ -28,7 +35,20 @@ export class ForgotPasswordComponent implements OnInit {
   passwordRecovery(){
     this._authenticationServiceService.passwordRecovery(this.code, this.password, this.confirmPassword).subscribe(
       response => {
-        alert(response.error)
+        if(response.status !="200"){
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: response.error,
+        
+        })} else{
+          Swal.fire({
+            icon: 'success',
+           // title: '...',
+            text: response.error,
+          
+          })
+        }
       }
     )
   }

@@ -40,3 +40,7 @@ a{
     text-decoration: underline;
     cursor: pointer;
 }
+
+button.swal2-confirm.swal2-styled{
+    background-color: #646464;
+}

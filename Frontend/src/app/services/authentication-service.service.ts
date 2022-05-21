@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import {  Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 import { ILogInInfo } from '../models/auth/ILogInInfo';
 import { IResponse } from '../models/auth/IResponse';
 import { IUserInfo } from '../models/auth/IUserInfo';
@@ -59,9 +60,21 @@ export class AuthenticationServiceService {
     return false
   }
  
- register(pearson: any):any{
+ register(pearson: any){
    console.log("U SERVISU ZA REG SAM")
-   return this._http.post<IResponse>('http://localhost:8000/register', pearson).pipe(
+   return this._http.post<IResponse>('http://localhost:8000/register', pearson).subscribe(
+     response => {
+     if(response.error !=""){
+        Swal.fire({
+        icon: 'error',
+        title: "Oooops...",
+        text: response.error,
+        
+      })
+     }
+     
+      
+     }
     
    )
  }

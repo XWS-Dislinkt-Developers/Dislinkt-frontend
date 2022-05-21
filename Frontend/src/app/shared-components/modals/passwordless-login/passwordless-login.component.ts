@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-passwordless-login',
@@ -18,7 +19,13 @@ export class PasswordlessLoginComponent implements OnInit {
   sendPasswordlessLoginRequest(){
     this._authenticationServiceService.sendPasswordlessLoginRequest(this.email).subscribe(
       response => {
-        alert(response.error)
+        if(response.error !="")
+Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: response.error,
+
+})
       }
     )
   }
@@ -29,7 +36,13 @@ PasswordlessLoginRequest() {
       localStorage.setItem("userId", response.id);
       localStorage.setItem("userToken", response.token);
       localStorage.setItem("userRole", response.role);
-      alert(response.error)
+      if(response.error !="")
+Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: response.error,
+
+})
     }
   )
 }

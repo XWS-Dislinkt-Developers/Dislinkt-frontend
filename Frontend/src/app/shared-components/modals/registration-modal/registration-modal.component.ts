@@ -1,3 +1,4 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
@@ -22,7 +23,7 @@ export class RegistrationModalComponent implements OnInit {
   
  
 
-  constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationServiceService) { }
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationServiceService) { }
 
   ngOnInit(): void {
     //validations
@@ -75,12 +76,19 @@ register(){
   console.log("Usao sam u metodu za registraciju")
   this.submitted = true
   if(this.registerForm.invalid ){
-    console.log("USAO SAM I U INVALID")
+    console.log("Nije validna forma")
     return
   }else{
   var pearson={ "username": this.username, "name": this.name, "email":this.email, "gender": "male", "password": this.password, "confirmPassword": this.confirmPassword }
- this.authenticationService.register(pearson)}
+ this.authenticationService.register(pearson)
+
 }
+ this.close()
+
+}
+  close(): any {
+   this.close()
+  }
 
  /*
  validateUsername(username: string): any {
