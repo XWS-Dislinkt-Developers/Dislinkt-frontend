@@ -14,10 +14,10 @@ usernameInfo: any
 
   ngOnInit(): void {
     
-this.isUserLogedIn()
+this.isUserLoggedIn()
   }
 
-  isUserLogedIn(){
+  isUserLoggedIn(){
     this.usernameInfo = localStorage.getItem("username");
 
   if(localStorage.getItem("userRole") =='user'){
@@ -28,11 +28,6 @@ this.isUserLogedIn()
     this.admin = true;
    
   }
-  if(localStorage == null){
-    this.user=false;
-   this.admin=false;
-  }
- 
 
   }
 

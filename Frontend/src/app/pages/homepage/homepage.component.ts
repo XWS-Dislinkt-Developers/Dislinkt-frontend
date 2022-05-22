@@ -22,10 +22,11 @@ user: boolean=false;
 
   
   ngOnInit(): void { 
-    this.getUserPosts().subscribe(userPosts => {
-      this.userPosts = userPosts;
 
-    })
+    //this.getUserPosts().subscribe(userPosts => {
+    //  this.userPosts = userPosts;
+
+    // })
     this.admin = this._authenticationServiceService.adminAccess()
     console.log(this.admin)
     this.user = this._authenticationServiceService.userAccess()
@@ -35,7 +36,7 @@ user: boolean=false;
   }
 
   getUserPosts(): Observable<UserPost[]> {
-    return this.http.get<UserPost[]>("localhost:8000" + '/' + "userPosts");
+    return this.http.get<UserPost[]>('https://localhost:8000/userPosts');
   }
   logIn() {
     console.log("AJDE")

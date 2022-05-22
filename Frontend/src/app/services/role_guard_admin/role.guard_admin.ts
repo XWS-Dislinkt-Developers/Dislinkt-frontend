@@ -13,7 +13,7 @@ export class RoleGuardAdmin implements CanActivate {
       return true
     }
     else {
-      this.router.navigate(['/'])
+      this.router.navigate(['/settings-and-privacy'])
       return false
     }
   } 

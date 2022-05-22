@@ -19,7 +19,7 @@ export class LeftVerticalNavbarComponent implements OnInit {
     console.log(this.admin)
     this.user = this.authService.userAccess()
     console.log(this.user)
-    this.router.navigate(['/']) //da bi mi se osvezio prikaz
+   // this.router.navigate(['/']) //da bi mi se osvezio prikaz
   }
 
     // Redirections
