@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { IfStmt } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
 import Swal from 'sweetalert2';
 
@@ -18,7 +19,7 @@ export class PasswordlessLoginComponent implements OnInit {
   submitted1=false;
   submitted= false;
 
-  constructor(@Inject(DOCUMENT) private document: Document,private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService) { }
+  constructor(@Inject(DOCUMENT) private document: Document,private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.passwordlessForm1 = this.formBuilder.group({
@@ -44,7 +45,7 @@ export class PasswordlessLoginComponent implements OnInit {
 
     this._authenticationServiceService.sendPasswordlessLoginRequest(this.email).subscribe(
       response => {
-        if(response.error !="")
+        if(response.error !="Email sent successfully!")
          Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -71,17 +72,27 @@ PasswordlessLoginRequest() {
       localStorage.setItem("userId", response.id);
       localStorage.setItem("userToken", response.token);
       localStorage.setItem("userRole", response.role);
-      if(response.error)
+      this.router.navigate(['/profile'])
+      if(response.error != 'You are now logged in!'){
            Swal.fire({
             icon: 'error',
              title: 'Oops...',
              text: response.error,
 
                   })
-                  this.document.getElementById('id-passwordless-login-modal')!.style.display='none';
-         }
+                  this.document.getElementById('id-passwordless-login-modal')!.style.display='none';}
+                  else{
+                    Swal.fire({
+                      icon: 'success',
+                      text: response.error,
+                    
+                    })
+                    this.router.navigate(['/profile'])
+         }}
           )
+          this.router.navigate(['/profile']) //OVO RADI!!
           this.document.getElementById('id-passwordless-login-modal')!.style.display='none';
+          
        }
 
 }
