@@ -1,5 +1,5 @@
 <div class="top-statusbar">
-    <div class="top-statusbar-content">
+    <div *ngIf="admin || user" class="top-statusbar-content">
         <h4  style="color: var(--dark-important-text-color); font-weight: 900;">3</h4>
         <p style="color: var(--dark-text-color); font-weight: 500;"> new messages</p>
         <h4  style="color: var(--dark-important-text-color); font-weight: 900;">2</h4>

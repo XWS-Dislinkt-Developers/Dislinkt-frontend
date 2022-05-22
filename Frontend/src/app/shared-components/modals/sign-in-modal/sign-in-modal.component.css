@@ -84,6 +84,13 @@ button:hover {
 span.psw {
 	float: right;
 	padding-top: 16px;
+	padding-bottom: 16px;
+}
+/* nisam znala kako da odvojim ove linkove drugacije*/
+span.psw2 {
+	float: left;
+	padding-top: 16px;
+	padding-bottom: 16px;
 }
   
 .modal {
