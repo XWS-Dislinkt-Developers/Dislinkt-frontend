@@ -11,6 +11,10 @@ import { UpdateWorkAndEducationComponent } from './pages/settings-and-privacy/up
 import { AuthGuard } from './services/auth_guard/auth.guard';
 import { RoleGuardAdmin} from './services/role_guard_admin/role.guard_admin'
 import { RoleGuardUser } from './services/role_guard_user/role.guard_user';
+import { ConfirmCodeComponent } from './pages/two-factor/confirm-code/confirm-code.component';
+import { QrCodeComponent } from './pages/two-factor/qr-code/qr-code.component';
+import { TwoFactorGuard } from './services/two_factor_guard/two_factor.guard'
+
 
 const routes: Routes = [
   { path:'', component: HomepageComponent },
@@ -21,6 +25,8 @@ const routes: Routes = [
           { path: 'settings-and-privacy/privacy-and-notification-settings', component: PrivacyAndNotificationSettingsComponent, canActivate: [AuthGuard]},
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'qrCode', component: QrCodeComponent, canActivate: [TwoFactorGuard]},
+  { path: 'confirmCode', component: ConfirmCodeComponent, canActivate: [TwoFactorGuard]},
   { path:'**', redirectTo: ''}
 ];
 

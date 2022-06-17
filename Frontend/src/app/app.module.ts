@@ -30,6 +30,8 @@ import { CreatePostModalComponent } from './shared-components/modals/create-post
 import { ForgotPasswordComponent } from './shared-components/modals/forgot-password/forgot-password.component';
 import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
 import { AuthGuard } from './services/auth_guard/auth.guard';
+import { ConfirmCodeComponent } from './pages/two-factor/confirm-code/confirm-code.component';
+import { QrCodeComponent } from './pages/two-factor/qr-code/qr-code.component';
 
 
 
@@ -57,7 +59,9 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
       CreatePostCardComponent,
       CreatePostModalComponent,
       ForgotPasswordComponent,
-      PasswordlessLoginComponent
+      PasswordlessLoginComponent,
+      ConfirmCodeComponent,
+      QrCodeComponent
   ],
   imports: [
     BrowserModule,

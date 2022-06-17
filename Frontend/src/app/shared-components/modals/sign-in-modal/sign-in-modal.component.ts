@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -36,30 +37,42 @@ export class SignInModalComponent implements OnInit {
     if(this.signInForm.invalid){
       return
     } else {
-
-   
     this._authenticationServiceService.logIn(this.username, this.password).subscribe(
       response => {
-        localStorage.setItem("userId", response.id);
-        localStorage.setItem("userToken", response.token);
-        localStorage.setItem("userRole", response.role);
-        localStorage.setItem("username", response.username)
-        this.router.navigate(['/profile']) //OVO RADI!!
+        localStorage.setItem("ID", response.id);
+        localStorage.setItem("UT", response.token);
+        localStorage.setItem("UR", response.role);
+        localStorage.setItem("UN", response.username)
+        this._authenticationServiceService.twoFactorReq(response.id).subscribe(
+          response => {
+            if (response.qrCode != null) {
+              localStorage.setItem("QR", response.qrCode)
+              this.router.navigate(['/qrCode'])
+            } else {
+              this.router.navigate(['/confirmCode'])
+            }
+          }
+        )
+        // localStorage.setItem("userId", response.id);
+        // localStorage.setItem("userToken", response.token);
+        // localStorage.setItem("userRole", response.role);
+        // localStorage.setItem("username", response.username)
+        // this.router.navigate(['/profile']) //OVO RADI!!
     
      
-        if(response.error){
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: response.error,
+        // if(response.error){
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Oops...',
+        //     text: response.error,
           
-          })
-        } else{
+        //   })
+        // } else{
       
-        document.getElementById("id-sign-in-modal")!.style.display="none"
+        // document.getElementById("id-sign-in-modal")!.style.display="none"
         
          
-        }
+        // }
      
     });
 

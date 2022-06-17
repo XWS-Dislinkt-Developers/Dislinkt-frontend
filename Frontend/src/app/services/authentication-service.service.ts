@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 
 import {  Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { IConfirmCode } from '../models/auth/IConfirmCode';
 import { ILogInInfo } from '../models/auth/ILogInInfo';
+import { IQRCode } from '../models/auth/IQRCode';
 import { IResponse } from '../models/auth/IResponse';
 import { IUserInfo } from '../models/auth/IUserInfo';
 
@@ -27,8 +29,16 @@ export class AuthenticationServiceService {
   logIn(username: string, password: string) : Observable<ILogInInfo> {
     var body = {"username": username, "password": password}
    return   this._http.post<ILogInInfo>('https://localhost:8000/login', body).pipe();
-  
-    
+  }
+
+  twoFactorReq(id: string) : Observable<IQRCode> {
+    var body = {"id": id}
+    return   this._http.post<IQRCode>('http://localhost:8085/registerDislinkt/' + id, body).pipe();
+  }
+
+  checkCode(token: string, userId: string) : Observable<IConfirmCode> {
+    var body = {"token": token, "userId": userId}
+    return   this._http.post<IConfirmCode>('http://localhost:8085/verifyDislinkt', body).pipe();
   }
 
   sendPasswordRecoveryRequest(email: string): Observable<IResponse> {
@@ -73,7 +83,7 @@ export class AuthenticationServiceService {
  
  register(pearson: any){
    console.log("U SERVISU ZA REG SAM")
-   return this._http.post<IResponse>('https://localhost:8000/register', pearson).subscribe(
+   return this._http.post<IResponse>('http://localhost:8000/register', pearson).subscribe(
      response => {
      if(response.error !=""){
         Swal.fire({

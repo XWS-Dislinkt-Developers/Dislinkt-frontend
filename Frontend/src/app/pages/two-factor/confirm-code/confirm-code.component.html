@@ -1,0 +1,32 @@
+<div class="container-fluid" style="height: 500; width:500">    
+    <br><br><br><br>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <h2>Type in your code from Authenticatior App</h2>
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <br><br><br><br>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+           <input type="text" [(ngModel)]="token" placeholder="code" style="margin-left:29%" >
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <br><br><br><br>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <button class="button btn-lg btn-secondary" (click)="checkCode()" style="margin-left:37%">Next</button>
+        </div>
+        <div class="col-sm-4">
+        </div>
+    </div>
+</div>
