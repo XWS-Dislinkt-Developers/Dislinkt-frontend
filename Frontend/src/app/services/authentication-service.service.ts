@@ -21,14 +21,12 @@ export class AuthenticationServiceService {
   checkUsername(value: any) {
     console.log("PROVERAVAM USERNAME ")
     console.log(value)
-  return  this._http.post<any>('https://localhost:8000/user', {"username": value}).pipe()
+    return  this._http.post<any>('https://localhost:8000/user', {"username": value}).pipe()
   }
 
   logIn(username: string, password: string) : Observable<ILogInInfo> {
     var body = {"username": username, "password": password}
-   return   this._http.post<ILogInInfo>('https://localhost:8000/login', body).pipe();
-  
-    
+   return   this._http.post<ILogInInfo>('https://localhost:8000/login', body).pipe();  
   }
 
   sendPasswordRecoveryRequest(email: string): Observable<IResponse> {
@@ -36,7 +34,7 @@ export class AuthenticationServiceService {
   }
   
   passwordRecovery(code: string, password: string, confirmPassword: string): Observable<IResponse> {
-    return this._http.post<IResponse>('https://localhost:8000/passwordRecovery', 
+    return this._http.post<IResponse>('https://localhost:8000/userPasswordRecovery', 
     {
      "code": code,
      "password": password,
@@ -50,12 +48,10 @@ export class AuthenticationServiceService {
   adminAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "admin"){
-      console.log("PROVERAVAM USER ACCESS ZA ADMINA I TRUE JE ")
-     
+      console.log("PROVERAVAM USER ACCESS ZA ADMINA I TRUE JE ") 
       return true
     }
     console.log("PROVERAVAM USER ACCESS ZA ADMINA I false JE ")
-   
     return false
   }
 
@@ -63,17 +59,15 @@ export class AuthenticationServiceService {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "user"){
       console.log("PROVERAVAM USER ACCESS ZA usera I TRUE JE ")
-   
       return true
     }
     console.log("PROVERAVAM USER ACCESS ZA usera I false JE ")
-    
     return false
   }
  
  register(pearson: any){
    console.log("U SERVISU ZA REG SAM")
-   return this._http.post<IResponse>('https://localhost:8000/register', pearson).subscribe(
+   return this._http.post<IResponse>('https://localhost:8000/registerUser', pearson).subscribe(
      response => {
      if(response.error !=""){
         Swal.fire({
@@ -82,11 +76,8 @@ export class AuthenticationServiceService {
         text: response.error,
         
       })
+     }  
      }
-     
-      
-     }
-    
    )
  }
 
@@ -103,13 +94,4 @@ export class AuthenticationServiceService {
       "code": code
     }).pipe();
   }
-    
- 
-
-
-
-
-
-
-
 }
