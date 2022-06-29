@@ -7,14 +7,14 @@ import { ILogInInfo } from 'src/app/models/auth/ILogInInfo';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-user: boolean=false;
-admin: boolean=false;
-usernameInfo: any
+
+  user: boolean=false;
+  admin: boolean=false;
+  usernameInfo: any
   constructor() { }
 
   ngOnInit(): void {
-    
-this.isUserLoggedIn()
+    this.isUserLoggedIn()
   }
 
   isUserLoggedIn(){

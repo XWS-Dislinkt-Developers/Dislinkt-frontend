@@ -19,7 +19,7 @@ export class AuthenticationServiceService {
   }
 
   checkUsername(value: any) {
-    console.log("PROVERAVAM USERNAME ")
+    console.log(" -- CHECKING username...")
     console.log(value)
     return  this._http.post<any>('https://localhost:8000/user', {"username": value}).pipe()
   }
@@ -48,25 +48,25 @@ export class AuthenticationServiceService {
   adminAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "admin"){
-      console.log("PROVERAVAM USER ACCESS ZA ADMINA I TRUE JE ") 
+      console.log(" -- CHECKING admin's access: TRUE") 
       return true
     }
-    console.log("PROVERAVAM USER ACCESS ZA ADMINA I false JE ")
+    console.log(" -- CHECKING admin's access: FALSE")
     return false
   }
 
   userAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "user"){
-      console.log("PROVERAVAM USER ACCESS ZA usera I TRUE JE ")
+      console.log(" -- CHECKING user's access: TRUE ")
       return true
     }
-    console.log("PROVERAVAM USER ACCESS ZA usera I false JE ")
+    console.log(" -- CHECKING user's access: FALSE ")
     return false
   }
  
  register(pearson: any){
-   console.log("U SERVISU ZA REG SAM")
+   console.log(" -- Service for Registration...")
    return this._http.post<IResponse>('https://localhost:8000/registerUser', pearson).subscribe(
      response => {
      if(response.error !=""){

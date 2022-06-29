@@ -49,10 +49,10 @@
 
     white-space: normal;
 
-    height: clamp(50vh,30px,60vh);
+    height: fit-content;
     width: clamp(65vh,400px,75vh);
 
-    border: clamp(0.2vh,3px,0.5vh) solid #A4A4A4;
+    outline: clamp(0.2vh,3px,0.5vh) solid #A4A4A4;
     background-color: #1E2126;
     border-radius: clamp(0.5vh,5px,1vh);
 }
@@ -60,13 +60,17 @@
 
 .settings-and-privacy-card-content{
     
-    height: clamp(50vh,30px,60vh);
+    height: fit-content;
     width: clamp(65vh,400px,75vh);
 
     overflow-y: auto;
 
 }
 
+.container{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
 
 .card-title{
     margin-left: 1vh;
@@ -84,11 +88,6 @@
     font-weight: 900;
     color: #A4A4A4;
     margin-top: 0;
-}
-
-.container{
-    margin: 2% 5%;
-    padding: 0vh;
 }
 
 
@@ -144,4 +143,9 @@
 
 .primary-menu-button:hover .card-title-icon {
 	filter: brightness(30%);
+}
+
+.primary-menu-button p {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
