@@ -33,25 +33,22 @@
 
                         <form>
                             <div class="container">
-                                
-                                <p class="info-txt"> <b>Update </b> your personal data.<br> When you're done, click on <b> Review changes</b>,  
-                                                    and <b>save the changes </b> if you're pleased with the result!</p>
 
                                 <div class="settings-section">
 
-                                    <label class="label-text" for="username">Update username</label>
+                                    <label class="label-text" for="username">Username:</label>
                                     <input class="input-text" type="text" placeholder="username-xyz" name="username" id="username">
     
-                                    <label class="label-text" for="name">Update name</label>
+                                    <label class="label-text" for="name">Name:</label>
                                     <input class="input-text" type="text" placeholder="Mr. Firstname Lastname" name="name" id="name">
     
-                                    <label class="label-text" for="email">Update email</label>
+                                    <label class="label-text" for="email">Email:</label>
                                     <input class="input-text" type="email" placeholder="mail@mail.com" name="email" id="email">
     
-                                    <label class="label-text" for="phone-number"><b>Update phone number</b></label>
+                                    <label class="label-text" for="phone-number"><b>Phone number:</b></label>
                                     <input class="input-text" type="tel" placeholder="" name="phone-number" id="phone-number">
 
-                                    <label class="label-text" for=""><b>Update gender</b></label>
+                                    <label class="label-text" for=""><b>Gender:</b></label>
                                     <div style="text-align:left;">
                                         <label class="label-text">
                                             <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio"> <span>Male</span>
@@ -61,27 +58,29 @@
                                         </label>
                                     </div>
                         
-                                    <label class="label-text" for="date-of-birth"><b>Update date of birth</b></label>
+                                    <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
                                     <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth">
-    
-                                    <label class="label-text" for="biography"><b>Update biography</b></label>
-                                    <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="3"></textarea>
+                                    
+ 
+                                    <label class="label-text" for="biography" style="margin-top:3px;"><b>Biography:</b></label>
+                                    <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="5"></textarea>
+
+
 
                                 </div>
 
-                                <div class="centralizer-containter">
-                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Review changes">
+                                <div class="centralizer-containter p-3">
+                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Accept & Save" (click)="redirectSettingsAndPrivacy()">
+                                    <input type="button" class="button no-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Discard & Save" (click)="redirectSettingsAndPrivacy()">
                                 </div>
-                            </div>
-                            
-                            <div class="centralizer-containter">
                                 
-                                <div  style="display:flex;justify-content: space-between; padding: 0px 20px;">
-                                    <input type="reset" class="button no-button" style="font-size:clamp(1.2vh,11px,1.8vh);" value="Cancel" (click)="redirectSettingsAndPrivacy()">
-                                    <span><input type="reset" class="button reset-button" style="font-size:clamp(1.2vh,11px,1.8vh);" svalue="Reset"></span>
-                                </div>
+
+                                <p class="info-txt"> When you're done, click on: 
+                                    <br> - <b>Accept & Save</b>, if you're pleased with the changes.  
+                                    <br> - <b>Discard & Save</b>, if you want to discard the changes.</p>
+
                             </div>
-            
+                                       
                           </form>
 
 

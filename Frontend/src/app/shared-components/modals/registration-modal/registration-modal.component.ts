@@ -21,21 +21,19 @@ export class RegistrationModalComponent implements OnInit {
   confirmPassword: any
   email: any
 
-  
- 
-
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationServiceService) { }
+  constructor(private formBuilder: FormBuilder, 
+              private authenticationService: AuthenticationServiceService) { }
 
   ngOnInit(): void {
     //validations
     this.registerForm = this.formBuilder.group({
       username:['',[ Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
     //  username:['',[ Validators.required, Validators.pattern('[a-zA-Z0-9]*'), this.validateUsername.bind(this)]],
-     name:['',[ Validators.required, Validators.pattern('[a-zA-Z ]*')]], 
-       email:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
-       password: [  '', [
-        Validators.required, Validators.minLength(10),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]+)(?=.*[!@#$%^&*()_+~-])[A-Za-z\d!@#$%^&*()_+~-].{9,}') ]  ],
+      name:['',[ Validators.required, Validators.pattern('[a-zA-Z ]*')]], 
+      email:['', [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      password: [  '', [
+      Validators.required, Validators.minLength(10),
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]+)(?=.*[!@#$%^&*()_+~-])[A-Za-z\d!@#$%^&*()_+~-].{9,}') ]  ],
       confirmPassword: ['', [Validators.required, Validators.minLength(10)]],
     },
     { 
