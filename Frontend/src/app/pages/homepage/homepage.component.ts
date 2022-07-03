@@ -11,26 +11,25 @@ import { AuthenticationServiceService } from 'src/app/services/authentication-se
 })
 export class HomepageComponent implements OnInit {
 
- 
 admin: boolean=false;
 user: boolean=false;
-  username: string = "";
-  password: string = "";
-  constructor(private _authenticationServiceService: AuthenticationServiceService, private http: HttpClient) { }
+username: string = "";
+password: string = "";
+constructor(private _authenticationServiceService: AuthenticationServiceService, private http: HttpClient) { }
 
-  userPosts!: UserPost[];
+userPosts!: UserPost[];
 
   
   ngOnInit(): void { 
 
-    //this.getUserPosts().subscribe(userPosts => {
-    //  this.userPosts = userPosts;
+  //this.getUserPosts().subscribe(userPosts => {
+  //  this.userPosts = userPosts;
 
-    // })
-    this.admin = this._authenticationServiceService.adminAccess()
-    console.log(this.admin)
-    this.user = this._authenticationServiceService.userAccess()
-    console.log(this.user)
+  // })
+  this.admin = this._authenticationServiceService.adminAccess()
+  console.log(this.admin)
+  this.user = this._authenticationServiceService.userAccess()
+  console.log(this.user)
   
 
   }
@@ -39,7 +38,6 @@ user: boolean=false;
     return this.http.get<UserPost[]>('https://localhost:8000/userPosts');
   }
   logIn() {
-    console.log("AJDE")
     this._authenticationServiceService.logIn(this.username, this.password).subscribe(
       response => {
         localStorage.setItem("userId", response.id);

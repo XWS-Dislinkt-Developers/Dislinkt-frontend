@@ -65,16 +65,16 @@ export class AuthenticationServiceService {
     return false
   }
  
- register(pearson: any){
+ register(person: any){
    console.log(" -- Service for Registration...")
-   return this._http.post<IResponse>('https://localhost:8000/registerUser', pearson).subscribe(
+   return this._http.post<IResponse>('https://localhost:8000/registerUser', person).subscribe(
      response => {
-     if(response.error !=""){
+     if(response.error !="" && response.error != undefined){
+        console.log(response.error)
         Swal.fire({
         icon: 'error',
-        title: "Oooops...",
-        text: response.error,
-        
+        title: "Something went wrong. 😒",
+        footer: "Exact error: " + response.error,
       })
      }  
      }

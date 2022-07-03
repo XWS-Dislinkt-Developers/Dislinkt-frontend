@@ -19,16 +19,11 @@ export class ProfileComponent implements OnInit {
 
   isUserLoggedIn(){
     this.usernameInfo = localStorage.getItem("username");
-
-  if(localStorage.getItem("userRole") =='user'){
-    this.user =true;
-   
-  
-  }if(localStorage.getItem("userRole") =='admin'){
-    this.admin = true;
-   
-  }
-
+    if(localStorage.getItem("userRole") =='user'){
+      this.user =true;
+    }if(localStorage.getItem("userRole") =='admin'){
+      this.admin = true;
+    }
   }
 
 }
