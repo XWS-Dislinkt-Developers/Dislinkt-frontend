@@ -27,36 +27,31 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLoggedIn()
-    this.getUserById()
+    if(this.admin || this.user) {
+      this.getUserById()
+    }
   }
 
   getUserById() {
 
-    const headers = new Headers({
+    const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem("userToken")
-    })
+    }
+    const body = { title: 'Angular POST Request - getUserById'}
+
+
+
+
     //return this.http.get(apiUrl, { headers: headers })
-
-
-
     //console.log(" -- CHECKING username...")
     //console.log(value)
-    return  this._http.post<any>('https://localhost:8000/getUserById',  { headers: headers }).subscribe(
+    return  this._http.post<any>('https://localhost:8000/getUserById', body, { headers }).subscribe(
       response => {
          console.log(response)
       }
     )
   }
-
-
-
-
-
-
-
-
-
 
 
   isUserLoggedIn(){
