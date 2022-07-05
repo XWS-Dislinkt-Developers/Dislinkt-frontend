@@ -4,8 +4,9 @@
 
 .user-post-card{
     position: relative;
-    max-width: 45vw;
+    max-width: 50vw;
     left: 50%;
+    margin-top: 15px;
     transform: translate(-50%);
     background-color: #1E2126;
     border-radius: 1vh;
@@ -97,7 +98,7 @@
 ***************/
 
 .content-paragraph{
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .content-image{
@@ -160,4 +161,25 @@
 .comment-shares-comments:hover,
 .comment-shares-shares:hover{
     text-decoration: underline;
+}
+
+/***********
+WRITE COMMENT
+************/
+
+.write-comment{
+
+    background-color: #1E2126;
+
+}
+
+.input-text{
+    font-size: clamp(1.4vh, 13px, 1.8vh);
+    background-color: #2A2F35; 
+    color: #A4A4A4;
+    border-radius: 2px;
+    font-family: Ubuntu;
+    margin-top: 0.2vh;
+    margin-bottom: 0.2vh;
+    resize:none;
 }

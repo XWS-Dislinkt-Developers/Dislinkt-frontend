@@ -1,26 +1,28 @@
 .create-post-card{
-    position: relative;
-    max-width: 45vw;
-    left: 50%;
-    transform: translate(-50%);
-    background-color: #2A2F35;
-    border-radius: 1vh;
-    margin-bottom: 2vh;
-    padding: 1vh;
-    font-size: 16px;
-    font-family: Ubuntu;
-    font-weight: 300;
+    position: fixed;
+    width: 6vw;
+    height: 30px;
+    max-height: 40px;
+
+    left: 78%;
+    top: 20px;
+
+    transform: translate(-50%,50%);
+    z-index: 2;
 
 }
 
 .create-post-card a{
     text-decoration: none;
-    font-size: 12px;
+    font-size: 15px;
+
+
     font-weight: 400;
     color: inherit;
 }
 
 .create-post-card-content{
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -28,6 +30,8 @@
 
 
 .inline-left-align-container{
+    width: 100%;
+
     display:flex;
     text-align: left;
     align-items: center;
@@ -35,6 +39,9 @@
 }
 
 .primary-menu-button{
+    width: fit-content;
+    align-items: center;
+
     background-color: #1E2126;
     color: #A4A4A4;
     border: 0px;
@@ -42,13 +49,11 @@
 
     font-family: Ubuntu;
     font-weight: bold;
-    font-size: clamp(2.2vh, 15px, 3.3vh);
-
+    font-size: 12.5px;
 
     margin-left: auto;
     margin-right: auto;
 
-    width: max-content;
 
     padding: 0px 1.5vh;
     text-align: center;
@@ -58,6 +63,9 @@
     transition-duration: 0.4s;
     transition-property: background-color, color;
     cursor: pointer;
+}
+.primary-menu-button p {
+    margin:0;
 }
 
 

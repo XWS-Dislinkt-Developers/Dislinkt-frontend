@@ -6,9 +6,10 @@ import { Component, Inject, OnInit } from '@angular/core';
   styleUrls: ['./user-post-card.component.css']
 })
 export class UserPostCardComponent implements OnInit {
-
+  showComments = false;
+  showAddComment = false;
   constructor() {}
-  
+
   ngOnInit(): void {
   }
 

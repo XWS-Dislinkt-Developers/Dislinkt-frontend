@@ -1,27 +1,12 @@
 <div class="homepage-component">
 
-  
-      
-
-       
-
-    <app-left-vertical-navbar></app-left-vertical-navbar>
     <app-top-left-corner-logo></app-top-left-corner-logo>
 
-    <app-top-status-bar></app-top-status-bar>
-    
-    <div class="homepage-users" style=" transform: translate(-50%,-50%); 
-                color:#fff; z-index:100; position: absolute;
-                top: 50%; right: 50%;" *ngIf="userPosts"> 
-            {{userPosts[0].id}}
-            
-
-    </div>
-
-
-
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-search-bar></app-top-search-bar>
 
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
 
     <app-registration-modal></app-registration-modal>
     <app-sign-in-modal></app-sign-in-modal>
