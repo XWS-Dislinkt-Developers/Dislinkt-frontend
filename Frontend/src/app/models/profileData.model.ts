@@ -1,6 +1,7 @@
 export class ProfileData {
     constructor(
       public id: string = '',
+      public role: string = '',
       public username: string = '',
       public name: string = '',
       public email: string = '',
@@ -15,9 +16,9 @@ export class ProfileData {
       //  public educations: Educations[] = [],
       public skills: string = '',
       public interests: string = '',
-      public educations: string = '',
-      public jobs: string = '',
-      public isPrivate: boolean = false,
+      public education: string = '',
+      public work: string = '',
+      public isPrivateProfile: boolean = false,
     ) {}
 
 }

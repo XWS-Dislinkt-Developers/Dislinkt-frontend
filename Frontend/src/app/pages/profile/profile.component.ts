@@ -14,16 +14,9 @@ export class ProfileComponent implements OnInit {
   admin: boolean=false;
   username: any
 
-  profileData: ProfileData = new ProfileData()
-
-
-
+  profileData: any
 
   constructor(private _http: HttpClient) { }
-
-
-
-
 
   ngOnInit(): void {
     this.isUserLoggedIn()
@@ -33,22 +26,24 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserById() {
-
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + localStorage.getItem("userToken")
     }
     const body = { title: 'Angular POST Request - getUserById'}
-
-
-
-
-    //return this.http.get(apiUrl, { headers: headers })
-    //console.log(" -- CHECKING username...")
-    //console.log(value)
+    //console.log(body.title)
     return  this._http.post<any>('https://localhost:8000/getUserById', body, { headers }).subscribe(
       response => {
-         console.log(response)
+         console.log("Response - ",response)
+         this.profileData = response.user
+         this.profileData.skills = this.profileData.skills.split(',')
+         this.profileData.interests = this.profileData.interests.split(',')
+         this.profileData.work = this.profileData.work.split(',')
+         this.profileData.education = this.profileData.education.split(',')
+
+
+
+         console.log("this.profileData.work - ", this.profileData.skills)
       }
     )
   }
@@ -62,5 +57,6 @@ export class ProfileComponent implements OnInit {
       this.admin = true;
     }
   }
+
 
 }
