@@ -20,10 +20,11 @@
 -->
 
 <!-- USER -->
-    <div *ngIf="user">
+    <div >
         <section id="content" class="container" style="overflow:auto">
             <!-- Begin .page-heading -->
-
+            <p style="text-align: center;"> {{isItMyProfile() ? ' This is your profile' : 'This is not your profile'}}</p>
+            <p style="text-align: center;">  {{profileData.isPrivateProfile=='true' ? ' This profile is private' : 'This profile is public'}}
             <div class="page-heading">
                 <div class="media clearfix">
                   <div class="media-left pr30">
@@ -43,7 +44,7 @@
                 </div>
             </div>
         
-            <div class="row">
+            <div *ngIf="profileData.isPrivateProfile == 'false' || myProfile" class="row">
 
                 <div class="col-md-4">
                   <div class="panel">
@@ -58,14 +59,7 @@
                     </div>
                     <div class="panel-body pb5">
 
-                        
-                          
-                        <!--
-                        <span class="badge rounded-pill bg-light text-dark">Skills 2</span>
-                        <span class="badge rounded-pill bg-light text-dark">Skills 3</span>
-                        <span class="badge rounded-pill bg-dark">Interest 1</span>
-                        <span class="badge rounded-pill bg-dark">Interest 2</span>
-                      -->
+
                       <h4 style="color:#c4c4c4">Skills</h4>
                       <span *ngFor="let skill of profileData.skills" class="badge rounded-pill bg-light text-dark">{{skill}}</span>
                       <hr class="short br-lighter">

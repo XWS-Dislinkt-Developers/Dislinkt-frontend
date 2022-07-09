@@ -20,7 +20,7 @@ const routes: Routes = [
           { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent, canActivate: [AuthGuard, RoleGuardAdmin]},
           { path: 'settings-and-privacy/privacy-and-notification-settings', component: PrivacyAndNotificationSettingsComponent, canActivate: [AuthGuard]},
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:userId', component: ProfileComponent},
   { path:'**', redirectTo: ''}
 ];
 

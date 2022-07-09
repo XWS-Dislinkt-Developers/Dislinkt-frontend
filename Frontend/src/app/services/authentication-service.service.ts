@@ -41,6 +41,7 @@ export class AuthenticationServiceService {
      "confirmPassword" : confirmPassword
     }).pipe();
   }
+
   loggedIn() {
     return !!localStorage.getItem('userToken')
   }
@@ -48,10 +49,10 @@ export class AuthenticationServiceService {
   adminAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "admin"){
-      console.log(" -- CHECKING admin's access: TRUE") 
+      //console.log(" -- CHECKING admin's access: TRUE") 
       return true
     }
-    console.log(" -- CHECKING admin's access: FALSE")
+    //console.log(" -- CHECKING admin's access: FALSE")
     return false
   }
 
@@ -94,4 +95,39 @@ export class AuthenticationServiceService {
       "code": code
     }).pipe();
   }
+
+  isUserLoggedIn(){
+    let username = localStorage.getItem("username");
+    let role = localStorage.getItem("userRole");
+    if(username == null || username == undefined ){
+      return false
+    }else{
+      if(role == 'user') 
+        return true;
+      /* // TODO: Kako treba da izgleda profil admina?
+      if(role == 'admin')
+           return true 
+      */ 
+      return false;
+    }
+  }
+
+
+  getHeaders(){
+    if (this.isUserLoggedIn()) {
+      const userToken = localStorage.getItem("userToken");
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userToken, }
+      return headers;
+    } else {
+      const headers = {
+        'Content-Type': 'application/json',
+      }
+      return headers;
+    }
+
+
+  }
+
 }

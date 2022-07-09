@@ -2,8 +2,6 @@
 
     <app-left-vertical-navbar></app-left-vertical-navbar>
     <app-top-left-corner-logo></app-top-left-corner-logo>
-
-    <app-top-status-bar></app-top-status-bar>
     
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
     <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
@@ -31,46 +29,46 @@
 
                     <div class="centralizer-containter">
 
-                        <form>
+                        <form >
                             <div class="container">
 
                                 <div class="settings-section">
 
                                     <label class="label-text" for="username">Username:</label>
-                                    <input class="input-text" type="text" placeholder="username-xyz" name="username" id="username">
+                                    <input class="input-text" type="text" placeholder="username-xyz" name="username" id="username" [(ngModel)]="profileData.username" >
     
                                     <label class="label-text" for="name">Name:</label>
-                                    <input class="input-text" type="text" placeholder="Mr. Firstname Lastname" name="name" id="name">
+                                    <input class="input-text" type="text" placeholder="Mr. Firstname Lastname" name="name" id="name" [(ngModel)]="profileData.name">
     
                                     <label class="label-text" for="email">Email:</label>
-                                    <input class="input-text" type="email" placeholder="mail@mail.com" name="email" id="email">
+                                    <input class="input-text" type="email" placeholder="mail@mail.com" name="email" id="email" [(ngModel)]="profileData.email" >
     
                                     <label class="label-text" for="phone-number"><b>Phone number:</b></label>
-                                    <input class="input-text" type="tel" placeholder="" name="phone-number" id="phone-number">
+                                    <input class="input-text" type="tel" placeholder="" name="phone-number" id="phone-number" [(ngModel)]="profileData.phoneNumber" >
 
                                     <label class="label-text" for=""><b>Gender:</b></label>
                                     <div style="text-align:left;">
                                         <label class="label-text">
-                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio"> <span>Male</span>
+                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="true"> <span>Male</span>
                                         </label>
                                         <label class="label-text">
-                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio"> <span>Female</span>
+                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
                                         </label>
                                     </div>
                         
                                     <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
-                                    <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth">
+                                    <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth" [(ngModel)]="profileData.dateOfBirth">
                                     
  
                                     <label class="label-text" for="biography" style="margin-top:3px;"><b>Biography:</b></label>
-                                    <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="5"></textarea>
+                                    <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="5"  [(ngModel)]="profileData.biography"></textarea>
 
 
 
                                 </div>
 
                                 <div class="centralizer-containter p-3">
-                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Accept & Save" (click)="redirectSettingsAndPrivacy()">
+                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Accept & Save" (click)=" updatePersonalData() ">
                                     <input type="button" class="button no-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Discard & Save" (click)="redirectSettingsAndPrivacy()">
                                 </div>
                                 

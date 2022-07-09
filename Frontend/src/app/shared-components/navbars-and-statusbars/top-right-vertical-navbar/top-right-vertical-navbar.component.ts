@@ -16,7 +16,10 @@ export class TopRightVerticalNavbarComponent implements OnInit {
 admin: boolean=false;
 user: boolean=false;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router, private authService: AuthenticationServiceService) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document, 
+    private router: Router, 
+    private authService: AuthenticationServiceService) {}
 
   ngOnInit(): void {
 
@@ -32,7 +35,7 @@ user: boolean=false;
 
   //Redirections
   redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy";  }; /* user/:id/settings-and-privacy */
-  redirectProfile() { window.location.href = "/profile";  }; /* user/:id/profile */
+  redirectProfile() { window.location.href = "/profile/" + localStorage.getItem('userId');  }; /* user/:id/profile */
 
 
   // Modals

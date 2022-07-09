@@ -57,7 +57,7 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
       CreatePostCardComponent,
       CreatePostModalComponent,
       ForgotPasswordComponent,
-      PasswordlessLoginComponent
+      PasswordlessLoginComponent,
   ],
   imports: [
     BrowserModule,

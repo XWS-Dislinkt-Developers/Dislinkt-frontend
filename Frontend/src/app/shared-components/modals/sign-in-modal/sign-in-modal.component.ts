@@ -22,12 +22,19 @@ export class SignInModalComponent implements OnInit {
 
   ngOnInit(): void {
     //validations 
-    this.signInForm= this.formBuilder.group({
+   //validation
+  
+   this.signInForm= this.formBuilder.group({
       username:['',[ Validators.required, Validators.pattern('[a-zA-Z0-9]*')]],
       password: [  '', [
+        
         Validators.required, Validators.minLength(10),
-        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+~-])[A-Za-z\d!@#$%^&*()_+~-].{9,}') ]  ],
-    })
+        Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+~-])[A-Za-z\d!@#$%^&*()_+~-].{9,}') 
+      ]  
+      ],
+    }
+  
+    )
     
   }
 
@@ -44,7 +51,7 @@ export class SignInModalComponent implements OnInit {
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userRole", response.role);
         localStorage.setItem("username", response.username)
-        this.router.navigate(['/profile']) //OVO RADI!!
+        this.router.navigate(['/profile/'+ localStorage.getItem("userId")]) //OVO RADI!!
     
      
         if(response.error){
