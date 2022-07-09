@@ -1,3 +1,9 @@
+
+.top-right-corner-menubar{
+	z-index: 1;
+}
+
+
 .squircle{
     background: var(--dark-navbar-icon-background);
     width: 55px;
@@ -17,7 +23,6 @@
     position: relative;
 
     transition: border-radius 128ms, background 128ms, color 128ms;
-
 }
 
 .squircle:hover {

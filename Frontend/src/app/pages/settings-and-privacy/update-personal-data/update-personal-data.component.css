@@ -50,8 +50,8 @@
     white-space: normal;
 
 
-    height: clamp(60vh,380px,70vh);
-    width: clamp(65vh,400px,75vh);
+    height: fit-content;
+    width: clamp(65vh,400px,fit-content);
 
 
     border: clamp(0.2vh,3px,0.5vh) solid #A4A4A4;
@@ -61,8 +61,8 @@
 
 
 .update-personal-data-card-content{
-    height: clamp(60vh,380px,70vh);
-    width: clamp(65vh,400px,75vh);
+    height: fit-content;
+    width: clamp(65vh,400px,fit-content);
     overflow-y: auto;
 }
 
@@ -159,8 +159,8 @@
 
 
 .container{
-    margin: 2% 5%;
-    padding: 0vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 
@@ -252,10 +252,10 @@
 
 .no-button {
 	width: auto;
-	padding:5px 9px;
+	font-size:15px;
+	padding: 10px 18px;
 	background-color: #f44336;
-	margin-top:0;
-	margin-bottom:0;
+    margin: 1vh 
 }
   
 .yes-button {
@@ -263,8 +263,7 @@
 	font-size:15px;
 	padding: 10px 18px;
 	background-color: #04AA6D;
-	margin-top:1vh;
-	margin-bottom:1vh;
+    margin: 1vh;
 
 }
 

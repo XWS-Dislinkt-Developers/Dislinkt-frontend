@@ -19,7 +19,7 @@ export class AuthenticationServiceService {
   }
 
   checkUsername(value: any) {
-    console.log("PROVERAVAM USERNAME ")
+    console.log(" -- CHECKING username...")
     console.log(value)
     return  this._http.post<any>('https://localhost:8000/user', {"username": value}).pipe()
   }
@@ -41,6 +41,7 @@ export class AuthenticationServiceService {
      "confirmPassword" : confirmPassword
     }).pipe();
   }
+
   loggedIn() {
     return !!localStorage.getItem('userToken')
   }
@@ -48,33 +49,32 @@ export class AuthenticationServiceService {
   adminAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "admin"){
-      console.log("PROVERAVAM USER ACCESS ZA ADMINA I TRUE JE ") 
+      //console.log(" -- CHECKING admin's access: TRUE") 
       return true
     }
-    console.log("PROVERAVAM USER ACCESS ZA ADMINA I false JE ")
+    //console.log(" -- CHECKING admin's access: FALSE")
     return false
   }
 
   userAccess() {
     var lsUser = localStorage.getItem('userRole')
     if (lsUser == "user"){
-      console.log("PROVERAVAM USER ACCESS ZA usera I TRUE JE ")
+      console.log(" -- CHECKING user's access: TRUE ")
       return true
     }
-    console.log("PROVERAVAM USER ACCESS ZA usera I false JE ")
+    console.log(" -- CHECKING user's access: FALSE ")
     return false
   }
  
- register(pearson: any){
-   console.log("U SERVISU ZA REG SAM")
-   return this._http.post<IResponse>('https://localhost:8000/registerUser', pearson).subscribe(
+ register(person: any){
+   console.log(" -- Service for Registration...")
+   return this._http.post<IResponse>('https://localhost:8000/registerUser', person).subscribe(
      response => {
-     if(response.error !=""){
-        Swal.fire({
-        icon: 'error',
-        title: "Oooops...",
-        text: response.error,
-        
+     if(response.error !="" && response.error != undefined){
+        console.log(response.error)
+        Swal.fire({ icon: 'error',
+                    title: "Something went wrong. 😒",
+                    footer: "Exact error: " + response.error,
       })
      }  
      }
@@ -94,4 +94,39 @@ export class AuthenticationServiceService {
       "code": code
     }).pipe();
   }
+
+  isUserLoggedIn(){
+    let username = localStorage.getItem("username");
+    let role = localStorage.getItem("userRole");
+    if(username == null || username == undefined ){
+      return false
+    }else{
+      if(role == 'user') 
+        return true;
+      /* // TODO: Kako treba da izgleda profil admina?
+      if(role == 'admin')
+           return true 
+      */ 
+      return false;
+    }
+  }
+
+
+  getHeaders(){
+    if (this.isUserLoggedIn()) {
+      const userToken = localStorage.getItem("userToken");
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + userToken, }
+      return headers;
+    } else {
+      const headers = {
+        'Content-Type': 'application/json',
+      }
+      return headers;
+    }
+
+
+  }
+
 }

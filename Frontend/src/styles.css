@@ -12,15 +12,14 @@ html, body {
     scrollbar-track-color: #000;
     scrollbar-arrow-color: #000;
     scrollbar-shadow-color: #646464;
-    scrollbar-dark-shadow-color: #646464;
 
-
+    
 }
 
 ::-webkit-scrollbar { width: clamp(1vh, 4px, 1.5vh); height: 0px;}
 ::-webkit-scrollbar-track {  background-color: #646464;}
 ::-webkit-scrollbar-track-piece { background-color: #1E2126;}
-::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px; }
 ::-webkit-scrollbar-corner { background-color: #646464;}
 ::-webkit-resizer { background-color: #666;}
 

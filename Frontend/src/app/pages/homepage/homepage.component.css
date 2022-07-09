@@ -22,9 +22,11 @@
 	--color-fantastic-green: #00ae7a;
 }
 
+
+
 .homepage-component {
 
-    background-image: url('/assets/images/logo-background.svg');
+
     background-size: 70% 70%;
     -webkit-background-size: 70% 70%;
 
@@ -33,7 +35,27 @@
     background-position: center;
 	background-color: var(--dark-main);
     color: var(--full-white);
-    min-height: 100vh;
-	position: relative;
+	
+	width:60%;
+	left:20%;
+	position: fixed;
+
+	background-color: var(--dark-main);
+
 
 }
+
+.search-bar{
+	text-align: center;
+	width:100%;
+	margin-top:5%
+}
+
+.page-heading {
+	position: relative;
+	padding: 30px 40px;
+	margin: 15px -20px 25px;
+	border-bottom: 1px solid --dark-navbar;
+	background-color: var(--dark-navbar);
+	border-radius: 10px;
+  }
