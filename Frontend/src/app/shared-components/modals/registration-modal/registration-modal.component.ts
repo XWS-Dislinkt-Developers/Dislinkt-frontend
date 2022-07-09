@@ -108,12 +108,14 @@ export class RegistrationModalComponent implements OnInit {
                         "password": this.password, 
                         "confirmPassword": this.confirmPassword }
           this.authenticationService.register(person)
-          Swal.fire({ icon: 'success', title: 'Yippee! 🐶',
-          text: this.username + ', you are successfully registrated!',
-          showCancelButton: false,
-          showConfirmButton: false,
-          timer: 2000,
-          footer: 'You will be redirected to the homepage...'
+          Swal.fire({ 
+            icon: 'success', 
+            title: 'Yippee! 🐶',
+            text: this.username + ', you are successfully registrated!',
+            showCancelButton: false,
+            showConfirmButton: false,
+            timer: 2000,
+            footer: 'You will be redirected to the homepage...'
         }).then(function() {
           window.location.href = "";
         })

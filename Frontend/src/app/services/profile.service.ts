@@ -31,19 +31,25 @@ import { AuthenticationServiceService } from './authentication-service.service';
     }
 
     updatePersonalData(updateUser: any){
-
-        alert('Hello')
         console.log(updateUser);
         const url = this.url + '/updatePersonalData';
-        /*
-        const body = {  title: 'Angular POST Request - updatePersonalData()',
-                        updateUserData: updateUser
-            }
-            */
         const headers = this.authService.getHeaders();
         return  this._http.post<any>(url, updateUser , { headers }).pipe();
     }
 
+    updateSkillsAndInterests(updateUser: any){
+        console.log(updateUser);
+        const url = this.url + '/updateSkillsInterests';
+        const headers = this.authService.getHeaders();
+        return  this._http.post<any>(url, updateUser , { headers }).pipe();
+    }
+
+    updateWorkAndEducation(updateUser: any){
+        console.log(updateUser);
+        const url = this.url + '/updateWorkAndEducation';
+        const headers = this.authService.getHeaders();
+        return  this._http.post<any>(url, updateUser , { headers }).pipe();
+    }
 
 
 

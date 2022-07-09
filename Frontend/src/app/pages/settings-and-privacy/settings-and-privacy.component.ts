@@ -18,6 +18,5 @@ export class SettingsAndPrivacyComponent implements OnInit {
   redirectUpdatePersonalData() { window.location.href = "/settings-and-privacy/update-personal-data";  };
   redirectUpdateWorkAndEducation() { window.location.href = "/settings-and-privacy/update-work-and-education";  }; 
   redirectUpdateSkillsAndInterests() { window.location.href = "/settings-and-privacy/update-skills-and-interests";  }; 
-  redirectPrivacyAndNotificationSettings() { window.location.href = "/settings-and-privacy/privacy-and-notification-settings";  }; 
 
 }

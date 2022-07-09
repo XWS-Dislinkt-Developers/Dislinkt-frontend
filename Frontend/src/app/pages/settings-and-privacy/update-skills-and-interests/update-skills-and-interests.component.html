@@ -2,8 +2,6 @@
 
     <app-left-vertical-navbar></app-left-vertical-navbar>
     <app-top-left-corner-logo></app-top-left-corner-logo>
-
-    <app-top-status-bar></app-top-status-bar>
     
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
     <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
@@ -33,32 +31,29 @@
 
                         <form>
                             <div class="container">
-                                
-                                <p class="info-txt"> <b>Update </b> your skills and interests.<br> When you're done, click on <b> Review changes</b>,  
-                                                    and <b>save the changes </b> if you're pleased with the result!</p>
 
                                 <div class="settings-section">
     
                                     <label class="label-text" for="skills"><b>Update skills</b></label>
-                                    <textarea class="input-text" style="resize: none;" name="skills" id="skills" cols="30" rows="3"></textarea>
+                                    <textarea class="input-text" style="resize: none;" name="skills" id="skills" cols="30" rows="3" [(ngModel)]="profileData.skills"></textarea>
 
                                         
                                     <label class="label-text" for="interests"><b>Update interests</b></label>
-                                    <textarea class="input-text" style="resize: none;" name="interests" id="interests" cols="30" rows="3"></textarea>
+                                    <textarea class="input-text" style="resize: none;" name="interests" id="interests" cols="30" rows="3" [(ngModel)]="profileData.interests"></textarea>
 
                                 </div>
 
-                                <div class="centralizer-containter">
-                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Review changes">
-                                </div>
-                            </div>
                             
-                            <div class="centralizer-containter">
-                                
-                                <div  style="display:flex;justify-content: space-between; padding: 0px 20px;">
-                                    <input type="reset" class="button no-button" style="font-size:clamp(1.2vh,11px,1.8vh);" value="Cancel" (click)="redirectSettingsAndPrivacy()">
-                                    <span><input type="reset" class="button reset-button" style="font-size:clamp(1.2vh,11px,1.8vh);" svalue="Reset"></span>
+                                <div class="centralizer-containter p-3">
+                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Accept & Save" (click)="updateSkillsAndInterests() ">
+                                    <input type="button" class="button no-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Discard & Save" (click)="redirectSettingsAndPrivacy()">
                                 </div>
+                            
+
+                                <p class="info-txt"> When you're done, click on: 
+                                    <br> - <b>Accept & Save</b>, if you're pleased with the changes.  
+                                    <br> - <b>Discard & Save</b>, if you want to discard the changes.</p>
+
                             </div>
             
                           </form>

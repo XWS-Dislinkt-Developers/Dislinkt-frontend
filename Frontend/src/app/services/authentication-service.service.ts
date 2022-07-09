@@ -72,10 +72,9 @@ export class AuthenticationServiceService {
      response => {
      if(response.error !="" && response.error != undefined){
         console.log(response.error)
-        Swal.fire({
-        icon: 'error',
-        title: "Something went wrong. 😒",
-        footer: "Exact error: " + response.error,
+        Swal.fire({ icon: 'error',
+                    title: "Something went wrong. 😒",
+                    footer: "Exact error: " + response.error,
       })
      }  
      }

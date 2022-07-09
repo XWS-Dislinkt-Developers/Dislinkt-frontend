@@ -21,7 +21,6 @@
 	--color-actually-black: #000000;
 	--color-fantastic-green: #00ae7a;
 }
-
 .update-skills-and-interests-component {
 
     background-size: 70% 70%;
@@ -50,8 +49,8 @@
     white-space: normal;
 
 
-    height: clamp(45vh,300px,60vh);
-    width: clamp(65vh,400px,75vh);
+    height: fit-content;
+    width: clamp(65vh,400px,fit-content);
 
 
     border: clamp(0.2vh,3px,0.5vh) solid #A4A4A4;
@@ -61,8 +60,8 @@
 
 
 .update-skills-and-interests-card-content{
-    height: clamp(45vh,300px,60vh);
-    width: clamp(65vh,400px,75vh);
+    height: fit-content;
+    width: clamp(65vh,400px,fit-content);
     overflow-y: auto;
 }
 
@@ -121,8 +120,10 @@
     color: #A4A4A4;
     font-weight: 600;
     margin-right: 10px;
+
     margin-top: auto;
     margin-bottom: auto;
+
 }
 
 .input-text{
@@ -131,6 +132,7 @@
     color: #A4A4A4;
     border-radius: 2px;
     font-family: Ubuntu;
+
     margin-top: 0.2vh;
     margin-bottom: 0.2vh;
 }
@@ -156,8 +158,8 @@
 
 
 .container{
-    margin: 2% 5%;
-    padding: 0vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
 }
 
 
@@ -179,6 +181,10 @@
     height: min-content;
 }
 
+
+
+
+
 .primary-menu-button{
     background-color: #2A2F35;
     color: #A4A4A4;
@@ -189,7 +195,9 @@
     font-weight: bold;
     font-size: clamp(2.2vh, 15px, 3.3vh);
 
+
     margin-top: 2vh;
+
     margin-left: auto;
     margin-right: auto;
 
@@ -243,10 +251,10 @@
 
 .no-button {
 	width: auto;
-	padding:5px 9px;
+	font-size:15px;
+	padding: 10px 18px;
 	background-color: #f44336;
-	margin-top:0;
-	margin-bottom:0;
+    margin: 1vh 
 }
   
 .yes-button {
@@ -254,8 +262,7 @@
 	font-size:15px;
 	padding: 10px 18px;
 	background-color: #04AA6D;
-	margin-top:1vh;
-	margin-bottom:1vh;
+    margin: 1vh;
 
 }
 
@@ -294,4 +301,3 @@ label > input[type="radio"] {
     background: radial-gradient(teal 0%, teal 40%, transparent 50%, transparent);
     border-color: teal;
   }
-  

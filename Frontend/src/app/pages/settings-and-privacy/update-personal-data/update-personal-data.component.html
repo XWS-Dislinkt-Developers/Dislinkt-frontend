@@ -42,9 +42,14 @@
     
                                     <label class="label-text" for="email">Email:</label>
                                     <input class="input-text" type="email" placeholder="mail@mail.com" name="email" id="email" [(ngModel)]="profileData.email" >
-    
+
+                                    <label class="label-text" for="address">Address:</label>
+                                    <input class="input-text" type="text" placeholder="Enter your address here" name="address" id="address" [(ngModel)]="profileData.address" >
+
+  
                                     <label class="label-text" for="phone-number"><b>Phone number:</b></label>
                                     <input class="input-text" type="tel" placeholder="" name="phone-number" id="phone-number" [(ngModel)]="profileData.phoneNumber" >
+
 
                                     <label class="label-text" for=""><b>Gender:</b></label>
                                     <div style="text-align:left;">
@@ -55,16 +60,6 @@
                                             <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
                                         </label>
                                     </div>
-
-                                    <label class="label-text" for=""><b>Privacy:</b></label>
-                                    <div style="text-align:left;">
-                                        <label class="label-text">
-                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="profileData.isPrivateProfile" [value]="true"> <span>Yes</span>
-                                        </label>
-                                        <label class="label-text">
-                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="profileData.isPrivateProfile" [value]="false"> <span>No</span>
-                                        </label>
-                                    </div>
                         
                                     <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
                                     <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth" [(ngModel)]="profileData.dateOfBirth">
@@ -73,6 +68,15 @@
                                     <label class="label-text" for="biography" style="margin-top:3px;"><b>Biography:</b></label>
                                     <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="5"  [(ngModel)]="profileData.biography"></textarea>
 
+                                    <label class="label-text" for=""><b>Account privacy:</b></label>
+                                    <div style="text-align:left;">
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="isPrivateProfile" [value]="true"> <span>Private</span>
+                                        </label>
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="isPrivateProfile" [value]="false"> <span>Public</span>
+                                        </label>
+                                    </div>
 
 
                                 </div>

@@ -47,6 +47,31 @@
             <div *ngIf="profileData.isPrivateProfile == 'false' || myProfile" class="row">
 
                 <div class="col-md-4">
+
+                  <div class="panel">
+                    <div class="panel-heading">
+                      <span class="panel-icon">
+                        <i class="fa fa-trophy"></i>
+                      </span>
+                      <span class="panel-title"> 
+                        <img src="./assets/images/icon-personal-data.svg"> &nbsp; About me
+                        <span style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+                      </span>
+                    </div>
+                    <div class="panel-body pb5">
+                      <!-- 
+                        <h6 *ngIf="profileData.dateOfBirth" style="color:#c4c4c4"> <i>- Date of birth:</i> <b>  {{profileData.dateOfBirth}} </b> </h6> 
+                      -->
+                      <h6 *ngIf="profileData.phoneNumber"  style="color:#c4c4c4"> <i>- Phone number:</i> <b>  {{profileData.phoneNumber}} </b> </h6>
+                      <h6 *ngIf="profileData.address" style="color:#c4c4c4"> <i>- Address:</i> <b>  {{profileData.address}} </b> </h6>
+                      <h6 *ngIf="profileData.email" style="color:#c4c4c4"> <i>- E-mail:</i> <b>  {{profileData.email}} </b> </h6>
+                      
+
+
+
+                    </div>
+                  </div>
+
                   <div class="panel">
                     <div class="panel-heading">
                       <span class="panel-icon">
@@ -58,16 +83,14 @@
                       </span>
                     </div>
                     <div class="panel-body pb5">
-
-
                       <h4 style="color:#c4c4c4">Skills</h4>
                       <span *ngFor="let skill of profileData.skills" class="badge rounded-pill bg-light text-dark">{{skill}}</span>
                       <hr class="short br-lighter">
                       <h4 style="color:#c4c4c4">Interests</h4> 
                       <span *ngFor="let interest of profileData.interests" class="badge rounded-pill bg-light text-dark">{{interest}}</span>
-
                     </div>
                   </div>
+
                   <div class="panel">
                     <div class="panel-heading">
                       <span class="panel-icon">

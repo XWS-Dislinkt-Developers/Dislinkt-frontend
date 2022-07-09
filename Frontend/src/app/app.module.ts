@@ -20,7 +20,6 @@ import { SettingsAndPrivacyComponent } from './pages/settings-and-privacy/settin
 import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update-personal-data/update-personal-data.component';
 import { UpdateWorkAndEducationComponent } from './pages/settings-and-privacy/update-work-and-education/update-work-and-education.component';
 import { UpdateSkillsAndInterestsComponent } from './pages/settings-and-privacy/update-skills-and-interests/update-skills-and-interests.component';
-import { PrivacyAndNotificationSettingsComponent } from './pages/settings-and-privacy/privacy-and-notification-settings/privacy-and-notification-settings.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TopSearchBarComponent } from './shared-components/navbars-and-statusbars/top-search-bar/top-search-bar.component';
@@ -49,7 +48,6 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
       UpdatePersonalDataComponent,
       UpdateWorkAndEducationComponent,
       UpdateSkillsAndInterestsComponent,
-      PrivacyAndNotificationSettingsComponent,
       FeedComponent,
       ProfileComponent,
       TopSearchBarComponent,
