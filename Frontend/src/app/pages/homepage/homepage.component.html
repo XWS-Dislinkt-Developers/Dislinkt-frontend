@@ -3,27 +3,59 @@
 
     <app-left-vertical-navbar></app-left-vertical-navbar>
     <!--<app-top-search-bar></app-top-search-bar> -->
-
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
     <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
-
     <app-registration-modal></app-registration-modal>
     <app-sign-in-modal></app-sign-in-modal>
     <app-sign-out-modal></app-sign-out-modal>
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
-    <div class="search-bar">
+    <div class="search-bar" >
       <input  id="searchInput" [(ngModel)]="searchText" ngDefaultControl>
       <button type="submit" (click)="searchUsersByUsername()"><img src="./assets/images/icon-search.svg"/> </button>
     </div>
 
-    <div *ngIf="users">
-      <div *ngFor="let user in users">
-        {{user.username}}
-      </div>
+    <div *ngIf="LoggedUser === false">
+      <div class="page-heading " *ngFor="let user of users">
+          <div class="media clearfix">
+            <div class="media-left pr30">
+              <a>
+                <img *ngIf="user.gender == 'male'" src="./../../../assets/assets/images/icon-profile-picture-male.svg" class="media-object mw100 rounded-circle shadow-4">
+                <img *ngIf="user.gender == 'female'" src="./../../../assets/assets/images/icon-profile-picture-female.svg" class="media-object mw100 rounded-circle shadow-4">
+              </a>
+            </div>
+            <div class="media-body va-m">
+              <h2 class="media-heading"> {{user.name}}
+                <small> - <i> {{user.username}} </i></small>
+                <div><span  *ngIf="user.isPrivateProfile === 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span> </div>
+                <span *ngIf="user.isPrivateProfile === 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+              </h2>
+              <p class="lead"><i>Biography:</i>  &nbsp; {{user.biography}} </p>
+            </div>
+          </div>
+      </div> 
+    </div> 
+
+      <div *ngIf="LoggedUser === true">
+      <div class="page-heading " *ngFor="let user of users">
+        <div class="media clearfix">
+          <div class="media-left pr30">
+            <a>
+              <img *ngIf="user.Gender == 'male'" src="./../../../assets/assets/images/icon-profile-picture-male.svg" class="media-object mw100 rounded-circle shadow-4">
+              <img *ngIf="user.Gender == 'female'" src="./../../../assets/assets/images/icon-profile-picture-female.svg" class="media-object mw100 rounded-circle shadow-4">
+            </a>
+          </div>
+          <div class="media-body va-m">
+            <h2 class="media-heading"> {{user.Name}}
+              <small> - <i> {{user.Username}} </i></small>
+              <div><span  *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span> </div>
+              <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+            </h2>
+            <p class="lead"><i>Biography:</i>  &nbsp; {{user.Biography}} </p>
+          </div>
+        </div>
+    </div> 
     </div>
-
-
 
 </div>

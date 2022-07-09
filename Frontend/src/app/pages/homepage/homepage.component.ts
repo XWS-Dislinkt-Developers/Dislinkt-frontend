@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserPost } from 'src/app/models/userPost.model';
 import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 interface UserSearchResult{
   userId: string;
@@ -30,20 +32,14 @@ searchText: string = "";
 
 constructor(
   private _authenticationServiceService: AuthenticationServiceService, 
+  private _profileService: ProfileService,
   private http: HttpClient) { }
 
-userPosts!: UserPost[];
-users!: UserSearchResult[]
-
+  userPosts!: UserPost[];
+  users: any[] = [];
+  LoggedUser: Boolean = false;
   
   ngOnInit(): void { 
-
-  //this.getUserPosts().subscribe(userPosts => {
-  //  this.userPosts = userPosts;
-
-
-
-  // })
   this.admin = this._authenticationServiceService.adminAccess()
   console.log(this.admin)
   this.user = this._authenticationServiceService.userAccess()
@@ -63,11 +59,20 @@ users!: UserSearchResult[]
   }
 
   searchUsersByUsername(){
-    this.http.post<UserSearchResult[]>('https://localhost:8000/getUsersBySearch', {name : this.searchText}).subscribe(
+    if (localStorage.getItem("userToken") == null){
+      this._profileService.searchAnonymous(this.searchText).subscribe(
       response => {
-        console.log("Response - ",response)
-
-        
-    })
+        console.log("Response ANONYMOUS - ",response)
+        this.users = response.users
+      })
+    } else {
+      this.LoggedUser = true
+      this._profileService.searchLoggedUser(this.searchText).subscribe(
+      response => {
+        console.log("Response LOGGED USER- ",response)
+        this.users = response.Users
+        console.log("Response - ", this.users)
+      })
+    }
   }
 }
