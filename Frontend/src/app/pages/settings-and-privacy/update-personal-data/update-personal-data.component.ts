@@ -49,6 +49,7 @@ export class UpdatePersonalDataComponent implements OnInit {
     else {
       this.profileData.gender = 'female';
     }
+    console.log(this.profileData.isPrivateProfile)
 
     console.log(this.profileData)
     this.profileService.updatePersonalData(this.profileData).subscribe(
@@ -59,7 +60,7 @@ export class UpdatePersonalDataComponent implements OnInit {
       }
       )
       //this.route.navigate(['profile/',this.userId])
-      window.location.href = "/settings-and-privacy";
+    //  window.location.href = "/settings-and-privacy";
 
   }
 

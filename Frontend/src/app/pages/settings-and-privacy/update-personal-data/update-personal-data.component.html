@@ -55,6 +55,16 @@
                                             <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
                                         </label>
                                     </div>
+
+                                    <label class="label-text" for=""><b>Privacy:</b></label>
+                                    <div style="text-align:left;">
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="profileData.isPrivateProfile" [value]="true"> <span>Yes</span>
+                                        </label>
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="profileData.isPrivateProfile" [value]="false"> <span>No</span>
+                                        </label>
+                                    </div>
                         
                                     <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
                                     <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth" [(ngModel)]="profileData.dateOfBirth">

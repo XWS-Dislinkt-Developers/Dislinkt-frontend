@@ -33,6 +33,7 @@ import { AuthenticationServiceService } from './authentication-service.service';
     updatePersonalData(updateUser: any){
 
         alert('Hello')
+        console.log(updateUser);
         const url = this.url + '/updatePersonalData';
         /*
         const body = {  title: 'Angular POST Request - updatePersonalData()',
@@ -40,7 +41,7 @@ import { AuthenticationServiceService } from './authentication-service.service';
             }
             */
         const headers = this.authService.getHeaders();
-        return  this._http.post<any>(url, {updateUser} , { headers });
+        return  this._http.post<any>(url, updateUser , { headers }).pipe();
     }
 
 
