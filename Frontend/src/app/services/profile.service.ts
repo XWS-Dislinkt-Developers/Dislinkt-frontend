@@ -51,7 +51,14 @@ import { AuthenticationServiceService } from './authentication-service.service';
         return  this._http.post<any>(url, updateUser , { headers }).pipe();
     }
 
+    searchAnonymous(searchText: string){
+        return this._http.post<any>('https://localhost:8000/getUsersBySearch', {name : searchText}).pipe();
+    }
 
+    searchLoggedUser(searchText: string){
+        const headers = this.authService.getHeaders();
+        return this._http.get<any>('https://localhost:8000/searchUsersForLoggedUser/' + searchText, { headers}).pipe();
+    }
 
   }
 
