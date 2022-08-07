@@ -15,8 +15,6 @@ interface UserSearchResult{
   isPrivateProfile: string;
 }
 
-
-
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -28,7 +26,9 @@ admin: boolean=false;
 user: boolean=false;
 username: string = "";
 password: string = "";
+isSearchForUsers: boolean = true;
 searchText: string = "";
+numberOfSearchResults: number =0;
 
 constructor(
   private _authenticationServiceService: AuthenticationServiceService, 
@@ -40,15 +40,16 @@ constructor(
   LoggedUser: Boolean = false;
   
   ngOnInit(): void { 
-  this.admin = this._authenticationServiceService.adminAccess()
-  console.log(this.admin)
-  this.user = this._authenticationServiceService.userAccess()
-  console.log(this.user)
+    this.admin = this._authenticationServiceService.adminAccess()
+    console.log(this.admin)
+    this.user = this._authenticationServiceService.userAccess()
+    console.log(this.user)
   }
 
   getUserPosts(): Observable<UserPost[]> {
     return this.http.get<UserPost[]>('https://localhost:8000/userPosts');
   }
+
   logIn() {
     this._authenticationServiceService.logIn(this.username, this.password).subscribe(
       response => {
@@ -64,6 +65,7 @@ constructor(
       response => {
         console.log("Response ANONYMOUS - ",response)
         this.users = response.users
+        this.numberOfSearchResults = this.users.length
       })
     } else {
       this.LoggedUser = true
@@ -72,7 +74,14 @@ constructor(
         console.log("Response LOGGED USER- ",response)
         this.users = response.Users
         console.log("Response - ", this.users)
+        this.numberOfSearchResults = this.users.length
       })
     }
   }
+
+
+  //Redirections:
+  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
+
+
 }
