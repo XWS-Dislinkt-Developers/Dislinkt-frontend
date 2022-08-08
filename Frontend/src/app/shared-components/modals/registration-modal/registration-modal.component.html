@@ -7,8 +7,8 @@
     </div>
     <div class="form-container">
       <div class="form-group">
-        <label class="form-label" for="username"  ><b>Username</b></label>
-          <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control" placeholder="Enter Username" [(ngModel)]="username" >
+        <label class="form-label label-text" for="username"  ><b>Username</b></label>
+          <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control input-text" placeholder="Enter Username" [(ngModel)]="username" >
           <div *ngIf="submitted && registerForm.controls.username.errors" class="text-danger" >
           <div *ngIf="submitted && registerForm.controls.username.errors.required"> Username is required. </div>
           <div *ngIf="submitted && registerForm.controls.username.errors">  Username can include only numbers and digits. </div>
@@ -16,23 +16,40 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label" for="name" ><b>Name</b></label>
-        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid" placeholder="Enter Name" name="name"  [(ngModel)]="name" >
+        <label class="form-label label-text" for="name" ><b>Name</b></label>
+        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid input-text" placeholder="Enter Name" name="name"  [(ngModel)]="name" >
         <div *ngIf="submitted && registerForm.controls.name.errors" class="text-danger" >
           <div *ngIf="submitted && registerForm.controls.name.errors.required">Name is required. </div>
         </div>
       </div>
       <div class="form-group"> 
-        <label class="form-label" for="email"><b>E-mail</b></label>
-        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid" placeholder="Enter Email" name="email" required [(ngModel)]="email" >
+        <label class="form-label label-text" for="email"><b>E-mail</b></label>
+        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid input-text" placeholder="Enter Email" name="email" required [(ngModel)]="email" >
         <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger" >
           <div *ngIf="submitted  && registerForm.controls.email.errors.email "> E-mail is not correct. </div>
           <div *ngIf="submitted && registerForm.controls.email.errors.required"> E-mail is required. </div>
         </div>
       </div>
+      <!-- TODO: GENDER AND DATE-->
+      <div class="form-group"> 
+        <div style="text-align:left;" >
+          <label class="label-text" for=""><b>Gender:</b></label>
+            <label class="label-text">
+                <input class="radio" type="radio" formControlName="gender" placeholder="" name="gender" id="gender" [(ngModel)]="isGenderMale" [value]="true"> <span>Male</span>
+            </label>
+            <label class="label-text">
+                <input class="radio" type="radio" formControlName="gender" placeholder="" name="gender" id="gender" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
+            </label>
+        </div>
+      </div>
+      <div class="form-group"> 
+        <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
+        <input class="input-text" type="date"  value="2013-10-24T20:36:00" step="1" min="1850-01-01" max="2020-01-01" formControlName="dateOfBirth" placeholder="" name="dateOfBirth" [(ngModel)]="dateOfBirth">
+      </div>
+      <!-- *********  -->
       <div class="form-group">
-        <label class="form-label" for="psw"><b>Password</b></label>
-        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
+        <label class="form-label label-text" for="psw"><b>Password</b></label>
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid input-text" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
         <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger">
           <div *ngIf="submitted  && registerForm.controls.password.errors.minlength "> Password must be at least 10 characters long. </div>
           <div *ngIf="submitted && registerForm.controls.password.errors.required"> Password is required. </div>
@@ -42,8 +59,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label" for="psw-repeat"><b>Confirm Password</b></label>
-        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid" placeholder="Repeat Password" name="psw-repeat" required [(ngModel)]="confirmPassword" >
+        <label class="form-label label-text" for="psw-repeat"><b>Confirm Password</b></label>
+        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid input-text" placeholder="Repeat Password" name="psw-repeat" required [(ngModel)]="confirmPassword" >
         <div *ngIf="submitted && registerForm.controls.confirmPassword.errors" class="text-danger" >
           <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.minlength"> Confirm password must be at least 10 characters long. </div>
           <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.required"> Confirm password is required. </div>

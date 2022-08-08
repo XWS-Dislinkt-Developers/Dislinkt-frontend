@@ -32,6 +32,29 @@ input[type=text], input[type=password] {
 	color: #f4f4f4;
 }
   
+.label-text{
+    font-size: clamp(1.4vh, 13px, 1.8vh);
+    color: #A4A4A4;
+    font-weight: 600;
+    margin-right: 10px;
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+.input-text{
+    font-size: clamp(1.4vh, 13px, 1.8vh);
+    background-color: #2A2F35; 
+    color: #A4A4A4;
+    border-radius: 2px;
+    font-family: Ubuntu;
+
+    margin-top: 0.2vh;
+    margin-bottom: 0.2vh;
+}
+
+
 button {
 	background-color: #04AA6D;
 	color: white;

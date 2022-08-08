@@ -29,8 +29,8 @@
                 <div class="media clearfix">
                   <div class="media-left pr30">
                     <a>
-                      <img *ngIf="profileData.gender == 'male'" src="./assets/images/icon-profile-picture-male.svg" class="media-object mw100 rounded-circle shadow-4">
-                      <img *ngIf="profileData.gender == 'female'" src="./assets/images/icon-profile-picture-female.svg" class="media-object mw100 rounded-circle shadow-4">
+                      <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="media-object mw100 rounded-circle shadow-4">
+                      <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
                     </a>
                   </div>                      
                   <div class="media-body va-m">
@@ -55,7 +55,7 @@
                       </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-personal-data.svg"> &nbsp; About me
-                        <span style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5">
@@ -79,7 +79,7 @@
                       </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-skills-and-interests.svg"> &nbsp; Skills & Interests
-                        <span style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
+                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5">
@@ -98,7 +98,7 @@
                       </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-work-and-education.svg"> &nbsp; Work & Education
-                        <span style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
+                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5" style="overflow:clip">
