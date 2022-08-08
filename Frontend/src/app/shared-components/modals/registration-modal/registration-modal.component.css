@@ -146,3 +146,50 @@ span.psw {
 		width: 100%;
 	}
 }
+
+
+.label-text{
+    font-size: clamp(1.4vh, 13px, 1.8vh);
+    color: #A4A4A4;
+    font-weight: 600;
+    margin-right: 10px;
+
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+
+.input-text{
+    font-size: clamp(1.4vh, 13px, 1.8vh);
+    background-color: #2A2F35; 
+    color: #A4A4A4;
+    border-radius: 2px;
+    font-family: Ubuntu;
+
+    margin-top: 0.2vh;
+    margin-bottom: 0.2vh;
+}
+
+/* pretty radio */
+label > input[type="radio"] {
+    display: none;
+  }
+  label > input[type="radio"] + *::before {
+    content: "";
+    display: inline-block;
+    vertical-align: bottom;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.3rem;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 0.1rem;
+    border-color: gray;
+  }
+  label > input[type="radio"]:checked + * {
+    color: teal;
+  }
+  label > input[type="radio"]:checked + *::before {
+    background: radial-gradient(teal 0%, teal 40%, transparent 50%, transparent);
+    border-color: teal;
+  }

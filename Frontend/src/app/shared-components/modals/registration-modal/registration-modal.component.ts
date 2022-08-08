@@ -13,12 +13,16 @@ export class RegistrationModalComponent implements OnInit {
   registerForm!:FormGroup
   title='formValidation'
   submitted=false
+  isGenderMale: boolean = true;
   readyForRegistration = false;
   username: any
   name: any
+  email: any
+  gender: any
+  dateOfBirth: any;
   password: any
   confirmPassword: any
-  email: any
+
 
   constructor(
     private formBuilder: FormBuilder,  
@@ -35,6 +39,8 @@ export class RegistrationModalComponent implements OnInit {
       email:['', [Validators.required, 
                   Validators.email, 
                   Validators.pattern('[A-Za-z0-9._%-+]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      gender:[],
+      dateOfBirth:[],
       password: [  '', [Validators.required, 
                         Validators.minLength(10),
                         Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]+)(?=.*[!@#$%^&*()_+~-])[A-Za-z\d!@#$%^&*()_+~-].{9,}') ]  ],
@@ -102,9 +108,12 @@ export class RegistrationModalComponent implements OnInit {
         })
         return
       } else {
+          this.dateOfBirth = this.dateOfBirth.split('T')[0]
           var person={ "username": this.username, 
                         "name": this.name, 
-                        "email":this.email, "gender": "male", 
+                        "email":this.email, 
+                        "gender": this.isGenderMale ? "male" : "female", 
+                        "dateOfBirth": this.dateOfBirth,
                         "password": this.password, 
                         "confirmPassword": this.confirmPassword }
           this.authenticationService.register(person)

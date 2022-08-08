@@ -240,3 +240,7 @@ label > input[type="radio"] {
 			line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
+
+.mw100 {
+  max-width: 100px !important;
+}

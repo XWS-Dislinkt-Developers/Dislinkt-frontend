@@ -60,7 +60,7 @@ constructor(
   }
 
   searchUsersByUsername(){
-    if (localStorage.getItem("userToken") == null){
+    if (!localStorage.getItem("userToken")){
       this._profileService.searchAnonymous(this.searchText).subscribe(
       response => {
         console.log("Response ANONYMOUS - ",response)
