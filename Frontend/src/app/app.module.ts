@@ -29,6 +29,7 @@ import { CreatePostModalComponent } from './shared-components/modals/create-post
 import { ForgotPasswordComponent } from './shared-components/modals/forgot-password/forgot-password.component';
 import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
 import { AuthGuard } from './services/auth_guard/auth.guard';
+import { ConnectionsComponent } from './pages/connections/connections.component';
 
 
 
@@ -56,6 +57,7 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
       CreatePostModalComponent,
       ForgotPasswordComponent,
       PasswordlessLoginComponent,
+      ConnectionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,8 +65,7 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
     HttpClientModule,
     BrowserAnimationsModule, 
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

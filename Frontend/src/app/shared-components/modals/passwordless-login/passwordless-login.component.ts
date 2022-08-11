@@ -3,7 +3,7 @@ import { IfStmt } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class PasswordlessLoginComponent implements OnInit {
   submitted1=false;
   submitted= false;
 
-  constructor(@Inject(DOCUMENT) private document: Document,private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService, private router: Router) { }
+  constructor(@Inject(DOCUMENT) private document: Document,private formBuilder: FormBuilder, private _AuthenticationService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.passwordlessForm1 = this.formBuilder.group({
@@ -43,7 +43,7 @@ export class PasswordlessLoginComponent implements OnInit {
       this.document.getElementById('id-passwordless-modal')!.style.display='none';
      
 
-    this._authenticationServiceService.sendPasswordlessLoginRequest(this.email).subscribe(
+    this._AuthenticationService.sendPasswordlessLoginRequest(this.email).subscribe(
       response => {
         if(response.error !="Email sent successfully!")
          Swal.fire({
@@ -67,7 +67,7 @@ PasswordlessLoginRequest() {
     return
   } 
   else {
-      this._authenticationServiceService.PasswordlessLoginRequest(this.code).subscribe(
+      this._AuthenticationService.PasswordlessLoginRequest(this.code).subscribe(
     response => {
       localStorage.setItem("userId", response.id);
       localStorage.setItem("userToken", response.token);

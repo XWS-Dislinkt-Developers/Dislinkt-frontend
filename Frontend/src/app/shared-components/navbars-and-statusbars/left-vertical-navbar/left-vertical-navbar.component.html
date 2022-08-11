@@ -22,10 +22,10 @@
             </div>
         </li></div>
         <div *ngIf="user">
-        <li class="squircle">
+        <li class="squircle" (click)="redirectConnections()">
             <img class="icons" src = "/assets/images/icon-friends.svg" alt="friends-icon"/>
             <div class="popper">
-                <h4 class="popper-text">Friends</h4>
+                <h4 class="popper-text">Connections</h4>
             </div>
         </li></div>
         <div *ngIf="user || admin">

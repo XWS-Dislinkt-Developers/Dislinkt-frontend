@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ export class SignInModalComponent implements OnInit {
   submitted=false
 
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private _authenticationServiceService: AuthenticationServiceService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private _AuthenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     //validations 
@@ -45,7 +45,7 @@ export class SignInModalComponent implements OnInit {
     } else {
 
    
-    this._authenticationServiceService.logIn(this.username, this.password).subscribe(
+    this._AuthenticationService.logIn(this.username, this.password).subscribe(
       response => {
         localStorage.setItem("userId", response.id);
         localStorage.setItem("userToken", response.token);

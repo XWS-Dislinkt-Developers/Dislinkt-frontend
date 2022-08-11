@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserPost } from 'src/app/models/userPost.model';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProfileService } from 'src/app/services/profile.service';
 
 interface UserSearchResult{
@@ -31,7 +31,7 @@ searchText: string = "";
 numberOfSearchResults: number =0;
 
 constructor(
-  private _authenticationServiceService: AuthenticationServiceService, 
+  private _AuthenticationService: AuthenticationService, 
   private _profileService: ProfileService,
   private http: HttpClient) { }
 
@@ -40,9 +40,9 @@ constructor(
   LoggedUser: Boolean = false;
   
   ngOnInit(): void { 
-    this.admin = this._authenticationServiceService.adminAccess()
+    this.admin = this._AuthenticationService.adminAccess()
     console.log(this.admin)
-    this.user = this._authenticationServiceService.userAccess()
+    this.user = this._AuthenticationService.userAccess()
     console.log(this.user)
   }
 
@@ -51,7 +51,7 @@ constructor(
   }
 
   logIn() {
-    this._authenticationServiceService.logIn(this.username, this.password).subscribe(
+    this._AuthenticationService.logIn(this.username, this.password).subscribe(
       response => {
         localStorage.setItem("userId", response.id);
         localStorage.setItem("userToken", response.token);

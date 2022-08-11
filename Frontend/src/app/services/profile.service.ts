@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthenticationServiceService } from './authentication-service.service';
+import { AuthenticationService } from './authentication.service';
 
 
 @Injectable({
@@ -14,8 +14,9 @@ import { AuthenticationServiceService } from './authentication-service.service';
 
     constructor(
         private _http: HttpClient, 
-        private authService: AuthenticationServiceService){}
+        private authService: AuthenticationService){}
         
+    // TODO: getLoggedUser() is never used. We should DELETE it.
     getLoggedUser() {
         const url = this.url + '/getLoggedUser'
         const body = { title: 'Angular POST Request - getLoggedUser'}

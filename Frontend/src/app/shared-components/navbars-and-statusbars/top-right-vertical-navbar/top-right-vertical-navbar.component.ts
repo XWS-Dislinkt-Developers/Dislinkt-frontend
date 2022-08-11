@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ user: boolean=false;
   constructor(
     @Inject(DOCUMENT) private document: Document, 
     private router: Router, 
-    private authService: AuthenticationServiceService) {}
+    private authService: AuthenticationService) {}
 
   ngOnInit(): void {
 
