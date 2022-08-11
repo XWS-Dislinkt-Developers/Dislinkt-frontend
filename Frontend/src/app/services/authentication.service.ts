@@ -10,7 +10,7 @@ import { IUserInfo } from '../models/auth/IUserInfo';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationServiceService {
+export class AuthenticationService {
   checked: any
   data: any;
 

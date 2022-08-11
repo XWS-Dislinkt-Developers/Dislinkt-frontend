@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,7 +26,7 @@ export class RegistrationModalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,  
-    private authenticationService: AuthenticationServiceService) { 
+    private authenticationService: AuthenticationService) { 
     }
     
   ngOnInit(): void {

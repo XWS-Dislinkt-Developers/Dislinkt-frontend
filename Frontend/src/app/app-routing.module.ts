@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConnectionsComponent } from './pages/connections/connections.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
           { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent, canActivate: [AuthGuard]},
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'profile/:userId', component: ProfileComponent},
+  { path: 'connections', component: ConnectionsComponent},
   { path:'**', redirectTo: ''}
 ];
 

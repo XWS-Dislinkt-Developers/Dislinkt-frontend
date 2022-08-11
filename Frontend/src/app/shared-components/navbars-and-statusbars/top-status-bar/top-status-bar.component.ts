@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-top-status-bar',
@@ -10,7 +10,7 @@ import { AuthenticationServiceService } from 'src/app/services/authentication-se
 export class TopStatusBarComponent implements OnInit {
   admin: boolean=false;
   user: boolean=false;
-  constructor(private router: Router, private authService: AuthenticationServiceService) { }
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.admin = this.authService.adminAccess()

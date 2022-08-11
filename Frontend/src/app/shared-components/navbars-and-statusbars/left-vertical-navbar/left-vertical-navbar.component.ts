@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationServiceService } from 'src/app/services/authentication-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-left-vertical-navbar',
@@ -12,7 +12,7 @@ export class LeftVerticalNavbarComponent implements OnInit {
   admin: boolean = false;
  
 
-  constructor( private authService: AuthenticationServiceService, private router: Router) { }
+  constructor( private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.admin = this.authService.adminAccess()
@@ -25,5 +25,6 @@ export class LeftVerticalNavbarComponent implements OnInit {
     // Redirections
     redirectHomepage()  {window.location.href = "";}
     redirectFeed() {window.location.href = "/feed";}
+    redirectConnections() {window.location.href = "/connections";}
    
 }
