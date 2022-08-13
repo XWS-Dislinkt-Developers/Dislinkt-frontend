@@ -6,21 +6,24 @@ import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-connections',
-  templateUrl: './connections.component.html',
-  styleUrls: ['./connections.component.css']
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.css']
 })
-export class ConnectionsComponent implements OnInit {
+export class ChatComponent implements OnInit {
 
   userId!: any;
   profileData: any;
+  selectedUser: any;
+  loggedUserProfilePicturePath: any;
+  selectedUserProfilePicturePath: any;
 
   searchedUsers: any[] = [];
   searchActive: boolean = false;
   searchText: string = "";
   searchedText: string = "";
-  numberOfSearchResults: number =0;
-
+  numberOfChats: number = 0;
+  numberOfSearchResults: number = 0;
 
   userConnections: {
     connections?: any[];
@@ -33,17 +36,17 @@ export class ConnectionsComponent implements OnInit {
 
   showPanel: number = 0;
 
-
-
   constructor(private _AuthenticationService: AuthenticationService, 
               private _profileService: ProfileService,
               private _connectionService: ConnectionService,
               private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem('userId')
-    this.getUserDataById(this.userId)
-    this.getConnections()
+  this.userId = localStorage.getItem('userId')
+  this.getUserDataById(this.userId)
+
+  this.getConnections()
+
   }
 
   getUserDataById(userId: string){
@@ -51,68 +54,64 @@ export class ConnectionsComponent implements OnInit {
       response => {
           console.log("Response - ",response)
           this.profileData = response.user
+          this.setLoggedUserProfilePicture(this.profileData);
       })
   }
 
-  // Search
-  searchUsersByUsername(){
-    this.searchActive = true;
-    this.searchedText = this.searchText;
-      this._profileService.searchLoggedUser(this.searchText).subscribe(
-      response => {
-        console.log("Response LOGGED USER- ",response)
-        this.searchedUsers = response.Users
-        console.log("Response - ", this.searchedUsers)
-        this.numberOfSearchResults = this.searchedUsers.length
-      })
-  }
-  isMyProfile(userId:string){ 
-    if(this.userId == userId){
-      return true
+    // Search
+    searchUsersByUsername(){
+      this.searchActive = true;
+      this.searchedText = this.searchText;
+        this._profileService.searchLoggedUser(this.searchText).subscribe(
+        response => {
+          console.log("Response LOGGED USER- ",response)
+          this.searchedUsers = response.Users
+          console.log("Response - ", this.searchedUsers)
+          this.numberOfSearchResults = this.searchedUsers.length
+        })
     }
-    return false
-  }
-  isInConncetions(userId:string){
-    if (this.userConnections.connections){
-      if(this.userConnections.connections.includes(userId+'')){
-        return true
-      }
-    }
-    return false
-  }
-  isNotFriend(userId:string){}
-  isBlocked(userId:string){
-    if (this.userConnections.blocked){
-      if(this.userConnections.blocked.includes(userId+'')){
-        return true
-      }
-    }
-    return false
-  }
-  isPendingUser(userId:string){
-    if (this.userConnections.waitingResponse){
-      if(this.userConnections.waitingResponse.includes(userId+'')){
-        return true
-      }
-    }
-    return false
-  }
-  isUserWithRequest(userId:string){
-    if (this.userConnections.requests){
-      if(this.userConnections.requests.includes(userId+'')){
-        return true
-      }
-    }
-    return false
-  }
-  clearSearchResult(){
+    clearSearchResult(){
       this.searchActive = false;
       this.searchedText = "";
       this.numberOfSearchResults = 0;
       this.searchedUsers = [];
     }
 
-  // My Connections - Details
+
+  setLoggedUserProfilePicture(profileData: any){
+    if(profileData.gender === 'male'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.userId+'.jpg'
+    }else if(profileData.gender === 'female'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.userId+'.jpg'
+    }
+  }
+  getSelectedUserDataById(userId: string){
+    this._profileService.getUserById(userId).subscribe(
+      response => {
+          console.log("Response - ",response)
+          this.selectedUser = response.user
+          this.setSelectedUserProfilePicturePath(this.selectedUser)
+          this.setChatScrollerToBottom()
+
+      })
+  }
+  setChatScrollerToBottom(){
+    setTimeout(function(){
+      var scrollChat = document.getElementById('chatBox')
+      if(scrollChat){
+        console.log("SCROLL EXISTS")
+        scrollChat.scrollTop = scrollChat.scrollHeight;
+      }
+    }, 50)
+  }
+  setSelectedUserProfilePicturePath(selectedUser: any){
+    if(selectedUser.gender === 'male'){
+      this.selectedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/male/'+selectedUser.userId+'.jpg'
+    }else if(selectedUser.gender === 'female'){
+      this.selectedUserProfilePicturePath =  'http://xsgames.co/randomusers/assets/avatars/female/'+selectedUser.userId+'.jpg'
+    }
+  }
+
   getConnections(){
     this._connectionService.getConnectionsByUserId(this.userId).subscribe(
       response => {
@@ -120,52 +119,6 @@ export class ConnectionsComponent implements OnInit {
         this.userConnections = response;
       }
     )
-  }
-  getConnectionDetails(panelNumber: number){
-      this.userConnectionDetails =[];
-      console.log(this.userConnections.connections);
-      if (this.userConnections.connections && panelNumber == 1){
-        this.numberOfConnections = this.userConnections.connections.length!
-        for (let i = 0; i < this.numberOfConnections; i++) {
-          this._profileService.getUserById(this.userConnections.connections[i]).subscribe(
-            response => {
-                console.log("Response - ",response)
-                this.userConnectionDetails[i] = response.user
-            })
-        }
-      }
-      if (this.userConnections.requests && panelNumber == 2){
-        this.numberOfConnections = this.userConnections.requests.length!
-        for (let i = 0; i < this.numberOfConnections; i++) {
-          this._profileService.getUserById(this.userConnections.requests[i]).subscribe(
-            response => {
-                console.log("Response - ",response)
-                this.userConnectionDetails[i] = response.user
-            })
-        }
-      }
-      if (this.userConnections.waitingResponse && panelNumber == 3){
-        this.numberOfConnections = this.userConnections.waitingResponse.length!
-        for (let i = 0; i < this.numberOfConnections; i++) {
-          this._profileService.getUserById(this.userConnections.waitingResponse[i]).subscribe(
-            response => {
-                console.log("Response - ",response)
-                this.userConnectionDetails[i] = response.user
-            })
-        }
-      }
-      if (this.userConnections.blocked && panelNumber == 4){
-        this.numberOfConnections = this.userConnections.blocked.length!
-        for (let i = 0; i < this.numberOfConnections; i++) {
-          this._profileService.getUserById(this.userConnections.blocked[i]).subscribe(
-            response => {
-                console.log("Response - ",response)
-                this.userConnectionDetails[i] = response.user
-            })
-        }
-      }
-
-      console.log("userFriendsDetails - ",this.userConnectionDetails)
   }
 
   // My Connections - Actions
@@ -276,32 +229,51 @@ export class ConnectionsComponent implements OnInit {
    } 
 
   };
-
-  //Show/Hide panels:
-  showDefault(){ this.showPanel = 0;}
-  showFriends(){ 
-    this.showPanel = 1; 
-    this.getConnectionDetails(1)
+  isMyProfile(userId:string){ 
+    if(this.userId == userId){
+      return true
+    }
+    return false
   }
-  showRequests(){ 
-    this.showPanel = 2;
-    this.getConnectionDetails(2)
+  isInConnections(userId:string){
+    if (this.userConnections.connections){
+      if(this.userConnections.connections.includes(userId+'')){
+        return true
+      }
+    }
+    return false
   }
-  showPendings(){ 
-    this.showPanel = 3;
-    this.getConnectionDetails(3)
+  isNotFriend(userId:string){}
+  isBlocked(userId:string){
+    if (this.userConnections.blocked){
+      if(this.userConnections.blocked.includes(userId+'')){
+        return true
+      }
+    }
+    return false
   }
-  showBlockings(){ 
-    this.showPanel = 4;
-    this.getConnectionDetails(4)
+  isPendingUser(userId:string){
+    if (this.userConnections.waitingResponse){
+      if(this.userConnections.waitingResponse.includes(userId+'')){
+        return true
+      }
+    }
+    return false
+  }
+  isUserWithRequest(userId:string){
+    if (this.userConnections.requests){
+      if(this.userConnections.requests.includes(userId+'')){
+        return true
+      }
+    }
+    return false
   }
 
   //Reloads:
-  reloadSite(){window.location.href = "/connections";}
+  reloadSite(){window.location.href = "/chat";}
   //Redirections:
   redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
+  redirectConnections() { window.location.href = "/connections";  };
+  redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy"; };
 
 }
-
-
-

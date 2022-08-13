@@ -15,7 +15,7 @@
             </div>
         </li></div>
         <div *ngIf="user">
-        <li class="squircle">
+        <li class="squircle"  (click)="redirectChat()">
             <img class="icons" src = "/assets/images/icon-chats.svg" alt="chats-icon"/>
             <div class="popper">
                 <h4 class="popper-text">Chats</h4>

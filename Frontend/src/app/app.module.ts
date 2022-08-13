@@ -30,6 +30,7 @@ import { ForgotPasswordComponent } from './shared-components/modals/forgot-passw
 import { PasswordlessLoginComponent } from './shared-components/modals/passwordless-login/passwordless-login.component';
 import { AuthGuard } from './services/auth_guard/auth.guard';
 import { ConnectionsComponent } from './pages/connections/connections.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 
 
@@ -58,6 +59,7 @@ import { ConnectionsComponent } from './pages/connections/connections.component'
       ForgotPasswordComponent,
       PasswordlessLoginComponent,
       ConnectionsComponent,
+      ChatComponent,
   ],
   imports: [
     BrowserModule,
