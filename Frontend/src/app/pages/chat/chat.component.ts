@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ConnectionService } from 'src/app/services/connection.service';
+import { MessageService } from 'src/app/services/message.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
@@ -34,19 +35,22 @@ export class ChatComponent implements OnInit {
   userConnectionDetails: any = [];
   numberOfConnections?: number;
 
+  userMessages: any[] = [];
+  messageText: string = "";
+
   showPanel: number = 0;
 
   constructor(private _AuthenticationService: AuthenticationService, 
               private _profileService: ProfileService,
               private _connectionService: ConnectionService,
+              private _messageService: MessageService,
               private http: HttpClient) { }
 
   ngOnInit(): void {
-  this.userId = localStorage.getItem('userId')
-  this.getUserDataById(this.userId)
-
-  this.getConnections()
-
+    this.userId = localStorage.getItem('userId')
+    this.getUserDataById(this.userId)
+    this.getConnections()
+    this.getMessages()
   }
 
   getUserDataById(userId: string){
@@ -58,25 +62,25 @@ export class ChatComponent implements OnInit {
       })
   }
 
-    // Search
-    searchUsersByUsername(){
-      this.searchActive = true;
-      this.searchedText = this.searchText;
-        this._profileService.searchLoggedUser(this.searchText).subscribe(
-        response => {
-          console.log("Response LOGGED USER- ",response)
-          this.searchedUsers = response.Users
-          console.log("Response - ", this.searchedUsers)
-          this.numberOfSearchResults = this.searchedUsers.length
-        })
-    }
-    clearSearchResult(){
-      this.searchActive = false;
-      this.searchedText = "";
-      this.numberOfSearchResults = 0;
-      this.searchedUsers = [];
-    }
-
+  // Search
+  searchUsersByUsername(){
+    this.searchActive = true;
+    this.searchedText = this.searchText;
+      this._profileService.searchLoggedUser(this.searchText).subscribe(
+      response => {
+        console.log("Response LOGGED USER- ",response)
+        this.searchedUsers = response.Users
+        console.log("Response - ", this.searchedUsers)
+        this.numberOfSearchResults = this.searchedUsers.length
+      })
+  }
+  clearSearchResult(){
+    this.searchActive = false;
+    this.searchedText = "";
+    this.searchText = "";
+    this.numberOfSearchResults = 0;
+    this.searchedUsers = [];
+  }
 
   setLoggedUserProfilePicture(profileData: any){
     if(profileData.gender === 'male'){
@@ -92,7 +96,7 @@ export class ChatComponent implements OnInit {
           this.selectedUser = response.user
           this.setSelectedUserProfilePicturePath(this.selectedUser)
           this.setChatScrollerToBottom()
-
+          this.messageText = "";
       })
   }
   setChatScrollerToBottom(){
@@ -120,7 +124,6 @@ export class ChatComponent implements OnInit {
       }
     )
   }
-
   // My Connections - Actions
   popUpAction(message:string, userId:string, gender:string, username: string, name: string)  {
     let imagePath = 'http://xsgames.co/randomusers/assets/avatars/'+ gender +'/' + userId + '.jpg'
@@ -163,8 +166,8 @@ export class ChatComponent implements OnInit {
         this._connectionService.addFriend(userId).subscribe(
           response => {
             console.log("ADD FIREND - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Unfriend': { 
@@ -172,17 +175,17 @@ export class ChatComponent implements OnInit {
         this._connectionService.unfriend(userId).subscribe(
           response => {
             console.log("UNFRIEND - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
-        break; 
+          break; 
       } 
       case 'Block': { 
         console.log("BLOCK")
         this._connectionService.block(userId).subscribe(
           response => {
             console.log("BLOCK - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       }
       case 'Unblock': { 
@@ -190,8 +193,8 @@ export class ChatComponent implements OnInit {
         this._connectionService.unblock(userId).subscribe(
           response => {
             console.log("UNBLOCK - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Accept': { 
@@ -199,8 +202,8 @@ export class ChatComponent implements OnInit {
         this._connectionService.accept(userId).subscribe(
           response => {
             console.log("ACCEPT - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Decline': { 
@@ -208,8 +211,8 @@ export class ChatComponent implements OnInit {
         this._connectionService.decline(userId).subscribe(
           response => {
             console.log("DECLINE - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       }
       case 'Cancel friend request': { 
@@ -217,18 +220,20 @@ export class ChatComponent implements OnInit {
         this._connectionService.cancel(userId).subscribe(
           response => {
             console.log("CANCEL - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
-
       default: { 
-         //do nothing; 
          break; 
       } 
    } 
-
   };
+  refreshConnections(){
+    this.getConnections();
+    this.getSelectedUserDataById(this.selectedUser.id)
+  }
+
   isMyProfile(userId:string){ 
     if(this.userId == userId){
       return true
@@ -267,6 +272,30 @@ export class ChatComponent implements OnInit {
       }
     }
     return false
+  }
+
+  getMessages(){
+    this._messageService.getAllUsersMessagesByUserId(this.userId).subscribe(
+      response => {
+        console.log("getAllUsersMessagesByUserId - RESPONSE - ",response.messages);
+        this.userMessages = response.messages;
+        console.log(this.userMessages)
+      }
+    )
+  }
+  sendMessage(){
+    let message = {senderId: this.userId,
+                   receiverId: this.selectedUser.id,
+                   content: this.messageText,
+    }
+    console.log(message)
+    this._messageService.sendMessage(message).subscribe(
+      response => {
+        console.log("Response CHAT- ",response)
+        this.messageText = ""
+        this.setChatScrollerToBottom()
+        this.getMessages()
+    })
   }
 
   //Reloads:

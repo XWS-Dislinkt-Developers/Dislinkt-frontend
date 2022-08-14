@@ -108,6 +108,7 @@ export class ConnectionsComponent implements OnInit {
   clearSearchResult(){
       this.searchActive = false;
       this.searchedText = "";
+      this.searchText = "";
       this.numberOfSearchResults = 0;
       this.searchedUsers = [];
     }

@@ -58,21 +58,42 @@
 
             <div class="search-bar" >
 
-                <div class="search-form" style="width:90%; margin-top:30px;">
-                
-                  <input  type="search" id="searchInput" class="search-input" placeholder="Search chat" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
-                  <button type="submit" class="search-button" (click)="searchUsersByUsername()">
-                      <svg class="submit-button">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
-                      </svg>
-                  </button>
+                <div class="row" style="padding:0; margin:0;">
+
+                    <div class="col" style="padding:0; margin:0;">
+                        <div class="search-form" style="width:90%; ">
+                            <input  type="search" id="searchInput" class="search-input" placeholder="Search chat" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
+                            <button type="submit" class="search-button" (click)="searchUsersByUsername()">
+                                <svg class="submit-button">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-3" [ngStyle]="{'display': searchActive ? 'inline-block' : 'none' }"  style="padding:0; margin:0;">
+                        <div  class="centralizer-containter btn-group flex">
+                            <button class="primary-menu-button button-shadow" type="button" (click)="clearSearchResult()" style="margin:5px; font-size:14px;">
+                              <div class="inline-left-align-container">
+                                  <p>Clear</p>
+                              </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+                        <symbol id="search" viewBox="0 0 32 32">
+                            <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+                        </symbol>
+                    </svg>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
-                  <symbol id="search" viewBox="0 0 32 32">
-                      <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
-                  </symbol>
-                </svg>
-              </div>
+
+
+
+
+
+
+            </div>
 
               <!--
               <div *ngIf="searchActive"  class="centralizer-containter btn-group flex">
@@ -103,7 +124,7 @@
                             <h4 class="media-heading user-button-text" style="cursor:pointer;"> {{user.Name}}
                                 <small  style="cursor:pointer;"> - <i> {{user.Username}} </i></small>
                             </h4>
-                            <h6 class="user-button-text" *ngIf="isMyProfile(user.ID)"> You </h6>
+                            <h6 class="user-button-text" *ngIf="isMyProfile(user.ID)" style="margin-top:-10px; padding:0px;"> You </h6>
                             <h6 class="user-button-text" *ngIf="isInConnections(user.ID)" style="margin-top:-10px; padding:0px;">Friend </h6>
                             <h6 class="user-button-text" *ngIf="isUserWithRequest(user.ID)" style="margin-top:-10px; padding:0px;">Sent a friend request for you </h6>
                             <h6 class="user-button-text" *ngIf="isPendingUser(user.ID)" style="margin-top:-10px; padding:0px;">You already sent a friend request </h6>
@@ -117,12 +138,12 @@
                 <div *ngIf="(numberOfChats == 0) && (numberOfSearchResults == 0) && !searchedText" class="d-flex flex-column align-items-center">
                     <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
                     <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
-                    <h3 style="opacity:0.5; text-align: center;"> You don't have any chats.</h3 >
+                    <h4 style="opacity:0.5; text-align: center;"> Meet new people every day to enhance your business skills.</h4 >
                 </div>
                 <div *ngIf="searchedText && (numberOfSearchResults == 0)" class="d-flex flex-column align-items-center">
                     <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
                     <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
-                    <h3 style="opacity:0.5; text-align: center;"> No results.</h3 >
+                    <h4 style="opacity:0.5; text-align: center;"> No results.</h4 >
                 </div>
          
               </section>
@@ -172,8 +193,8 @@
                                 </div>
                             </span>
                         </h4>
-                            <h6 *ngIf="isMyProfile(selectedUser.userId)">You</h6>
-                            <h6 *ngIf="isInConnections(selectedUser.userId)" style="margin-top:-5px; ">Friend </h6>
+                            <h6 *ngIf="isMyProfile(selectedUser.userId)" style="margin-top:-5px;">You</h6>
+                            <h6 *ngIf="isInConnections(selectedUser.userId)" style="margin-top:-5px;">Friend </h6>
                             <h6 *ngIf="isUserWithRequest(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Sent a friend request for you
                                 <span> &nbsp;
                                     <div class="dropdown">
@@ -232,53 +253,28 @@
                     </div>
                 </div> 
 
-                <div id="chatBox" style="position: relative; overflow:auto; height:calc(100% - 265px)!important; padding:20px; background-image:url(./../../../assets/images/doggies.png);">
-                    <div class="message my_message">
-                        <p>Hi<br><span>12:15</span></p>
+                <div id="chatBox" [ngStyle]="{'opacity': !isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId)) ? 0.7 : 1.0 }" style="position: relative; overflow:auto; height:calc(100% - 265px)!important; padding:20px; background-image:url(./../../../assets/images/doggies.png);">
+                    <div *ngFor="let message of userMessages"> 
+                        <div *ngIf="(message.senderId == userId && message.receiverId == selectedUser.userId) ||  
+                                    (message.senderId == selectedUser.userId && message.receiverId == userId) ">
+                            <div *ngIf="message.senderId == userId" class="message my_message"> <p>{{message.content}} </p> </div>
+                            <div *ngIf="message.receiverId == userId" class="message others_message"> <p>{{message.content}} </p> </div>
+                        </div>
                     </div>
-                    <div class="message others_message">
-                        <p>Hello<br><span>12:15</span></p>
-                    </div>
-                    <div class="message my_message">
-                        <p>Lorem ipsum dolor sit amet. 😊😊 <br><span>12:15</span></p>
-                    </div>
-                    <div class="message others_message">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.😊 <br><span>12:15</span></p>
-                    </div>
-                    <div class="message my_message">
-                        <p>😊<br><span>12:15</span></p>
-                    </div>
-                    <div class="message others_message">
-                        <p>Yea yea yea 🔥🔥🔥<br><span>12:15</span></p>
-                    </div>
-                    <div class="message my_message">
-                        <p>Ide gas<br><span>12:15</span></p>
-                    </div>
-                    <div class="message others_message">
-                        <p>Yes PEROO<br><span>12:15</span></p>
-                    </div>
-                    <div class="message my_message">
-                        <p>Great SUCCESS!!<br><span>12:15</span></p>
-                    </div>
-                    <div class="message others_message">
-                        <p>Bezi brt<br><span>12:15</span></p>
-                
-
-                </div>
-
-
-
                 </div>
 
                 <div class="rounded chatbox_input" style="position: relative; overflow:auto; height:70px; max-height:70px!important; padding:10px; background-color:#2a2f35" >
-                 
-                    <textarea class="input-text" type="text" placeholder style="resize: none;"></textarea>
-                    <button class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+                    <textarea [disabled]="!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId))" 
+                              wrap="hard" maxlength="300" (keydown.enter)="sendMessage()"
+                              [(ngModel)]="messageText" ngDefaultControl maxlength="100"
+                              class="input-text " type="text" placeholder style="resize: none;"></textarea>
+                    <button *ngIf="!(!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId)))" 
+                            class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button"
+                            (click)="sendMessage()">
                         <div class="inline-left-align-container">
                             <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
                         </div>
-                    </button>
-                   
+                    </button>    
                 </div>
 
             </div>
@@ -288,6 +284,7 @@
                     background-attachment: fixed;
                     background-position: center;
                     background-size: 300px 300px;">
+
             </div>
 
         </div>
