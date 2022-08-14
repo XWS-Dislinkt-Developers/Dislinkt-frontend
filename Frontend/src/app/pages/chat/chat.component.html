@@ -1,0 +1,294 @@
+<div class="chat-component">
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <!--<app-top-search-bar></app-top-search-bar> -->
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+    <app-registration-modal></app-registration-modal>
+    <app-sign-in-modal></app-sign-in-modal>
+    <app-sign-out-modal></app-sign-out-modal>
+    <app-forgot-password></app-forgot-password>
+    <app-passwordless-login></app-passwordless-login>
+  
+   <!-- <p (click)="getConnections()"> aaaaaa </p> -->
+
+    <div class="row" style="height:100%;" >
+
+        <div class="col-lg-4 d-xs-none d-none d-lg-block d-xl-block rounded border border border-dark"  style="padding:0px; max-height: 100%;">
+          
+            <div class="page-heading-left" style="max-height: 130px; overflow:hidden">
+
+                <div class="media clearfix">
+
+                  <div class="media-left pr30">
+                    <a>
+                        <img  [src]="this.loggedUserProfilePicturePath"  class="media-object mw70 rounded-circle shadow-4 overflow-hidden">
+                    </a>
+                  </div>
+                  
+                  <div class="media-body " >
+                    <h4 class="media-heading " style="margin: 0px 10px 15px 10px; "> {{profileData.name}}
+                        <span> &nbsp; 
+                            <button class="primary-menu-button button-shadow" style="font-size:15px; margin:auto; padding:5px;"  type="button" (click)="redirectToUserProfile(profileData.userId)">
+                                <div class="inline-left-align-container">
+                                    <img class="card-title-icon" style="width:15px; height:auto;" src = "/assets/images/icon-my-profile.svg" alt="personal-data-icon"/>
+                                </div>
+                            </button>
+                        </span>
+                        <span>
+                            <button class="primary-menu-button button-shadow" type="button" (click)="redirectConnections()">
+                                <div class="inline-left-align-container">
+                                    <img class="card-title-icon" style="width:15px; height:auto;" src = "/assets/images/icon-friends.svg" alt="personal-data-icon"/>
+                                </div>
+                            </button>
+                        </span>
+                        <span>
+                            <button class="primary-menu-button button-shadow" style="font-size:15px; padding:5px;"  type="button" (click)="redirectSettingsAndPrivacy()">
+                                <div class="inline-left-align-container">
+                                    <img class="card-title-icon" style="width:15px; height:auto;" src = "/assets/images/icon-settings-and-privacy.svg" alt="personal-data-icon"/>
+                                </div>
+                            </button>
+                        </span>
+                    </h4>
+                  </div>
+
+                </div>
+              
+            </div> 
+
+            <div class="search-bar" >
+
+                <div class="row" style="padding:0; margin:0;">
+
+                    <div class="col" style="padding:0; margin:0;">
+                        <div class="search-form" style="width:90%; ">
+                            <input  type="search" id="searchInput" class="search-input" placeholder="Search chat" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
+                            <button type="submit" class="search-button" (click)="searchUsersByUsername()">
+                                <svg class="submit-button">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-3" [ngStyle]="{'display': searchActive ? 'inline-block' : 'none' }"  style="padding:0; margin:0;">
+                        <div  class="centralizer-containter btn-group flex">
+                            <button class="primary-menu-button button-shadow" type="button" (click)="clearSearchResult()" style="margin:5px; font-size:14px;">
+                              <div class="inline-left-align-container">
+                                  <p>Clear</p>
+                              </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+                        <symbol id="search" viewBox="0 0 32 32">
+                            <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+                        </symbol>
+                    </svg>
+                </div>
+
+
+
+
+
+
+            </div>
+
+              <!--
+              <div *ngIf="searchActive"  class="centralizer-containter btn-group flex">
+                <button class="primary-menu-button button-shadow" type="button" (click)="clearSearchResult()">
+                  <div class="inline-left-align-container">
+                      <p>Clear</p>
+                  </div>
+                </button>
+                <h6 style="opacity:0.5; text-align: center; align-items:center; margin-top: 25px; margin-left: 5px;"> Search for: "{{searchedText}}"</h6>
+              </div>
+                -->
+
+              <!--
+              <label class="label-text" style="float:right;" for=""><b> {{numberOfSearchResults}} search results </b></label>
+              
+              -->
+              <section style="position: relative; overflow-y:auto; height:calc(100% - 200px)!important; padding:5px;">
+                <div>
+                  <div class="page-heading user-button button-shadow" *ngFor="let user of searchedUsers" style="padding:2px;" >
+                    <div class="media clearfix " (click)="getSelectedUserDataById(user.ID)" style="cursor:pointer">
+                        <div class="media-left pr30" >
+                            <a>
+                                <img *ngIf="user.Gender === 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.ID+'.jpg'"  class="media-object mw50 rounded-circle shadow-4 overflow-hidden" >
+                                <img *ngIf="user.Gender === 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.ID+'.jpg'"  class="media-object mw50 rounded-circle shadow-4 overflow-hidden" >                       
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading user-button-text" style="cursor:pointer;"> {{user.Name}}
+                                <small  style="cursor:pointer;"> - <i> {{user.Username}} </i></small>
+                            </h4>
+                            <h6 class="user-button-text" *ngIf="isMyProfile(user.ID)" style="margin-top:-10px; padding:0px;"> You </h6>
+                            <h6 class="user-button-text" *ngIf="isInConnections(user.ID)" style="margin-top:-10px; padding:0px;">Friend </h6>
+                            <h6 class="user-button-text" *ngIf="isUserWithRequest(user.ID)" style="margin-top:-10px; padding:0px;">Sent a friend request for you </h6>
+                            <h6 class="user-button-text" *ngIf="isPendingUser(user.ID)" style="margin-top:-10px; padding:0px;">You already sent a friend request </h6>
+                            <h6 class="user-button-text" *ngIf="isBlocked(user.ID)"style="margin-top:-10px; padding:0px;">Blocked user by you </h6>
+                            <h6 class="user-button-text" *ngIf="!isMyProfile(user.ID) && !isInConnections(user.ID) && !isUserWithRequest(user.ID) && !isPendingUser(user.ID) && !isBlocked(user.ID)" style="margin-top:-10px; padding:0px;">Non-friend user </h6>
+                        </div>
+                    </div>
+                  </div> 
+                </div>
+          
+                <div *ngIf="(numberOfChats == 0) && (numberOfSearchResults == 0) && !searchedText" class="d-flex flex-column align-items-center">
+                    <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+                    <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+                    <h4 style="opacity:0.5; text-align: center;"> Meet new people every day to enhance your business skills.</h4 >
+                </div>
+                <div *ngIf="searchedText && (numberOfSearchResults == 0)" class="d-flex flex-column align-items-center">
+                    <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+                    <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+                    <h4 style="opacity:0.5; text-align: center;"> No results.</h4 >
+                </div>
+         
+              </section>
+            
+    
+        </div>
+    
+        <div class="col-lg-8 rounded border border border-dark" style="padding:0px; max-height: 100%;">
+    
+            <div *ngIf="selectedUser" style="margin:0px; height: 100%;">
+
+                <div class="page-heading" style="margin-top:15px;margin-bottom:3px; height:180px; overflow:hidden">
+                    <div class="media clearfix">
+                      <div class="media-left pr30">
+                        <a>
+                            <img  [src]="this.selectedUserProfilePicturePath"  class="media-object mw100 rounded-circle shadow-4 overflow-hidden">
+                        </a>
+                      </div>
+                      <div class="media-body overflow-hidden" >
+                        <h4 class="media-heading overflow-visible"> {{selectedUser.name}}
+                            <small> - <i> {{selectedUser.username}} </i></small>
+                            <span *ngIf="selectedUser.isPrivateProfile === 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                            <span *ngIf="selectedUser.isPrivateProfile === 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                            <span> &nbsp;
+                                <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" (click)="redirectToUserProfile(selectedUser.userId)">
+                                    <div class="inline-left-align-container">
+                                        <p>View profile</p>
+                                    </div>
+                                </button>
+                            </span>
+                            <span>
+                                <button *ngIf="isInConnections(selectedUser.userId)" class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                    (click)="popUpAction('Unfriend', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                    <div class="inline-left-align-container">
+                                        <p>Unfriend</p>
+                                    </div>
+                                </button>
+                            </span>
+                            <span>
+                                <div *ngIf="!isMyProfile(selectedUser.userId)" class="dropdown">
+                                    <button *ngIf="!isBlocked(selectedUser.userId)" class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                            (click)="popUpAction('Block', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                        <div class="inline-left-align-container">
+                                            <p>Block user</p>
+                                        </div>
+                                    </button>
+                                </div>
+                            </span>
+                        </h4>
+                            <h6 *ngIf="isMyProfile(selectedUser.userId)" style="margin-top:-5px;">You</h6>
+                            <h6 *ngIf="isInConnections(selectedUser.userId)" style="margin-top:-5px;">Friend </h6>
+                            <h6 *ngIf="isUserWithRequest(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Sent a friend request for you
+                                <span> &nbsp;
+                                    <div class="dropdown">
+                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                                (click)="popUpAction('Accept', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                                <div class="inline-left-align-container">
+                                            <p>Accept</p>
+                                            </div>
+                                        </button>
+                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                                (click)="popUpAction('Decline', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                            <div class="inline-left-align-container">
+                                                <p>Decline</p>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </span>
+                            </h6>
+                            <h6 *ngIf="isPendingUser(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">You already sent a friend request
+                                <span> &nbsp;
+                                    <div class="dropdown">
+                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                            (click)="popUpAction('Cancel friend request', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                            <div class="inline-left-align-container">
+                                                <p>Cancel request</p>
+                                            </div>
+                                        </button>    
+                                    </div>
+                                </span>
+                            </h6>
+                            <h6 *ngIf="isBlocked(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Blocked user by you
+                                <span> &nbsp;
+                                    <div class="dropdown">
+                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                            (click)="popUpAction('Unblock', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                            <div class="inline-left-align-container">
+                                                <p>Ublock</p>
+                                            </div>
+                                        </button>    
+                                    </div>
+                                </span>
+                            </h6>
+                            <h6 *ngIf="!isMyProfile(selectedUser.userId) && !isInConnections(selectedUser.userId) && !isUserWithRequest(selectedUser.userId) && !isPendingUser(selectedUser.userId) && !isBlocked(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Non-friend user
+                                <span> &nbsp;
+                                    <div class="dropdown">
+                                        <button  class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
+                                            (click)="popUpAction('Add friend', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
+                                            <div class="inline-left-align-container">
+                                                <p>Add friend</p>
+                                            </div>
+                                        </button>    
+                                    </div>
+                                </span>
+                            </h6>
+                      </div>
+                    </div>
+                </div> 
+
+                <div id="chatBox" [ngStyle]="{'opacity': !isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId)) ? 0.7 : 1.0 }" style="position: relative; overflow:auto; height:calc(100% - 265px)!important; padding:20px; background-image:url(./../../../assets/images/doggies.png);">
+                    <div *ngFor="let message of userMessages"> 
+                        <div *ngIf="(message.senderId == userId && message.receiverId == selectedUser.userId) ||  
+                                    (message.senderId == selectedUser.userId && message.receiverId == userId) ">
+                            <div *ngIf="message.senderId == userId" class="message my_message"> <p>{{message.content}} </p> </div>
+                            <div *ngIf="message.receiverId == userId" class="message others_message"> <p>{{message.content}} </p> </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded chatbox_input" style="position: relative; overflow:auto; height:70px; max-height:70px!important; padding:10px; background-color:#2a2f35" >
+                    <textarea [disabled]="!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId))" 
+                              wrap="hard" maxlength="300" (keydown.enter)="sendMessage()"
+                              [(ngModel)]="messageText" ngDefaultControl maxlength="100"
+                              class="input-text " type="text" placeholder style="resize: none;"></textarea>
+                    <button *ngIf="!(!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId)))" 
+                            class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button"
+                            (click)="sendMessage()">
+                        <div class="inline-left-align-container">
+                            <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
+                        </div>
+                    </button>    
+                </div>
+
+            </div>
+        
+            <div *ngIf="!selectedUser" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    background-position: center;
+                    background-size: 300px 300px;">
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>

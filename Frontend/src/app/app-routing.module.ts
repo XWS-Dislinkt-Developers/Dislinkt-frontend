@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ChatComponent } from './pages/chat/chat.component';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
@@ -18,9 +19,10 @@ const routes: Routes = [
           { path: 'settings-and-privacy/update-personal-data', component: UpdatePersonalDataComponent, canActivate: [AuthGuard]},
           { path: 'settings-and-privacy/update-skills-and-interests', component: UpdateSkillsAndInterestsComponent, canActivate: [AuthGuard]},
           { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent, canActivate: [AuthGuard]},
-  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'profile/:userId', component: ProfileComponent},
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'connections', component: ConnectionsComponent},
+  { path: 'chat', component: ChatComponent},
   { path:'**', redirectTo: ''}
 ];
 
