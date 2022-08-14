@@ -66,12 +66,12 @@
 
   .page-heading-left{
     position: relative;
-	padding: 30px 20px;
-	margin: 5px;
+    padding: 30px 20px;
+    margin: 5px;
     margin-bottom: 25px;
-	border-bottom: 1px solid --dark-navbar;
-	background-color: var(--dark-main);
-	border-radius: 10px;
+    border-bottom: 1px solid --dark-navbar;
+    background-color: var(--dark-main);
+    border-radius: 10px;
   }
 
   .media {
@@ -396,6 +396,8 @@ label > input[type="radio"] {
   width: 100%;
   margin: 5px 0px;
   z-index: 1.2;
+
+
 }
 .message p {
   position: relative;
@@ -407,6 +409,7 @@ label > input[type="radio"] {
   color: #A4A4A4;
   border-radius:10px;
   font-size: 0.9rem;
+  word-wrap: break-word;
 }
 .message p::before{
   content:'';

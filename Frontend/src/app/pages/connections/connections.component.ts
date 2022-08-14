@@ -14,6 +14,7 @@ export class ConnectionsComponent implements OnInit {
 
   userId!: any;
   profileData: any;
+  loggedUserProfilePicturePath: any;
 
   searchedUsers: any[] = [];
   searchActive: boolean = false;
@@ -51,7 +52,15 @@ export class ConnectionsComponent implements OnInit {
       response => {
           console.log("Response - ",response)
           this.profileData = response.user
+          this.setLoggedUserProfilePicture(this.profileData);
       })
+  }
+  setLoggedUserProfilePicture(profileData: any){
+    if(profileData.gender === 'male'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.userId+'.jpg'
+    }else if(profileData.gender === 'female'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.userId+'.jpg'
+    }
   }
 
   // Search
@@ -72,7 +81,7 @@ export class ConnectionsComponent implements OnInit {
     }
     return false
   }
-  isInConncetions(userId:string){
+  isInConnections(userId:string){
     if (this.userConnections.connections){
       if(this.userConnections.connections.includes(userId+'')){
         return true
@@ -301,6 +310,9 @@ export class ConnectionsComponent implements OnInit {
   reloadSite(){window.location.href = "/connections";}
   //Redirections:
   redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
+  redirectChats() { window.location.href = "/chat";  };
+  redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy"; };
+
 
 }
 
