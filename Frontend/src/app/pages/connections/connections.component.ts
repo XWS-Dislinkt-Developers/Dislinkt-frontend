@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -10,16 +11,20 @@ import Swal from 'sweetalert2';
   templateUrl: './connections.component.html',
   styleUrls: ['./connections.component.css']
 })
+
+
 export class ConnectionsComponent implements OnInit {
 
   userId!: any;
   profileData: any;
+  loggedUserProfilePicturePath: any;
 
   searchedUsers: any[] = [];
   searchActive: boolean = false;
   searchText: string = "";
-  searchedText: string = "";
+  searchedText: string ="";
   numberOfSearchResults: number =0;
+
 
 
   userConnections: {
@@ -33,17 +38,16 @@ export class ConnectionsComponent implements OnInit {
 
   showPanel: number = 0;
 
-
-
   constructor(private _AuthenticationService: AuthenticationService, 
               private _profileService: ProfileService,
               private _connectionService: ConnectionService,
+              private activatedRoute: ActivatedRoute,
               private http: HttpClient) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
     this.getUserDataById(this.userId)
-    this.getConnections()
+    this.getRouteParam()
   }
 
   getUserDataById(userId: string){
@@ -51,7 +55,16 @@ export class ConnectionsComponent implements OnInit {
       response => {
           console.log("Response - ",response)
           this.profileData = response.user
+          this.setLoggedUserProfilePicture(this.profileData);
+          this.getConnections()
       })
+  }
+  setLoggedUserProfilePicture(profileData: any){
+    if(profileData.gender === 'male'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.userId+'.jpg'
+    }else if(profileData.gender === 'female'){
+      this.loggedUserProfilePicturePath = 'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.userId+'.jpg'
+    }
   }
 
   // Search
@@ -72,7 +85,7 @@ export class ConnectionsComponent implements OnInit {
     }
     return false
   }
-  isInConncetions(userId:string){
+  isInConnections(userId:string){
     if (this.userConnections.connections){
       if(this.userConnections.connections.includes(userId+'')){
         return true
@@ -119,8 +132,17 @@ export class ConnectionsComponent implements OnInit {
       response => {
         console.log("getConnectionsByUserId - RESPONSE - ",response)
         this.userConnections = response;
+        this.getConnectionDetails(this.showPanel)
       }
     )
+  }
+  getRouteParam() {
+      this.activatedRoute.queryParams.subscribe(params=>{
+        console.log("PARAMS FROM CHAT: ",params)
+        if(params.showPanel=="blocking"){
+          this.showBlockings()        }
+      })
+  
   }
   getConnectionDetails(panelNumber: number){
       this.userConnectionDetails =[];
@@ -165,7 +187,7 @@ export class ConnectionsComponent implements OnInit {
             })
         }
       }
-
+      this.searchUsersByUsername()
       console.log("userFriendsDetails - ",this.userConnectionDetails)
   }
 
@@ -211,8 +233,8 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.addFriend(userId).subscribe(
           response => {
             console.log("ADD FIREND - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Unfriend': { 
@@ -220,17 +242,17 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.unfriend(userId).subscribe(
           response => {
             console.log("UNFRIEND - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
-        break; 
+          break; 
       } 
       case 'Block': { 
         console.log("BLOCK")
         this._connectionService.block(userId).subscribe(
           response => {
             console.log("BLOCK - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       }
       case 'Unblock': { 
@@ -238,8 +260,8 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.unblock(userId).subscribe(
           response => {
             console.log("UNBLOCK - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Accept': { 
@@ -247,8 +269,8 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.accept(userId).subscribe(
           response => {
             console.log("ACCEPT - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
       case 'Decline': { 
@@ -256,8 +278,8 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.decline(userId).subscribe(
           response => {
             console.log("DECLINE - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       }
       case 'Cancel friend request': { 
@@ -265,11 +287,10 @@ export class ConnectionsComponent implements OnInit {
         this._connectionService.cancel(userId).subscribe(
           response => {
             console.log("CANCEL - RESPONSE - ",response)
+            this.refreshConnections()
           })
-        this.reloadSite()
         break; 
       } 
-
       default: { 
          //do nothing; 
          break; 
@@ -277,6 +298,14 @@ export class ConnectionsComponent implements OnInit {
    } 
 
   };
+  refreshConnections(){
+    this.getConnections()
+  }
+  delay(ms:number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+
 
   //Show/Hide panels:
   showDefault(){ this.showPanel = 0;}
@@ -298,9 +327,12 @@ export class ConnectionsComponent implements OnInit {
   }
 
   //Reloads:
-  reloadSite(){window.location.href = "/connections";}
+  reloadSite() {window.location.href = "/connections";}
   //Redirections:
-  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
+  redirectChats() { window.location.href = "/chat";  };
+  redirectChatsWithUser(id: number){ window.location.href = "/chat?userId="+ id}
+  redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy" };
+  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id  };
 
 }
 

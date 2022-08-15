@@ -14,321 +14,394 @@
 
     <div class="row" style="height:100%;" >
 
-        <div class="col-lg-5 rounded border border border-dark" >
+      <div class="col-lg-5 d-xs-none d-none d-lg-block d-xl-block rounded border border border-dark"  style="padding:0px; max-height: 100%;">
           
-          <h3 style="opacity:0.5; text-align: center; margin-bottom: 10%; margin-top: 10px;"> Make new connections</h3>
+        <div class="page-heading-left" style="max-height: 130px; overflow:hidden">
+            <div class="media clearfix">
+              <div class="media-left pr30">
+                <a>
+                    <img  [src]="this.loggedUserProfilePicturePath"  class="media-object mw70 rounded-circle shadow-4 overflow-hidden">
+                </a>
+              </div>
+              <div class="media-body " >
+                <h4 class="media-heading " style="margin: 0px 10px 15px 10px; "> {{profileData.name}}
+                    <span> &nbsp; 
+                        <button class="primary-menu-button button-shadow" style="font-size:15px; margin:auto; padding:5px;"  type="button" (click)="redirectToUserProfile(profileData.userId)">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" style="width:auto; height:15px;" src = "/assets/images/icon-my-profile.svg" alt="personal-data-icon"/>
+                            </div>
+                        </button>
+                    </span>
+                    <span>
+                        <button class="primary-menu-button button-shadow" type="button" (click)="redirectChats()">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" style="width:auto; height:15px;" src = "/assets/images/icon-chats.svg" alt="personal-data-icon"/>
+                            </div>
+                        </button>
+                    </span>
+                    <span>
+                        <button class="primary-menu-button button-shadow" style="font-size:15px; padding:5px;"  type="button" (click)="redirectSettingsAndPrivacy()">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" style="width:auto; height:15px;" src = "/assets/images/icon-settings-and-privacy.svg" alt="personal-data-icon"/>
+                            </div>
+                        </button>
+                    </span>
+                </h4>
+              </div>
+            </div>
+        </div> 
 
-            <div class="search-bar" >
-
-                <div class="search-form">
-                  <input  type="search" id="searchInput" class="search-input" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
-                  <button type="submit" class="search-button" (click)="searchUsersByUsername()" >
-                      <svg class="submit-button">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
-                      </svg>
-                  </button>
+        <div class="search-bar" >
+            <div class="row" style="padding:0; margin:0;">
+                <div class="col" style="padding:0; margin:0;">
+                    <div class="search-form" style="width:90%; ">
+                        <input  type="search" id="searchInput" class="search-input" placeholder="Search users" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
+                        <button type="submit" class="search-button" (click)="searchUsersByUsername()">
+                            <svg class="submit-button">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-3" [ngStyle]="{'display': searchActive ? 'inline-block' : 'none' }"  style="padding:0; margin:0;">
+                    <div  class="centralizer-containter btn-group flex">
+                        <button class="primary-menu-button button-shadow" type="button" (click)="clearSearchResult()" style="margin:5px; font-size:14px;">
+                          <div class="inline-left-align-container">
+                              <p>Clear</p>
+                          </div>
+                        </button>
+                    </div>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
-                  <symbol id="search" viewBox="0 0 32 32">
-                      <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
-                  </symbol>
+                    <symbol id="search" viewBox="0 0 32 32">
+                        <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+                    </symbol>
                 </svg>
-              </div>
-          
-              <div *ngIf="searchActive"  class="centralizer-containter btn-group flex">
-                <button class="primary-menu-button button-shadow" type="button" (click)="clearSearchResult()">
-                  <div class="inline-left-align-container">
-                      <p>Clear</p>
-                  </div>
-                </button>
-
-                <h6 style="opacity:0.5; text-align: center; align-items:center; margin-top: 25px; margin-left: 5px;"> Search for: "{{searchedText}}"</h6>
-              </div>
-              <label class="label-text" style="float:right;" for=""><b> {{numberOfSearchResults}} search results </b></label>
-
-              <section id="content" class="container" style="overflow:auto;">
-                <div>
-                  <div class="page-heading  " *ngFor="let user of searchedUsers" >
-                    <div class="media clearfix ">
-                      <div class="media-left pr30">
-                        <a>
-                          <img *ngIf="user.Gender == 'male'" style="cursor:pointer;" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4" (click)="redirectToUserProfile(user.ID)">
-                          <img *ngIf="user.Gender == 'female'" style="cursor:pointer;" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4" (click)="redirectToUserProfile(user.ID)">
-                        </a>
-                      </div>
-                      <div class="media-body" >
-                        <h2 class="media-heading" style="cursor:pointer;" (click)="redirectToUserProfile(user.ID)"> {{user.Name}}
-                          <small (click)="redirectToUserProfile(user.ID)" style="cursor:pointer;"> - <i> {{user.Username}} </i></small>
-                          <span *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px;  width:15px; height:15px;" (click)="redirectToUserProfile(user.ID)"/> </span>
-                          <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;" (click)="redirectToUserProfile(user.ID)"/> </span>
-                        </h2>
-                        <p class="lead truncate-2"><i>Biography:</i>  &nbsp; {{user.Biography}} </p>
-                     </div>
-
-                     <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
-
-                      <div class="centralizer-containter" style="margin-bottom:5px;">
-
-                        <button class="primary-menu-button button-shadow" style="font-size:15px;" type="button" 
-                                (click)="redirectToUserProfile(user.ID)">
-                          <div class="inline-left-align-container">
-                              <p>View profile</p>
-                          </div>
-                        </button>
-
-                        <button *ngIf="isMyProfile(user.ID)" class="primary-menu-button button-shadow button-still" style="font-size:15px; border-radius:5px;" type="button">
-                          <div class="inline-left-align-container">
-                              <p>My profile</p>
-                          </div>
-                      </button>
-                        <button *ngIf="isInConncetions(user.ID)" class="primary-menu-button button-shadow button-still" style="font-size:15px; border-radius:5px;" type="button">
-                            <div class="inline-left-align-container">
-                                <p>Friend</p>
-                            </div>
-                        </button>
-                      <button *ngIf="isPendingUser(user.ID)" class="primary-menu-button button-shadow button-still" style="font-size:15px; border-radius:5px;" type="button">
-                          <div class="inline-left-align-container">
-                              <p>Pending</p>
-                          </div>
-                      </button>
-                      <button *ngIf="isUserWithRequest(user.ID)" class="primary-menu-button button-shadow button-still" style="font-size:15px; border-radius:5px;" type="button">
-                        <div class="inline-left-align-container">
-                            <p>Send a request</p>
-                        </div>
-                    </button>
-
-                        <div *ngIf="!isMyProfile(user.ID)" class="dropdown">
-                          <button class="primary-menu-button button-shadow" style="font-size:15px;"  type="button">
-                            <div class="inline-left-align-container">
-                                <p>Actions</p>
-                            </div>
-                          </button>
-                          <div class="dropdown-content">
-
-                            <button class="styless-button" (click)="popUpAction('Add friend', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="!isInConncetions(user.ID) && !isPendingUser(user.ID) && !isBlocked(user.ID) && !isUserWithRequest(user.ID)"> Add friend</a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Accept', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="!isInConncetions(user.ID) && !isPendingUser(user.ID) && !isBlocked(user.ID) && isUserWithRequest(user.ID)"> Accept request</a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Decline', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="!isInConncetions(user.ID) && !isPendingUser(user.ID) && !isBlocked(user.ID) && isUserWithRequest(user.ID)"> Decline request</a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Cancel friend request',  user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="!isInConncetions(user.ID) && isPendingUser(user.ID) && !isBlocked(user.ID) && !isUserWithRequest(user.ID)"> Cancel request</a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Unfriend', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="isInConncetions(user.ID)"> Unfriend user</a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Block', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="!isBlocked(user.ID)"> Block user </a>
-                            </button>
-
-                            <button class="styless-button" (click)="popUpAction('Unblock', user.ID, user.Gender, user.Name, user.Username)">
-                              <a *ngIf="isBlocked(user.ID)"> Unblock user</a>
-                            </button>
-
-                          </div>
-                        </div>
-
-        
-                    </div>
-
-
-
-                      <!-- TODO: Profile options
-                      <button class="primary-menu-button" type="button"> <p>Message</p> </button>
-                      <button class="primary-menu-button" type="button"> <p>Link</p> </button>
-                      <button class="primary-menu-button" type="button"> <p>Unlink</p> </button>
-                      <button class="primary-menu-button" type="button"> <p>Accept Request</p> </button>
-                      <button class="primary-menu-button" type="button"> <p>Block</p> </button>
-                      <button class="primary-menu-button" type="button"> <p>Unblock</p> </button>
-                     -->
-                    </div>
-                    </div>
-                  </div> 
-                </div>
-          
-                <div *ngIf="numberOfSearchResults == 0" class="d-flex flex-column align-items-center">
-                    <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
-                    <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
-                    <h3 style="opacity:0.5; text-align: center;"> No users found.</h3 >
-          
-                </div>
-         
-              </section>
-    
-        </div>
-    
-        <div class="col-lg-7 rounded border border border-dark">
-    
-          <div class="container">
-
-            <h3 style="opacity:0.5; text-align: center; margin-top: 10px;"> My connections</h3 >
-
-            <div class="centralizer-containter" style="margin-bottom:5px;">
-
-                <button class="primary-menu-button button-shadow" type="button" (click)="showFriends()">
-                    <div class="inline-left-align-container">
-                        <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-friends.svg" alt="personal-data-icon"/>
-                        <p>Friends</p>
-                    </div>
-                </button>
-
-                <button class="primary-menu-button button-shadow" type="button" (click)="showRequests()">
-                    <div class="inline-left-align-container">
-                        <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-request.svg" alt="skills-and-interests-icon"/>
-                        <p>Requests</p>
-                    </div>
-                </button>
-
-                <button class="primary-menu-button button-shadow" type="button" (click)="showPendings()" >
-                    <div class="inline-left-align-container">
-                        <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-waiting-for-response.svg" alt="work-and-education-icon"/>
-                        <p>Pending</p>
-                    </div>
-                </button>
-                
-                <button class="primary-menu-button button-shadow" type="button" (click)="showBlockings()">
-                  <div class="inline-left-align-container">
-                      <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-blocking.svg" alt="work-and-education-icon"/>
-                      <p>Blocking</p>
-                  </div>
-                </button>
-
             </div>
+        </div>
 
+        <section style="position: relative; overflow-y:auto; height:calc(100% - 200px)!important; padding:5px;">
+            <div>
+              <div class="page-heading user-button button-shadow" *ngFor="let user of searchedUsers" style="padding:5px;" >
+                <div class="media clearfix">
+                    <div class="media-left pr30" style="width:60px; max-width: 60px;">
+                        <a>
+                            <img *ngIf="user.Gender === 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.ID+'.jpg'"  class="media-object mw50 rounded-circle shadow-4 overflow-hidden" >
+                            <img *ngIf="user.Gender === 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.ID+'.jpg'"  class="media-object mw50 rounded-circle shadow-4 overflow-hidden" >                       
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(user.ID)" style="cursor:pointer;"> 
+                          {{user.Name}} - <i> {{user.Username}} </i> 
+                          <span *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                          <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                        </h4>
+                        <p class="user-button-text" *ngIf="isMyProfile(user.ID)" style="color:#7c8b95; font-weight: 500; margin-top:-10px; padding:0px;"> You 
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="redirectToUserProfile(user.ID)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">View my profile</p>
+                              </div>
+                            </button>  
+                          </a>
+                        </p>
+                        <p class="user-button-text" *ngIf="isInConnections(user.ID)" style="color:#03A062; font-weight: 500; margin-top:-10px; padding:0px;">Friend 
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" (click)="redirectChatsWithUser(user.ID)">
+                              <div class="inline-left-align-container">
+                                  <img class="card-title-icon" style="width:auto; height:15px;" src = "/assets/images/icon-chats.svg" alt="personal-data-icon"/>
+                              </div>
+                          </button>
+                          </a>
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Unfriend', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Unfriend</p>
+                              </div>
+                            </button>  
+                          </a>
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Block', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                              </div>
+                            </button>  
+                          </a>
+                        </p>
+                        <p class="user-button-text" *ngIf="isUserWithRequest(user.ID)" style="color:#27A1AA; font-weight: 500; margin-top:-10px; padding:0px;">Sent a friend request for you
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Accept', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Accept</p>
+                              </div>
+                            </button>  
+                          </a>
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Decline', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Decline</p>
+                              </div>
+                            </button>  
+                          </a>  
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Block', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                              </div>
+                            </button>  
+                          </a>  
+                        </p>
+                        <p class="user-button-text" *ngIf="isPendingUser(user.ID)" style="color:#D48231; font-weight: 500;margin-top:-10px; padding:0px;">You already sent a friend request
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Cancel friend request', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Cancel</p>
+                              </div>
+                            </button>  
+                          </a> 
+                          <a>
+                            <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                              (click)="popUpAction('Block', user.ID, user.Gender, user.Name, user.Username)">
+                              <div class="inline-left-align-container">
+                                  <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                              </div>
+                            </button>  
+                          </a>  
+                        </p>
+                        <p class="user-button-text" *ngIf="isBlocked(user.ID)"style="color:#D43C31; font-weight: 500; margin-top:-10px; padding:0px;">Blocked user by you 
+                        </p>
+                        <p class="user-button-text" *ngIf="!isMyProfile(user.ID) && !isInConnections(user.ID) && !isUserWithRequest(user.ID) && !isPendingUser(user.ID) && !isBlocked(user.ID)" 
+                              style="color:#7c8b95; font-weight: 500;  margin-top:-10px; padding:0px;">Non-friend user 
+                            <a>
+                              <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                                (click)="popUpAction('Add friend', user.ID, user.Gender, user.Name, user.Username)">
+                                <div class="inline-left-align-container">
+                                    <p style="font-size:0.7rem; margin:0px 5px;">Add friend</p>
+                                </div>
+                              </button>  
+                            </a> 
+                            <a>
+                              <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                                (click)="popUpAction('Block', user.ID, user.Gender, user.Name, user.Username)">
+                                <div class="inline-left-align-container">
+                                    <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                                </div>
+                              </button>  
+                            </a> 
+                        </p>
+                        <h6 class="user-button-text truncate-2" style="margin-top:-10px; margin-left:-55px; padding:0px;"> 
+                          {{user.Biography}}
+                        </h6>
 
-            <section *ngIf="showPanel > 0"  id="content" class="rounded border border-top border-dark" style="overflow:auto;">
-          
-              <div *ngIf="showPanel > 0" class="centralizer-containter btn-group flex" style="margin-bottom:5px;">
-                <button class="primary-menu-button button-shadow" type="button" (click)="showDefault()">
+                      </div>
+                </div>
+              </div> 
+            </div>
+            <div *ngIf="(numberOfSearchResults == 0) && !searchedText" class="d-flex flex-column align-items-center">
+              <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+              <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+              <h6 style="opacity:0.5; font-weight: 600; text-align: center;"> Meet new people every day to  enhance your business skills.</h6>
+          </div>
+            <div *ngIf="searchedText && (numberOfSearchResults == 0)" class="d-flex flex-column align-items-center">
+                <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+                <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+                <h4 style="opacity:0.5; text-align: center;"> No results.</h4 >
+            </div>
+        </section>  
+
+      </div>
+
+      
+      <div class="col-lg-7 rounded border border border-dark " style="padding: 0px; height:100%; overflow: hidden;">
+  
+        <div class="container" style="padding: 0px; height:100%; min-width:100%;" >
+
+          <h5 style="opacity:0.5; text-align: center; margin-top: 10px; height:17x; max-height:17px"> Manage connections</h5>
+
+          <div class="centralizer-containter" style="margin-bottom:5px; height:60px; max-height:60px">
+
+              <button class="primary-menu-button button-shadow" type="button" (click)="showFriends()" style="margin-top:0px;">
+                  <div class="inline-left-align-container" >
+                      <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-friends.svg" alt="personal-data-icon"/>
+                      <p style="font-size:10px; ;">Friends</p>
+                  </div>
+              </button>
+
+              <button class="primary-menu-button button-shadow" type="button" (click)="showRequests()" style="margin-top:0px;">
                   <div class="inline-left-align-container">
-                      <p>Back</p>
+                      <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-request.svg" alt="skills-and-interests-icon"/>
+                      <p style="font-size:10px;">Requests</p>
+                  </div>
+              </button>
+              <button class="primary-menu-button button-shadow" type="button" (click)="showPendings()" style="margin-top:0px;">
+                  <div class="inline-left-align-container">
+                      <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-waiting-for-response.svg" alt="work-and-education-icon"/>
+                      <p style="font-size:10px;">Pending</p>
+                  </div>
+              </button>
+              <button class="primary-menu-button button-shadow" type="button" (click)="showBlockings()" style="margin-top:0px;">
+                <div class="inline-left-align-container">
+                    <img class="card-title-icon" style="width:20px; height:auto;" src = "/assets/images/icon-connection-blocking.svg" alt="work-and-education-icon"/>
+                    <p style="font-size:10px;">Blocking</p>
+                </div>
+              </button>
+
+          </div>
+
+          <section *ngIf="showPanel > 0"  id="content"  style="height: calc(100% - 100px);;" class="rounded border border-top border-dark">
+       
+            <div class="row" *ngIf="showPanel > 0" >
+            
+              <div class="col">
+                <button class="primary-menu-button button-shadow" type="button" (click)="showDefault()" style="margin:5px 5px 0px 5px;">
+                  <div class="inline-left-align-container">
+                      <p style="font-size:12px;">Back</p>
                   </div>
                 </button>
-
-                <h4 *ngIf="showPanel == 1" style="opacity:0.5; text-align: center; align-items:center; margin-top: 20px; margin-left: 5px;"> My Friends </h4>
-                <h4 *ngIf="showPanel == 2" style="opacity:0.5; text-align: center; align-items:center; margin-top: 20px; margin-left: 5px;"> My Friend Requests </h4>
-                <h4 *ngIf="showPanel == 3" style="opacity:0.5; text-align: center; align-items:center; margin-top: 20px; margin-left: 5px;"> My Waiting List </h4>
-                <h4 *ngIf="showPanel == 4" style="opacity:0.5; text-align: center; align-items:center; margin-top: 20px; margin-left: 5px;"> My Blocked Users </h4>
               </div>
-              <label *ngIf="showPanel == 1"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Friends </b></label>
-              <label *ngIf="showPanel == 2"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Friends Requests </b></label>
-              <label *ngIf="showPanel == 3"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Pendings </b></label>
-              <label *ngIf="showPanel == 4"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Blocked Users </b></label>
+
+              <div class="col">
+                <h5 *ngIf="showPanel == 1" style="opacity:0.75; text-align: center; align-items:center; color:#03A062"> My Friends </h5>
+                <h5 *ngIf="showPanel == 2" style="opacity:0.75; text-align: center; align-items:center; color:#27A1AA"> My Friend Requests </h5>
+                <h5 *ngIf="showPanel == 3" style="opacity:0.75; text-align: center; align-items:center; color:#D48231"> My Waiting List </h5>
+                <h5 *ngIf="showPanel == 4" style="opacity:0.75; text-align: center; align-items:center; color:#D43C31"> My Blocked Users </h5>
+
+              </div>
+
+
+
+              <div class="col">
+                <label *ngIf="showPanel == 1"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Friends </b></label>
+                <label *ngIf="showPanel == 2"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Friends Requests </b></label>
+                <label *ngIf="showPanel == 3"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Pendings </b></label>
+                <label *ngIf="showPanel == 4"  class="label-text" style="float:right;" for=""><b> {{numberOfConnections}} Blocked Users </b></label>
+              </div>
 
 
               
 
 
 
-                <div>
-                  <div class="page-heading " *ngFor="let user of userConnectionDetails">
 
-                    <div class="media clearfix">
+            </div>
 
-                      <div class="media-left pr30">
-                        <a>
-                          <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 overflow-hidden">
-                          <img *ngIf="user.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 overflow-hidden">
-                        </a>
-                      </div>
-                      
-                      <div class="media-body overflow-hidden" >
-                        <h2 class="media-heading overflow-hidden"> {{user.name}}
-                          <small> - <i> {{user.username}} </i></small>
-                          <span *ngIf="user.isPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                          <span *ngIf="user.isPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                        </h2>
-                        <p class="lead truncate-2 overflow-hidden"> {{user.biography}} </p>
-                      </div>
+              <div style="position: relative; overflow-y:auto; height:calc(100% - 49px)">
+                <div class="page-heading " *ngFor="let user of userConnectionDetails">
 
-                      <div class="centralizer-containter" style="margin-bottom:5px;">
+                  <div class="media clearfix">
 
-                      <button class="primary-menu-button button-shadow" type="button" (click)="redirectToUserProfile(user.userId)"  >
-                          <div class="inline-left-align-container">
-                              <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-view-profile.svg" alt="personal-data-icon"/>
-                              <p>View profile</p>
-                          </div>
-                      </button>
-      
-                      <button *ngIf="showPanel == 1" class="primary-menu-button button-shadow" type="button" >
-                          <div class="inline-left-align-container">
-                              <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-chats.svg" alt="skills-and-interests-icon"/>
-                              <p>Message</p>
-                          </div>
-                      </button>
-         
-                      <button *ngIf="showPanel == 1" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Unfriend', user.userId, user.gender, user.name, user.username)" >
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-unfriend.svg" alt="work-and-education-icon"/>
-                            <p>Unfriend</p>
-                        </div>
-                      </button>
-
-                      <button *ngIf="showPanel == 2" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Accept', user.userId, user.gender, user.name, user.username)">
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-accept.svg" alt="work-and-education-icon" />
-                            <p>Accept</p>
-                        </div>
-                      </button>
-
-                      <button *ngIf="showPanel == 2" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Decline', user.userId, user.gender, user.name, user.username)">
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-decline.svg" alt="work-and-education-icon"/>
-                            <p>Decline</p>
-                        </div>
-                      </button>
-
-                      <button *ngIf="showPanel == 3" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Cancel friend request', user.userId, user.gender, user.name, user.username)">
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-cancel.svg" alt="work-and-education-icon"/>
-                            <p>Cancel friend request </p>
-                        </div>
-                      </button>
-
-                      <button *ngIf="showPanel == 1 || showPanel == 2 || showPanel == 3" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Block', user.userId, user.gender, user.name, user.username)">
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-block.svg" alt="work-and-education-icon"/>
-                            <p>Block</p>
-                        </div>
-                      </button>
-
-                      <button *ngIf="showPanel == 4" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Unblock', user.userId, user.gender, user.name, user.username)" >
-                        <div class="inline-left-align-container">
-                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-unblock.svg" alt="work-and-education-icon"  />
-                            <p>Unblock</p>
-                        </div>
-                      </button>
-      
-                      </div>
+                    <div class="media-left pr30">
+                      <a>
+                        <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 overflow-hidden">
+                        <img *ngIf="user.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 overflow-hidden">
+                      </a>
+                    </div>
+                    
+                    <div class="media-body">
+                      <h2 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(user.userId)" style="cursor:pointer;"> 
+                        {{user.name}} - <i> {{user.username}} </i> 
+                        <span *ngIf="user.isPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                        <span *ngIf="user.isPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      </h2>
+                      <p class="user-button-text" *ngIf="isMyProfile(user.userId)" style="color:#7c8b95; font-weight: 600; margin-top:-10px; padding:0px;"> You </p>
+                      <p class="user-button-text" *ngIf="isInConnections(user.userId)" style="color:#03A062 ; font-weight: 600; margin-top:-10px; padding:0px;">Friend </p>
+                      <p class="user-button-text" *ngIf="isUserWithRequest(user.userId)" style="color:#27A1AA; font-weight: 600; margin-top:-10px; padding:0px;">Sent a friend request for you</p>
+                      <p class="user-button-text" *ngIf="isPendingUser(user.userId)" style="color:#D48231; font-weight: 600; margin-top:-10px; padding:0px;">You already sent a friend request </p>
+                      <p class="user-button-text" *ngIf="isBlocked(user.userId)"style="color:#D43C31; font-weight: 600; margin-top:-10px; padding:0px;">Blocked user by you </p>
+                      <p class="user-button-text" *ngIf="!isMyProfile(user.userId) && !isInConnections(user.userId) && !isUserWithRequest(user.userId) && !isPendingUser(user.userId) && !isBlocked(user.userId)"></p>
+                      <h6 class="user-button-text truncate-2" style="margin:0px; padding:0px;"> 
+                        {{user.biography}}
+                      </h6>
 
                     </div>
-                  
-                  </div> 
-                </div>
-            
-                <div *ngIf="numberOfConnections == 0" class="d-flex flex-column align-items-center">
-                    <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
-                    <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
-                    <h3 style="opacity:0.5; text-align: center;"> Create your own business social network.</h3 >
-          
-                </div>
-          
-              </section>
 
+                    <div class="centralizer-containter" style="margin-bottom:5px;">
+
+                    <button class="primary-menu-button button-shadow" type="button" (click)="redirectToUserProfile(user.userId)"  >
+                        <div class="inline-left-align-container">
+                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-view-profile.svg" alt="personal-data-icon"/>
+                            <p style="font-size:14px;">View profile</p>
+                        </div>
+                    </button>
     
-        </div>
+                    <button *ngIf="showPanel == 1" class="primary-menu-button button-shadow" type="button" (click)="redirectChatsWithUser(user.userId)">
+                        <div class="inline-left-align-container">
+                            <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-chats.svg" alt="skills-and-interests-icon"/>
+                            <p style="font-size:14px;">Message</p>
+                        </div>
+                    </button>
+        
+                    <button *ngIf="showPanel == 1" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Unfriend', user.userId, user.gender, user.name, user.username)" >
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-unfriend.svg" alt="work-and-education-icon"/>
+                          <p style="font-size:14px;">Unfriend</p>
+                      </div>
+                    </button>
+
+                    <button *ngIf="showPanel == 2" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Accept', user.userId, user.gender, user.name, user.username)">
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-accept.svg" alt="work-and-education-icon" />
+                          <p style="font-size:14px;">Accept</p>
+                      </div>
+                    </button>
+
+                    <button *ngIf="showPanel == 2" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Decline', user.userId, user.gender, user.name, user.username)">
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-decline.svg" alt="work-and-education-icon"/>
+                          <p style="font-size:14px;">Decline</p>
+                      </div>
+                    </button>
+
+                    <button *ngIf="showPanel == 3" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Cancel friend request', user.userId, user.gender, user.name, user.username)">
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-request-cancel.svg" alt="work-and-education-icon"/>
+                          <p style="font-size:14px;">Cancel friend request </p>
+                      </div>
+                    </button>
+
+                    <button *ngIf="showPanel == 1 || showPanel == 2 || showPanel == 3" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Block', user.userId, user.gender, user.name, user.username)">
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-block.svg" alt="work-and-education-icon"/>
+                          <p style="font-size:14px;">Block</p>
+                      </div>
+                    </button>
+
+                    <button *ngIf="showPanel == 4" class="primary-menu-button button-shadow" type="button" (click)="popUpAction('Unblock', user.userId, user.gender, user.name, user.username)" >
+                      <div class="inline-left-align-container">
+                          <img class="card-title-icon" style="width:25px; height:auto;" src = "/assets/images/icon-connection-unblock.svg" alt="work-and-education-icon"  />
+                          <p style="font-size:14px;">Unblock</p>
+                      </div>
+                    </button>
     
+                    </div>
+
+                  </div>
+                
+                </div> 
+              </div>
+          
+              <div *ngIf="numberOfConnections == 0" class="d-flex flex-column align-items-center">
+                  <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+                  <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+                  <h3 style="opacity:0.5; text-align: center;"> Create your own business social network.</h3 >
+        
+              </div>
+        
+          </section>
+
+  
+      </div>
+  
 
 
-    </div>
+      </div>
 
 
     
