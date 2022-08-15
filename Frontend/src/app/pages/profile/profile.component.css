@@ -23,27 +23,20 @@
 }
 
 .profile-component {
-
 	background-color: var(--dark-navbar);
-  outline: solid 2px var(--dark-navbar);
-  color: var(--full-white);
-	min-height: 100vh;
-	margin-top: 30px;
+	outline: solid 2px var(--dark-navbar);
+	color: var(--full-white);
+	height: 90vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 	border-radius: 2px;
 	padding: 20px;
-
-	
 	width: 60%;
 	left:20%;
 	position: fixed;
-
-  height: 90%;
-
-
 	text-overflow: ellipsis;
-	overflow: auto; 
+	overflow: hidden; 
 	white-space: wrap;
-
 }
 
 

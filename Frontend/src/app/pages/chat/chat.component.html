@@ -91,8 +91,8 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading user-button-text" style="cursor:pointer;"> {{user.Name}}
-                                <small  style="cursor:pointer;"> - <i> {{user.Username}} </i></small>
+                            <h4 class="media-heading user-button-text"  style="cursor:pointer;"> 
+                                {{user.Name}} - <i> {{user.Username}} </i> 
                             </h4>
                             <h6 class="user-button-text" *ngIf="isMyProfile(user.ID)" style=" color:#7c8b95; margin-top:-10px; padding:0px;"> You </h6>
                             <h6 class="user-button-text" *ngIf="isInConnections(user.ID)" style="color:#03A062; margin-top:-10px; padding:0px;">Friend </h6>
@@ -130,101 +130,11 @@
                         </a>
                       </div>
                       <div class="media-body" >
-                        <h4 class="media-heading"> {{selectedUser.name}}
-                            <small> - <i> {{selectedUser.username}} </i></small>
+                        <h4 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(selectedUser.userId)" style="cursor:pointer;"> 
+                            {{selectedUser.name}} - <i> {{selectedUser.username}} </i> 
                             <span *ngIf="selectedUser.isPrivateProfile === 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                             <span *ngIf="selectedUser.isPrivateProfile === 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                        </h4>
-                            
-                        <!--
-                            <span> &nbsp;
-                                <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" (click)="redirectToUserProfile(selectedUser.userId)">
-                                    <div class="inline-left-align-container">
-                                        <p>View profile</p>
-                                    </div>
-                                </button>
-                            </span>
-                            <span>
-                                <button *ngIf="isInConnections(selectedUser.userId)" class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                    (click)="popUpAction('Unfriend', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                    <div class="inline-left-align-container">
-                                        <p>Unfriend</p>
-                                    </div>
-                                </button>
-                            </span>
-                            <span>
-                                <div *ngIf="!isMyProfile(selectedUser.userId)" class="dropdown">
-                                    <button *ngIf="!isBlocked(selectedUser.userId)" class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                            (click)="popUpAction('Block', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                        <div class="inline-left-align-container">
-                                            <p>Block user</p>
-                                        </div>
-                                    </button>
-                                </div>
-                            </span>
-                            
-                        -->
-
-                        <!--
-
-                            <h6 *ngIf="isMyProfile(selectedUser.userId)" style="margin-top:-5px;">You</h6>
-                            <h6 *ngIf="isInConnections(selectedUser.userId)" style="margin-top:-5px;">Friend </h6>
-                            <h6 *ngIf="isUserWithRequest(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Sent a friend request for you
-                                <span> &nbsp;
-                                    <div class="dropdown">
-                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                                (click)="popUpAction('Accept', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                                <div class="inline-left-align-container">
-                                            <p>Accept</p>
-                                            </div>
-                                        </button>
-                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                                (click)="popUpAction('Decline', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                            <div class="inline-left-align-container">
-                                                <p>Decline</p>
-                                            </div>
-                                        </button>
-                                    </div>
-                                </span>
-                            </h6>
-                            <h6 *ngIf="isPendingUser(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">You already sent a friend request
-                                <span> &nbsp;
-                                    <div class="dropdown">
-                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                            (click)="popUpAction('Cancel friend request', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                            <div class="inline-left-align-container">
-                                                <p>Cancel request</p>
-                                            </div>
-                                        </button>    
-                                    </div>
-                                </span>
-                            </h6>
-                            <h6 *ngIf="isBlocked(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Blocked user by you
-                                <span> &nbsp;
-                                    <div class="dropdown">
-                                        <button class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                            (click)="popUpAction('Unblock', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                            <div class="inline-left-align-container">
-                                                <p>Ublock</p>
-                                            </div>
-                                        </button>    
-                                    </div>
-                                </span>
-                            </h6>
-                            <h6 *ngIf="!isMyProfile(selectedUser.userId) && !isInConnections(selectedUser.userId) && !isUserWithRequest(selectedUser.userId) && !isPendingUser(selectedUser.userId) && !isBlocked(selectedUser.userId)" style="margin-top:-20px; margin-bottom:20px;">Non-friend user
-                                <span> &nbsp;
-                                    <div class="dropdown">
-                                        <button  class="primary-menu-button button-shadow" style="font-size:13px;"  type="button" 
-                                            (click)="popUpAction('Add friend', selectedUser.userId, selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                            <div class="inline-left-align-container">
-                                                <p>Add friend</p>
-                                            </div>
-                                        </button>    
-                                    </div>
-                                </span>
-                            </h6>
-                        
-                        -->
+                        </h4>        
 
                         <p class="user-button-text" *ngIf="isMyProfile(selectedUser.userId)" style="color:#7c8b95; font-weight: 600; margin-top:-10px; padding:0px;"> You 
                             <a>
@@ -299,15 +209,9 @@
                             </a>  
                           </p>
                           <p class="user-button-text" *ngIf="isBlocked(selectedUser.userId)"style="color:#D43C31; font-weight: 600; margin-top:-10px; padding:0px;">Blocked user by you
-                            <a>
-                              <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                                (click)="popUpAction('Ublock', selectedUser.userId,  selectedUser.gender, selectedUser.name, selectedUser.username)">
-                                <div class="inline-left-align-container">
-                                    <p style="font-size:0.7rem; margin:0px 5px;">Unblock</p>
-                                </div>
-                              </button>  
-                            </a>  
                           </p>
+                          <p class="user-button-text" *ngIf="isBlocked(selectedUser.userId)"style="color:#D43C31; font-size:10px; margin-top:-20px; font-weight: 200;  padding:0px;">You can <u> unblock</u> this user in <a (click)="redirectBlocking()"> <i><u>Connections</u></i> </a> 
+                            </p>
                           <p class="user-button-text" *ngIf="!isMyProfile(selectedUser.userId) && !isInConnections(selectedUser.userId) && !isUserWithRequest(selectedUser.userId) && !isPendingUser(selectedUser.userId) && !isBlocked(selectedUser.userId)" 
                                 style="color:#7c8b95; font-weight: 600;  margin-top:-10px; padding:0px;">Non-friend user 
                               <a>

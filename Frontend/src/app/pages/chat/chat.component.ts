@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -44,21 +45,32 @@ export class ChatComponent implements OnInit {
               private _profileService: ProfileService,
               private _connectionService: ConnectionService,
               private _messageService: MessageService,
+              private activatedRoute: ActivatedRoute,
               private http: HttpClient) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId')
     this.getUserDataById(this.userId)
-    this.getConnections()
-    this.getMessages()
+    
+    
+    
   }
-
+  getRouteParam(){
+    this.activatedRoute.queryParams.subscribe(params=>{
+      console.log("PARAMS FROM CONNECTIONS: ",params)
+      if(params.userId!=null){
+        this.getSelectedUserDataById(params.userId)
+      }
+      this.searchUsersByUsername()
+    })
+  }
   getUserDataById(userId: string){
     this._profileService.getUserById(userId).subscribe(
       response => {
           console.log("Response - ",response)
           this.profileData = response.user
           this.setLoggedUserProfilePicture(this.profileData);
+          this.getConnections()
       })
   }
 
@@ -121,6 +133,7 @@ export class ChatComponent implements OnInit {
       response => {
         console.log("getConnectionsByUserId - RESPONSE - ",response)
         this.userConnections = response;
+        this.getMessages()
       }
     )
   }
@@ -280,6 +293,7 @@ export class ChatComponent implements OnInit {
         console.log("getAllUsersMessagesByUserId - RESPONSE - ",response.messages);
         this.userMessages = response.messages;
         console.log(this.userMessages)
+        this.getRouteParam()
       }
     )
   }
@@ -303,6 +317,7 @@ export class ChatComponent implements OnInit {
   //Redirections:
   redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
   redirectConnections() { window.location.href = "/connections";  };
+  redirectBlocking() { window.location.href = "/connections/"+"?showPanel=blocking";  };
   redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy"; };
 
 }

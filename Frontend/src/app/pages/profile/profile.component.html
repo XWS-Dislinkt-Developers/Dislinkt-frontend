@@ -10,21 +10,41 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
-    <!--
+    <div class="row" style="background-color:blue; margin:0px; padding:0px;">
+    
+      <div class="col" style="margin:0px; padding:0px;">
 
-<div style="margin-left: 20rem; margin-top: 20rem">
-   <div *ngIf="admin">  Cao admine </div> 
-   <div *ngIf="user">  Cao korisnice <i [(ngModel)]="username" ngDefaultControl>{{username}}</i> </div> 
-</div>
+        <div class="page-heading" style="margin:5px; padding:2px; overflow:hidden;">
+          <div class="media clearfix">
+            <div class="media-left pr30">
+              <a>
+                <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="media-object mw100 rounded-circle shadow-4">
+                <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+              </a>
+            </div>                      
+            <div class="media-body va-m">
+              <h2 class="media-heading"> {{profileData.name}}
+                <small> - <i> {{profileData.username}} </i></small>
+                <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+              </h2>
+              <p class="user-button-text" *ngIf="isMyProfile(profileData.id)" style=" color:#7c8b95; margin:-10px 0px 0px 2px; padding:0px;"> You </p>
+              <p class="user-button-text" *ngIf="isInConnections(profileData.id)" style="color:#03A062; margin:-10px 0px 0px 2px; padding:0px;">Friend </p>
+              <p class="user-button-text" *ngIf="isUserWithRequest(profileData.id)" style="color:#27A1AA; margin:-10px 0px 0px 2px; padding:0px;">Sent a friend request for you </p>
+              <p class="user-button-text" *ngIf="isPendingUser(profileData.id)" style="color:#D48231; margin:-10px 0px 0px 2px; padding:0px;">You already sent a friend request </p>
+              <p class="user-button-text" *ngIf="isBlocked(profileData.id)"style="color:#D43C31; margin:-10px 0px 0px 2px; padding:0px;">Blocked user by you </p>
+              <p class="lead"><i>Biography:</i>  &nbsp; {{profileData.biography}} </p>
+            </div>
+          </div>
+        </div>
 
-  -->
+      </div>
 
-<!-- USER -->
-    <div >
-        <section id="content" class="container" style="overflow:auto">
-            <!-- Begin .page-heading -->
-            <p style="text-align: center;"> {{isItMyProfile() ? ' This is your profile' : 'This is not your profile'}}</p>
-            <p style="text-align: center;">  {{profileData.isPrivateProfile=='true' ? ' This profile is private' : 'This profile is public'}}
+    </div>
+
+
+    <div>
+      <section id="content" class="container" style="overflow:auto">
             <div class="page-heading">
                 <div class="media clearfix">
                   <div class="media-left pr30">
@@ -44,42 +64,28 @@
                 </div>
             </div>
         
-            <div *ngIf="profileData.isPrivateProfile == 'false' || myProfile" class="row">
+            <div class="row">
 
                 <div class="col-md-4">
 
                   <div class="panel">
                     <div class="panel-heading">
-                      <span class="panel-icon">
-                        <i class="fa fa-trophy"></i>
-                      </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-personal-data.svg"> &nbsp; About me
-                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+                        <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5">
-                      <!-- 
-                        <h6 *ngIf="profileData.dateOfBirth" style="color:#c4c4c4"> <i>- Date of birth:</i> <b>  {{profileData.dateOfBirth}} </b> </h6> 
-                      -->
                       <h6 *ngIf="profileData.phoneNumber"  style="color:#c4c4c4"> <i>- Phone number:</i> <b>  {{profileData.phoneNumber}} </b> </h6>
                       <h6 *ngIf="profileData.address" style="color:#c4c4c4"> <i>- Address:</i> <b>  {{profileData.address}} </b> </h6>
                       <h6 *ngIf="profileData.email" style="color:#c4c4c4"> <i>- E-mail:</i> <b>  {{profileData.email}} </b> </h6>
-                      
-
-
-
                     </div>
                   </div>
-
                   <div class="panel">
                     <div class="panel-heading">
-                      <span class="panel-icon">
-                        <i class="fa fa-trophy"></i>
-                      </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-skills-and-interests.svg"> &nbsp; Skills & Interests
-                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
+                        <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5">
@@ -90,15 +96,11 @@
                       <span *ngFor="let interest of profileData.interests" class="badge rounded-pill bg-light text-dark">{{interest}}</span>
                     </div>
                   </div>
-
                   <div class="panel">
                     <div class="panel-heading">
-                      <span class="panel-icon">
-                        <i class="fa fa-pencil"></i>
-                      </span>
                       <span class="panel-title"> 
                         <img src="./assets/images/icon-work-and-education.svg"> &nbsp; Work & Education
-                        <span *ngIf="isItMyProfile()" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
+                        <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
                       </span>
                     </div>
                     <div class="panel-body pb5" style="overflow:clip">
@@ -109,48 +111,11 @@
                       <span *ngFor="let education of profileData.education" class="badge rounded-pill bg-dark"> {{education}}</span>
                     </div>
                   </div>
-                </div>
-               
-               
+                </div>  
                 <div class="col-md-8">
-                  <!--
-                    <app-user-post-card></app-user-post-card>
-                    <app-user-post-card></app-user-post-card>
-                    <app-user-post-card></app-user-post-card>
-                    <app-user-post-card></app-user-post-card>
-                  -->
-
-
                 </div>
-
-
               </div>
-          </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      </section>
     </div>
-
-
-
-
-
 
 </div>
