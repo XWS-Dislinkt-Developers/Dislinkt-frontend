@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ILogInInfo } from 'src/app/models/auth/ILogInInfo';
 import { ProfileData } from 'src/app/models/profileData.model';
 import { ConnectionService } from 'src/app/services/connection.service';
+import { PostService } from 'src/app/services/post.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
@@ -30,9 +31,36 @@ export class ProfileComponent implements OnInit {
     blocked?: any[];
   } = {};
 
+
+  // UserPosts data:
+  userPosts: {
+    comments:{
+      userId: string;
+      createdAt: string;
+      text: string;
+    }[];
+    reactions:{
+      disliked: boolean;
+      liked: boolean;
+      userId: string;
+    }[];
+        userId: string;
+    text: string;
+    imagepPath: string;
+
+    createdAt: string;
+    showComments:boolean;
+    showAddComment: boolean;
+    numberOfLikes: number;
+    numberOfDislikes: number;
+  } [] = [];
+
+  users: Map<string, any> = new Map();
+
   constructor(
-    private profileService: ProfileService,
+    private _profileService: ProfileService,
     private _connectionService: ConnectionService,
+    private _postService: PostService,
     private route: ActivatedRoute,
     ) {}
 
@@ -41,27 +69,104 @@ export class ProfileComponent implements OnInit {
     this.loggedUserId = localStorage.getItem('userId')
     this.getUserById(this.userId)
     this.getConnections()
+    
     }
 
   // Get user's profile data
   getUserById(userId: number){
-    this.profileService.getUserById(this.userId).subscribe(
+    this._profileService.getUserById(this.userId).subscribe(
       response => {
           console.log("Response - ",response)
           this.profileData = response.user
           console.log(this.profileData.id)
           console.log(this.userId)
           this.formatSkillsInterestsWorkEducation()
-          this.isMyProfile(this.userId)
+          if(this.isMyProfile(this.userId)){
+            this._postService.getAllPostsForLoggedUser().subscribe(
+              response => {
+                console.log("getAllPostsForLoggedUser - RESPONSE - ",response.userPosts);
+                this.userPosts = response.userPosts;
+                for(let i=0; i< this.userPosts.length; i++){
+                  this.userPosts[i].showAddComment = false;
+                  this.userPosts[i].showComments = false;
+                  this.userPosts[i].numberOfLikes = 0;
+                  this.userPosts[i].numberOfDislikes =0;
+                  for(let j=0; j<this.userPosts[i].reactions.length; j++){
+                    if(this.userPosts[i].reactions[j].disliked){
+                      this.userPosts[i].numberOfLikes++;
+                    }
+                    if(this.userPosts[i].reactions[j].liked){
+                      this.userPosts[i].numberOfDislikes++;
+                    }
+                  }
+                  for(let j=0; j<this.userPosts[i].comments.length; j++){
+                    if(this.userPosts[i].comments[j].userId){
+                      this._profileService.getUserById(this.userPosts[i].comments[j].userId).subscribe(
+                        response => {
+                          this.users.set(this.userPosts[i].comments[j].userId, response.user)
+                          console.log("LOAD USERS - ",this.users)
+                        })
+                    }
+                    let date = new Date(this.userPosts[i].comments[j].createdAt).getTime();
+                    this.userPosts[i].comments[j].createdAt = this.formatPostDates(date)
+                  }
+                  let date = new Date(this.userPosts[i].createdAt).getTime();
+                  this.userPosts[i].createdAt = this.formatPostDates(date)
+                }
+                console.log(this.userPosts)
+                console.log(this.userPosts)
+              }
+            )
+          }
       }
     )
   }
+
+
   formatSkillsInterestsWorkEducation(){
     this.profileData.skills = this.profileData.skills.split(',')
     this.profileData.interests = this.profileData.interests.split(',')
     this.profileData.work = this.profileData.work.split(',')
     this.profileData.education = this.profileData.education.split(',')
   }
+  formatPostDates(date: number) {
+    var now = new Date().getTime()
+    var seconds = Math.floor((now - date) / 1000);
+    var interval = seconds / 31536000;
+    if (interval > 1) {
+      return Math.floor(interval) + " years ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+
+  }
+  // Toggles
+  togglePanelBody(panelName: string){
+    var el = document.getElementById(panelName)
+    if (el){
+      if (el.classList.contains('hide')) {
+        el.classList.remove('hide');
+      } else {
+        el.classList.add('hide');
+      }
+    }
+  }
+
 
   // Connection methods
   getConnections(){
@@ -186,7 +291,6 @@ export class ProfileComponent implements OnInit {
   // Boolean helper methods
   isMyProfile(userId:string){ 
     if(this.loggedUserId == userId){
-      console.log("TRUE")
       return true
     }
     return false
@@ -224,6 +328,16 @@ export class ProfileComponent implements OnInit {
     }
     return false
   }
+
+  //Reloads:
+  //reloadSite() {window.location.href = "/";}
+
+  //Redirections:
+  redirectChats() { window.location.href = "/chat";  };
+  redirectChatsWithUser(id: number){ window.location.href = "/chat?userId="+ id}
+  redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy" };
+  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id  };
+
 
 
   }
