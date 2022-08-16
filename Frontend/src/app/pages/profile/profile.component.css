@@ -677,20 +677,84 @@ WRITE COMMENT
 ************/
 
 .write-comment{
-
   background-color: #1E2126;
-
 }
 
 .input-text{
   font-size: clamp(1.4vh, 13px, 1.8vh);
   background-color: #2A2F35; 
   color: #A4A4A4;
-  border-radius: 2px;
+  border-radius: 10px;
   font-family: Ubuntu;
   margin-top: 0.2vh;
   margin-bottom: 0.2vh;
   resize:none;
+  border: none;
 }
 
-/** COMMENT **/
+/* user button */
+.user-button {
+  background-color: #2a2f35;
+  cursor:pointer;
+  transition-duration: 0.4s;
+  transition-property: background-color;
+}
+.user-button h6, .user-button h6{
+  color: #A4A4A4;
+}
+.user-button:hover  {
+  background-color: #A4A4A4;
+  color: #fff !important;
+  border-radius: 10px;
+}
+.user-button:hover h6, .user-button:hover h4 {
+  color: #2a2f35 !important;
+  border-radius: 10px;
+}
+
+.primary-menu-button{
+  background-color: #2a2f35;
+  color: #A4A4A4;
+  border: 0px;
+  border-radius: 2vh;
+
+  font-family: Ubuntu;
+  font-weight: bold;
+  font-size: clamp(2.2vh, 15px, 3.3vh);
+
+
+  margin-top: 2vh;
+
+  margin-left: 1px;
+  margin-right: 1px;
+
+  width: fit-content;
+
+  padding: 0px 1.5vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  transition-duration: 0.4s;
+  transition-property: background-color, color;
+  cursor: pointer;
+}
+
+.primary-menu-button:hover {
+  background-color: #A4A4A4;
+  color: #2A2F35;
+}
+
+.primary-menu-button .card-title-icon{
+  transition-duration: 0.4s;
+  transition-property: filter;
+}
+
+.primary-menu-button:hover .card-title-icon {
+filter: brightness(30%);
+}
+
+.primary-menu-button p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
