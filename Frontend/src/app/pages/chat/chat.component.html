@@ -231,9 +231,6 @@
                                 </button>  
                               </a> 
                           </p>
-
-
-
                       </div>
                     </div>
                 </div> 
@@ -250,7 +247,7 @@
 
                 <div class="rounded chatbox_input" style="position: relative; overflow:auto; height:70px; max-height:70px!important; padding:10px; background-color:#2a2f35" >
                     <textarea [disabled]="!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId))" 
-                              wrap="hard" maxlength="300" (keydown.enter)="sendMessage()"
+                              wrap="hard" (keydown.enter)="sendMessage()"
                               [(ngModel)]="messageText" ngDefaultControl maxlength="5000"
                               class="input-text " type="text" placeholder style="resize: none;"></textarea>
                     <button *ngIf="!(!isMyProfile(selectedUser.userId) && (!isInConnections(selectedUser.userId) || isUserWithRequest(selectedUser.userId) || isPendingUser(selectedUser.userId) || isBlocked(selectedUser.userId)))" 

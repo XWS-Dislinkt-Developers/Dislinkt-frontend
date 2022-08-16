@@ -20,11 +20,14 @@ export class ProfileComponent implements OnInit {
   username: any
   userId: any
   loggedUserId: any
-  myProfile: boolean=false 
+
+  // User Data
   profileData: any
+  loggedUserData: any
 
   // Connections data:
   userConnections: {
+    private?: boolean;
     connections?: any[];
     requests?: any[];
     waitingResponse?: any[];
@@ -44,7 +47,9 @@ export class ProfileComponent implements OnInit {
       liked: boolean;
       userId: string;
     }[];
-        userId: string;
+    
+    id: string;
+    userId: string;
     text: string;
     imagepPath: string;
 
@@ -53,7 +58,11 @@ export class ProfileComponent implements OnInit {
     showAddComment: boolean;
     numberOfLikes: number;
     numberOfDislikes: number;
+
+    addNewComment: string;
   } [] = [];
+
+
 
   users: Map<string, any> = new Map();
 
@@ -64,16 +73,27 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     ) {}
 
+
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('userId')
     this.loggedUserId = localStorage.getItem('userId')
-    this.getUserById(this.userId)
-    this.getConnections()
-    
+    this.getLoggedUserDataById()
     }
-
+  
+  //  Get logged user's data
+  getLoggedUserDataById(){
+    this._profileService.getUserById(this.loggedUserId).subscribe(
+      response => {
+          console.log("Response - ",response)
+          this.loggedUserData = response.user
+          console.log(this.loggedUserData.id)
+          console.log(this.userId)
+          this.getProfileDataById()
+      }
+    )
+  }
   // Get user's profile data
-  getUserById(userId: number){
+  getProfileDataById(){
     this._profileService.getUserById(this.userId).subscribe(
       response => {
           console.log("Response - ",response)
@@ -81,48 +101,71 @@ export class ProfileComponent implements OnInit {
           console.log(this.profileData.id)
           console.log(this.userId)
           this.formatSkillsInterestsWorkEducation()
-          if(this.isMyProfile(this.userId)){
-            this._postService.getAllPostsForLoggedUser().subscribe(
-              response => {
-                console.log("getAllPostsForLoggedUser - RESPONSE - ",response.userPosts);
-                this.userPosts = response.userPosts;
-                for(let i=0; i< this.userPosts.length; i++){
-                  this.userPosts[i].showAddComment = false;
-                  this.userPosts[i].showComments = false;
-                  this.userPosts[i].numberOfLikes = 0;
-                  this.userPosts[i].numberOfDislikes =0;
-                  for(let j=0; j<this.userPosts[i].reactions.length; j++){
-                    if(this.userPosts[i].reactions[j].disliked){
-                      this.userPosts[i].numberOfLikes++;
-                    }
-                    if(this.userPosts[i].reactions[j].liked){
-                      this.userPosts[i].numberOfDislikes++;
-                    }
-                  }
-                  for(let j=0; j<this.userPosts[i].comments.length; j++){
-                    if(this.userPosts[i].comments[j].userId){
-                      this._profileService.getUserById(this.userPosts[i].comments[j].userId).subscribe(
-                        response => {
-                          this.users.set(this.userPosts[i].comments[j].userId, response.user)
-                          console.log("LOAD USERS - ",this.users)
-                        })
-                    }
-                    let date = new Date(this.userPosts[i].comments[j].createdAt).getTime();
-                    this.userPosts[i].comments[j].createdAt = this.formatPostDates(date)
-                  }
-                  let date = new Date(this.userPosts[i].createdAt).getTime();
-                  this.userPosts[i].createdAt = this.formatPostDates(date)
-                }
-                console.log(this.userPosts)
-                console.log(this.userPosts)
-              }
-            )
+          if(this.userConnections!){
+            this.getConnections()
           }
       }
     )
   }
 
+  // MY POSTS
+  getAllPostsForLoggedUser(){
+    this._postService.getAllPostsForLoggedUser().subscribe(
+      response => {
+        console.log("getAllPostsForLoggedUser - RESPONSE - ",response.userPosts);
+        this.userPosts = response.userPosts;        
+        this.formatPosts(".")
+      }
+    )
+  }
+  // MY FRIEND'S POST
+  getAllFriendsPost(idPost: any){
+    this._postService.getAllPostsByUserId(this.userId).subscribe(
+      response => {
+        console.log("getAllPostsForLoggedUser - RESPONSE - ",response.userPosts);
+        this.userPosts = response.userPosts;
+        this.formatPosts(idPost)
+      }
+    )
+  }
 
+  // Formatters
+  formatPosts(idPost: any){
+    for(let i=0; i< this.userPosts.length; i++){
+      this.userPosts[i].addNewComment = "";
+      if(this.userPosts[i].id === idPost){
+        this.userPosts[i].showComments = true;
+        this.userPosts[i].showAddComment = true;
+      }else{
+        this.userPosts[i].showComments = false;
+        this.userPosts[i].showAddComment = false;
+      }
+      this.userPosts[i].numberOfLikes = 0;
+      this.userPosts[i].numberOfDislikes =0;
+      for(let j=0; j<this.userPosts[i].reactions.length; j++){
+        if(this.userPosts[i].reactions[j].disliked){
+          this.userPosts[i].numberOfLikes++;
+        }
+        if(this.userPosts[i].reactions[j].liked){
+          this.userPosts[i].numberOfDislikes++;
+        }
+      }
+      for(let j=0; j<this.userPosts[i].comments.length; j++){
+        if(this.userPosts[i].comments[j].userId){
+          this._profileService.getUserById(this.userPosts[i].comments[j].userId).subscribe(
+            response => {
+              this.users.set(this.userPosts[i].comments[j].userId, response.user)
+            })
+        }
+        let date = new Date(this.userPosts[i].comments[j].createdAt).getTime();
+        this.userPosts[i].comments[j].createdAt = this.formatPostDates(date)
+      }
+      let date = new Date(this.userPosts[i].createdAt).getTime();
+      this.userPosts[i].createdAt = this.formatPostDates(date)
+    }
+    console.log(this.userPosts)
+    console.log(this.userPosts)
+  }
   formatSkillsInterestsWorkEducation(){
     this.profileData.skills = this.profileData.skills.split(',')
     this.profileData.interests = this.profileData.interests.split(',')
@@ -134,23 +177,43 @@ export class ProfileComponent implements OnInit {
     var seconds = Math.floor((now - date) / 1000);
     var interval = seconds / 31536000;
     if (interval > 1) {
-      return Math.floor(interval) + " years ago";
+      let num = Math.floor(interval)
+      if(num <= 1){
+        return num + " year ago"
+      }
+      return num+ " years ago";
     }
     interval = seconds / 2592000;
     if (interval > 1) {
-      return Math.floor(interval) + " months ago";
+      let num = Math.floor(interval)
+      if(num <= 1){
+        return num+ " month ago"
+      }
+      return num + " months ago";
     }
     interval = seconds / 86400;
     if (interval > 1) {
-      return Math.floor(interval) + " days ago";
+      let num = Math.floor(interval)
+      if(num <= 1){
+        return num+ " day ago"
+      }
+      return num + " days ago";
     }
     interval = seconds / 3600;
     if (interval > 1) {
-      return Math.floor(interval) + " hours ago";
+      let num = Math.floor(interval)
+      if(num <= 1){
+        return num+ " day ago"
+      }
+      return num + " days ago";
     }
     interval = seconds / 60;
     if (interval > 1) {
-      return Math.floor(interval) + " minutes ago";
+      let num = Math.floor(interval)
+      if(num <= 1){
+        return num+ " minute ago"
+      }
+      return num + " minutes ago";
     }
     return Math.floor(seconds) + " seconds ago";
 
@@ -166,17 +229,28 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
-
-
   // Connection methods
   getConnections(){
     this._connectionService.getConnectionsByUserId(this.loggedUserId).subscribe(
       response => {
         console.log("getConnectionsByUserId - RESPONSE - ",response)
         this.userConnections = response;
+        this.findOutWhoIsThisUser();
       }
     )
   }
+  findOutWhoIsThisUser(){
+    if(this.isMyProfile(this.profileData.id)){
+      this.getAllPostsForLoggedUser()
+    }else if(this.isInConnections(this.profileData.id)){
+      this.getAllFriendsPost('.')
+    }else if(this.isBlocked(this.profileData.id)){
+      return
+    }else if(this.profileData.isPrivateProfile === "false"){
+      this.getAllFriendsPost('.')
+    }
+  }
+
     // My Connections - Actions
     popUpAction(message:string, userId:string, gender:string, username: string, name: string)  {
       let imagePath = 'http://xsgames.co/randomusers/assets/avatars/'+ gender +'/' + userId + '.jpg'
@@ -220,7 +294,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("ADD FIREND - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         } 
         case 'Unfriend': { 
@@ -229,7 +303,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("UNFRIEND - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         } 
         case 'Block': { 
@@ -238,7 +312,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("BLOCK - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         }
         case 'Unblock': { 
@@ -247,7 +321,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("UNBLOCK - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         } 
         case 'Accept': { 
@@ -256,7 +330,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("ACCEPT - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         } 
         case 'Decline': { 
@@ -265,7 +339,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("DECLINE - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         }
         case 'Cancel friend request': { 
@@ -274,7 +348,7 @@ export class ProfileComponent implements OnInit {
             response => {
               console.log("CANCEL - RESPONSE - ",response)
             })
-          this.refreshConnections()
+          this.reloadSite()
           break; 
         } 
         default: { 
@@ -287,6 +361,18 @@ export class ProfileComponent implements OnInit {
       this.getConnections();
     }
   
+  // Write and Send comment
+  sendComment(text: string, postId: string){
+    let comment = {idPost: postId, 
+                   text: text //.trim()
+                  }
+    console.log("WRITE AND SEND COMMENT - ", comment)
+    this._postService.sendCommentToUserPost(comment).subscribe(
+      response => {
+        console.log("Response CHAT- ",response)
+        this.getAllFriendsPost(postId)
+    })
+  }
 
   // Boolean helper methods
   isMyProfile(userId:string){ 
@@ -330,7 +416,7 @@ export class ProfileComponent implements OnInit {
   }
 
   //Reloads:
-  //reloadSite() {window.location.href = "/";}
+  reloadSite() {window.location.href = "/profile/"+this.profileData.id;}
 
   //Redirections:
   redirectChats() { window.location.href = "/chat";  };

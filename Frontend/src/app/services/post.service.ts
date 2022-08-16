@@ -21,6 +21,18 @@ import { AuthenticationService } from './authentication.service';
       const headers = this._authService.getHeaders();
       return  this._http.get<any>(url, { headers });
     }
+    getAllPostsByUserId(userId: string){
+      const url = this.url + '/getUserPosts/'+userId;
+      const headers = this._authService.getHeaders();
+      return  this._http.get<any>(url, { headers });
+    }
 
+    sendCommentToUserPost(comment: any){
+      const url = this.url + '/comment';
+      const body = { "addComment" : comment }
+      console.log(body.addComment)
+      const headers = this._authService.getHeaders();
+      return  this._http.post<any>(url, body.addComment, {headers} ).pipe();
+    }
 
   }
