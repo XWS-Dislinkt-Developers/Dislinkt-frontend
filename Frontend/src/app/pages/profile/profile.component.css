@@ -527,6 +527,11 @@
   font-family: Ubuntu;
   font-weight: 300;
 
+  border: 1px solid var(--dark-navbar);
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+
 }
 
 .user-post-card a{
@@ -535,6 +540,33 @@
   font-weight: 400;
   color: inherit;
 }
+
+
+.create-post-card{
+  position: relative;
+  max-width: 100%;
+  margin: 5px 15px 25px 5px;
+  color:#c4c4c4;
+  background-color: #2a2f35;
+  border-radius: 10px;
+  border: 1px solid var(--dark-main);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+
+  font-size: 16px;
+  font-family: Ubuntu;
+  font-weight: 300;
+
+}
+
+.create-post-card a{
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 400;
+  color: inherit;
+}
+
 
 /**************
 * POST HEADER * 
@@ -758,3 +790,8 @@ filter: brightness(30%);
   margin-top: 4px;
   margin-bottom: 4px;
 }
+
+.button-shadow{
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+

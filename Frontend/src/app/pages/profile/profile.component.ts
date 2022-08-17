@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ILogInInfo } from 'src/app/models/auth/ILogInInfo';
 import { ProfileData } from 'src/app/models/profileData.model';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { PostService } from 'src/app/services/post.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-profile',
@@ -42,27 +44,30 @@ export class ProfileComponent implements OnInit {
       createdAt: string;
       text: string;
     }[];
-    reactions:{
-      disliked: boolean;
-      liked: boolean;
-      userId: string;
-    }[];
+    likes: any [];
+    dislikes: any [];
+
     
     id: string;
     userId: string;
     text: string;
-    imagepPath: string;
+    imagePath: string;
 
     createdAt: string;
     showComments:boolean;
     showAddComment: boolean;
-    numberOfLikes: number;
-    numberOfDislikes: number;
+
+    isLikedByLoggedUser: boolean;
+    isDislikedByLoggedUser: boolean;
 
     addNewComment: string;
   } [] = [];
 
-
+  // Image
+  createPostText: string = "";
+  postImageIsSelected: boolean = false;
+  isImageSaved: boolean = false;
+  postImageBase64: string = '';
 
   users: Map<string, any> = new Map();
 
@@ -71,6 +76,7 @@ export class ProfileComponent implements OnInit {
     private _connectionService: ConnectionService,
     private _postService: PostService,
     private route: ActivatedRoute,
+    private sanitizer : DomSanitizer
     ) {}
 
 
@@ -132,6 +138,8 @@ export class ProfileComponent implements OnInit {
   // Formatters
   formatPosts(idPost: any){
     for(let i=0; i< this.userPosts.length; i++){
+      this.userPosts[i].isDislikedByLoggedUser = false;
+      this.userPosts[i].isLikedByLoggedUser = false;
       this.userPosts[i].addNewComment = "";
       if(this.userPosts[i].id === idPost){
         this.userPosts[i].showComments = true;
@@ -140,16 +148,36 @@ export class ProfileComponent implements OnInit {
         this.userPosts[i].showComments = false;
         this.userPosts[i].showAddComment = false;
       }
-      this.userPosts[i].numberOfLikes = 0;
-      this.userPosts[i].numberOfDislikes =0;
-      for(let j=0; j<this.userPosts[i].reactions.length; j++){
-        if(this.userPosts[i].reactions[j].disliked){
-          this.userPosts[i].numberOfLikes++;
-        }
-        if(this.userPosts[i].reactions[j].liked){
-          this.userPosts[i].numberOfDislikes++;
+      for(let j=0; j<this.userPosts[i].likes.length; j++){
+        let userWhoLiked = this.userPosts[i].likes[j]
+        if(userWhoLiked == this.loggedUserId){
+          this.userPosts[i].isLikedByLoggedUser = true;
         }
       }
+      for(let j=0; j<this.userPosts[i].dislikes.length; j++){
+        let userWhoDisliked = this.userPosts[i].dislikes[j]
+        if(userWhoDisliked == this.loggedUserId){
+          this.userPosts[i].isDislikedByLoggedUser = true;
+        }
+      }
+/*
+
+      for(let j=0; j<this.userPosts[i].reactions.length; j++){
+        if(this.userPosts[i].likes){
+          this.userPosts[i].numberOfLikes++;
+          if(this.userPosts[i].reactions[j].userId == this.loggedUserId){
+            this.userPosts[i].isLikedByLoggedUser = true;
+          }
+        }
+        if(this.userPosts[i].reactions[j].disliked){
+          this.userPosts[i].numberOfDislikes++;
+          if(this.userPosts[i].reactions[j].userId == this.loggedUserId){
+            this.userPosts[i].isDislikedByLoggedUser = true;
+          }
+        }
+      }
+
+      */
       for(let j=0; j<this.userPosts[i].comments.length; j++){
         if(this.userPosts[i].comments[j].userId){
           this._profileService.getUserById(this.userPosts[i].comments[j].userId).subscribe(
@@ -215,8 +243,22 @@ export class ProfileComponent implements OnInit {
       }
       return num + " minutes ago";
     }
+    if(seconds >= 1){
     return Math.floor(seconds) + " seconds ago";
+    }else{
+      return "just now";
+    }
 
+  }
+  formatTextToTextWithHyperlinks(str: string){
+    let match = str.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+    let final=str;
+    if(match!=null){
+      match.map(url=>{
+        final=final.replace(url,"<a href=\""+url+"\" target=\"_BLANK\">"+url+"</a>")
+      })
+    }
+    return final;
   }
   // Toggles
   togglePanelBody(panelName: string){
@@ -373,6 +415,69 @@ export class ProfileComponent implements OnInit {
         this.getAllFriendsPost(postId)
     })
   }
+  // Add reaction to PostService
+  like(postId: string){
+    this._postService.like(postId).subscribe(
+      response => {
+        console.log("Response LIKE - ",response)
+        this.getAllFriendsPost(".") // or: this.getAllFriendsPost(".")
+    })
+  }
+  dislike(postId: string){
+    this._postService.dislike(postId).subscribe(
+      response => {
+        console.log("Response DISLIKE - ",response)
+        this.getAllFriendsPost(".") // or: this.getAllFriendsPost(".")
+    })
+  }
+
+  // CREATE USER POST
+
+  selectPostImage(){
+    var input = document.getElementById('selectedFile');
+    if(input)input.click()
+  }
+  CreateBase64String(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          this.postImageIsSelected = true;
+          const imgBase64Path = e.target.result;
+          this.postImageBase64 = imgBase64Path;         
+          this.isImageSaved = true;
+          console.log(imgBase64Path);
+        };
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
+  }
+  createPost(){
+    if(this.createPostText == "" && this.postImageBase64 == "") return
+    var userPost = 
+      { "userId": this.loggedUserId,
+        "text": this.createPostText,
+        "imagePath": this.postImageBase64,
+      }
+    this._postService.createUserPost(userPost).subscribe(
+      response => {
+        console.log("Response CHAT- ",response)
+        this.getProfileDataById()
+      })
+      this.createPostText = "";
+      this.postImageBase64 = "";
+      this.postImageIsSelected = false;
+  }
+
+
+  cancelPostImage(){
+    this.postImageIsSelected = false;
+    this.postImageBase64 = "";
+  }
+
+
 
   // Boolean helper methods
   isMyProfile(userId:string){ 
