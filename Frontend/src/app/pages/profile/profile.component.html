@@ -279,7 +279,7 @@
            </div>
            <!-- POST CONTENT-->
            <div class="post-content">
-               <p [innerHTML]="formatTextToTextWithHyperlinks(post.text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
+               <p [innerHTML]="linkify(post.text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
                </p>
 
               <div *ngIf="post.imagePath !== ''" class="rounded p-2 " 
@@ -402,7 +402,7 @@
                   <div class="d-lex flex-column align-items-start">
                     <div class="rounded" style=" margin:2px; padding:4px; background-color:#2a2f35">
                       <h5 style="margin:-2px 0px 0px 2px; font-weight: 100; font-size:10px;color:#c4c4c4">{{users.get(comment.userId).name}} - <i>{{users.get(comment.userId).username}}</i></h5>
-                      <h6 [innerHTML]="formatTextToTextWithHyperlinks(comment.text)"  
+                      <h6 [innerHTML]="linkify(comment.text)"  
                       style="margin: -2px 0px 0px 3px; font-size: 12px; color:#c2c2c2;      word-break: break-all;
                       white-space: pre-wrap;">
                      

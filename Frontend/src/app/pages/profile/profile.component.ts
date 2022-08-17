@@ -250,16 +250,14 @@ export class ProfileComponent implements OnInit {
     }
 
   }
-  formatTextToTextWithHyperlinks(str: string){
-    let match = str.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
-    let final=str;
-    if(match!=null){
-      match.map(url=>{
-        final=final.replace(url,"<a href=\""+url+"\" target=\"_BLANK\">"+url+"</a>")
-      })
-    }
-    return final;
-  }
+  linkify(text: string) {
+    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    });
+}
+
+
   // Toggles
   togglePanelBody(panelName: string){
     var el = document.getElementById(panelName)
