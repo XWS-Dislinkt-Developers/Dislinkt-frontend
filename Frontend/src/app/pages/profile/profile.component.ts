@@ -478,7 +478,6 @@ export class ProfileComponent implements OnInit {
   }
 
 
-
   // Boolean helper methods
   isMyProfile(userId:string){ 
     if(this.loggedUserId == userId){
