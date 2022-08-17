@@ -299,6 +299,11 @@ export class ChatComponent implements OnInit {
   }
   
   sendMessage(){
+    if(this.messageText.trim() == "") 
+    {
+      this.messageText = ""
+      return
+    }
     let message = {senderId: this.userId,
                    receiverId: this.selectedUser.id,
                    content: this.messageText,

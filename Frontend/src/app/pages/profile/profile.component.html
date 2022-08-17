@@ -2,6 +2,7 @@
 
     <app-left-vertical-navbar></app-left-vertical-navbar>
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
 
     <app-registration-modal></app-registration-modal>
     <app-sign-in-modal></app-sign-in-modal>
@@ -205,8 +206,8 @@
             <div class="d-flex flex-row align-items-start"  >
               <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
               <img *ngIf="loggedUserData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+loggedUserData.id+'.jpg'" width="40"  class="media-object  rounded-circle shadow-4" style="margin: 5px;">
-              <textarea class="form-control ml-1 shadow-none textarea input-text" style="font-size:15px;  height:50px;" 
-                        [(ngModel)]="createPostText" placeholder="Start a post" ngDefaultControl maxlength="5000"></textarea>
+              <textarea class="form-control ml-1 shadow-none textarea input-text" style="font-size:15px;  height:50px;" id="createPostTextId" 
+                        [(ngModel)]="createPostText" placeholder="Start a post" (keydown.enter)="createPost()" ngDefaultControl maxlength="5000"></textarea>
               <button *ngIf="postImageIsSelected" (click)="cancelPostImage()"
                 class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
                 <div class="inline-left-align-container">

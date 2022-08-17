@@ -453,6 +453,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   createPost(){
+    this.createPostText = this.createPostText.trim()
     if(this.createPostText == "" && this.postImageBase64 == "") return
     var userPost = 
       { "userId": this.loggedUserId,
@@ -462,11 +463,11 @@ export class ProfileComponent implements OnInit {
     this._postService.createUserPost(userPost).subscribe(
       response => {
         console.log("Response CHAT- ",response)
+        this.createPostText = "";
+        this.postImageBase64 = "";
+        this.postImageIsSelected = false;
         this.getProfileDataById()
       })
-      this.createPostText = "";
-      this.postImageBase64 = "";
-      this.postImageIsSelected = false;
   }
 
 
