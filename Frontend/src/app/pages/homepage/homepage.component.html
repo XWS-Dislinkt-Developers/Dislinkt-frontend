@@ -10,6 +10,83 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
+
+    <div class="row  rounded border border border-dark justify-spe" style="height:80px; margin:0px; padding:10px; overflow:hidden;">
+
+
+      <div *ngIf="!isSomebodyLoggedIn">
+        <h3 style="opacity:0.5; text-align: center; margin:10px;"> Welcome!</h3>
+      </div>
+      <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'user'">
+        <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome back, {{loggedUserProfileData.name}}!</h3>
+      </div>
+      <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'admin'">
+        <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome chief! :)</h3>
+      </div>
+
+    </div>
+
+    <div class="row" style="height:calc(100% - 90px)!important;  overflow:hidden; margin:0px; padding:0px;">
+
+      <div class="col-lg-4 rounded border border-dark"  style="padding:0px; max-height: 100%;">
+
+        <div style="position: relative; overflow-y:auto; height:100%!important; padding:5px;">
+      
+          <div class="panel" style="padding-bottom:5px; margin-bottom:10px;" >
+            <div  class="panel-heading" (click)="togglePanelBody('aboutDislinktPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/logo-icon.svg" width="15"> &nbsp; About Dislinkt
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="aboutDislinktPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 13px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://youtube.com/embed/Sw1kNjInBbc"></iframe>
+                <h6 > <b>Our goal</b> is to create a business social network to connect employers and job seekers. </h6>
+                <h6></h6> <b>Participants/users </b> of the system and general opportunities for them:
+                <ul>
+                  <li> <i> Non-registered user </i>- Search and browse public profile posts.</li>
+                  <li> <i> Administrator</i> - Has full access and control of the system.</li>
+                  <li> <i> Non-registered user </i> - Search and view posts, upload own posts , search and create job offers, correspond with contacts and followers.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px;" >
+            <div  class="panel-heading" (click)="togglePanelBody('aboutUsPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-about-us.svg" width="15"> &nbsp; About us
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="aboutUsPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 12px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/K4yoL9IHE4s"></iframe>
+                <h6 > <b>  We</b>,<b> the creators </b> <i>(a.k.a Dislinkt-Developers)</i> are four fourth-year students of the Department of Computer Science, Faculty of Technical Sciences, University of Novi Sad, Serbia </h6>
+                <h6 > <b>  We started  </b> developing the app <i> in February 2022.</i> <b> and we finished</b>.. <i> not yet.</i><b> But soon!</b>  </h6>
+                <h6></h6> <b> The creators: </b>
+                <ul>
+                  <li><i><a href="https://www.github.com/laslo-uri-ftn">Laslo Uri</a></i></li>
+                  <li><i><a href="https://www.github.com/milicasamardzija">Milica Samardžija </a></i></li>
+                  <li><i><a href="https://www.github.com/mihajlo-ostojic">Mihajlo Ostojić</a></i></li>
+                  <li><i><a href="https://www.github.com/nevenaatic">Nevena Atić </a></i></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+ 
+
+
+    </div>
+
+
+
+
+
+
+<!--
+
     <div class="search-bar" >
       <div class="search-form">
         <input  type="search" id="searchInput" class="search-input" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
@@ -102,4 +179,6 @@
 
     </section>
     
+
+  -->
 </div>

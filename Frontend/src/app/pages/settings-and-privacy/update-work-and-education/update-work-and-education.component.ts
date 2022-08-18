@@ -37,6 +37,8 @@ export class UpdateWorkAndEducationComponent implements OnInit {
              console.log(response.error)
              Swal.fire({ icon: 'error',
                          title: "Something went wrong. 😒",
+                         background: '#1e2126',
+                         color: '#c4c4c4',
                          footer: "Exact error: " + response.error,
            })}
           else{
@@ -46,6 +48,8 @@ export class UpdateWorkAndEducationComponent implements OnInit {
               text: this.profileData.username + ', your work and education are successfully updated!',
               showCancelButton: false,
               showConfirmButton: true,
+              background: '#1e2126',
+              color: '#c4c4c4',
               footer: 'You will be redirected to your profile.'
           }).then(() => {
             window.location.href =  "/profile/" + this.userId;
