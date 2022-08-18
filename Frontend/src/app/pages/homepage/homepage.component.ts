@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserPost } from 'src/app/models/userPost.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import { ConnectionService } from 'src/app/services/connection.service';
+import { NotifierService } from 'angular-notifier';
+import Swal from 'sweetalert2';
 
 
 interface UserSearchResult{
@@ -41,11 +42,13 @@ loggedUserData: any;
 loggedUserProfileData: any;
 loggedUserConnection: any;
 
+
+
 constructor(
   private _authenticationService: AuthenticationService, 
   private _profileService: ProfileService,
   private _connectionService: ConnectionService,
-  private http: HttpClient) { }
+  private http: HttpClient) {}
 
   ngOnInit(): void { 
     this.initialize()
@@ -111,6 +114,28 @@ constructor(
     }
 
 
+    /* NOTIFICATION */
+  showNotification(){
+    const Toast = Swal.mixin({
+      toast: true,
+      background: '#1e2126',
+      color: '#c4c4c4',
+      position: 'bottom-start',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'Signed in successfully'
+    })
+  }
+
   searchUsersByUsername(){
     if (!localStorage.getItem("userToken")){
       this._profileService.searchAnonymous(this.searchText).subscribe(
@@ -143,7 +168,6 @@ constructor(
       }
     }
   }
-
 
   //Redirections:
   redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };

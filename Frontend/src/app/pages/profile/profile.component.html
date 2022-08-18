@@ -131,10 +131,10 @@
 
         <div style="position: relative; overflow-y:auto; height:100%!important; padding:5px;">
       
-          <div class="panel" style="padding-bottom:5px;" >
+          <div class="panel" style="padding-bottom:5px;  margin-bottom:10px" >
             <div  class="panel-heading" (click)="togglePanelBody('aboutMePanelBody')" style="cursor:pointer">
               <span class="panel-title truncate-1"> 
-                <img src="./assets/images/icon-personal-data.svg"> &nbsp; About me
+                <img src="./assets/images/icon-about-us.svg" width="25"> &nbsp; About me
                 <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
               </span>
             </div>
@@ -147,10 +147,23 @@
               </div>
             </div>
           </div>
-          <div class="panel" style="padding-bottom:5px;">
+          <div class="panel"  style="padding-bottom:5px;">
+            <div class="panel-heading" (click)="togglePanelBody('biographyPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-biography.svg" width="25"> &nbsp; Full biography
+                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="biographyPanelBody"  class="hide panel-body pb5" style="overflow: hidden;">
+                <h6  style="color:#c4c4c4">{{profileData.biography}}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px; margin-bottom:10px">
             <div class="panel-heading" (click)="togglePanelBody('skillsInterestsPanelBody')" style="cursor:pointer">
               <span class="panel-title truncate-1"> 
-                <img src="./assets/images/icon-skills-and-interests.svg"> &nbsp; Skills & Interests
+                <img src="./assets/images/icon-skills-and-interests.svg" width="25"> &nbsp; Skills & Interests
                 <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
               </span>
             </div>
@@ -167,7 +180,7 @@
           <div class="panel" style="padding-bottom:5px;">
             <div class="panel-heading" (click)="togglePanelBody('workAndEducationPanelBody')" style="cursor:pointer">
               <span class="panel-title truncate-1"> 
-                <img src="./assets/images/icon-work-and-education.svg"> &nbsp; Work & Education
+                <img src="./assets/images/icon-work-and-education.svg" width="25"> &nbsp; Work & Education
                 <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
               </span>
             </div>
@@ -181,24 +194,12 @@
               </div>
             </div>
           </div>
-          <div class="panel"  style="padding-bottom:5px;">
-            <div class="panel-heading" (click)="togglePanelBody('biographyPanelBody')" style="cursor:pointer">
-              <span class="panel-title truncate-1"> 
-                <img src="./assets/images/icon-work-and-education.svg"> &nbsp; Full biography
-                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
-              </span>
-            </div>
-            <div class="wrapper">
-              <div id="biographyPanelBody"  class="hide panel-body pb5" style="overflow: hidden;">
-                <h6  style="color:#c4c4c4">{{profileData.biography}}</h6>
-              </div>
-            </div>
-          </div>
+
         </div>
 
       </div>
 
-      <div  class="col-lg-8 rounded border border border-dark " style="padding: 10px 20px; max-height:100%; ">
+      <div  class="col-lg-8 rounded border border border-dark " style="padding: 10px 20px 0px 20px; max-height:100%; ">
 
         <div *ngIf="isMyProfile(profileData.id)" class="create-post-card">
 
@@ -263,7 +264,7 @@
                      <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="post-author-picture">
                      <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="post-author-picture">
                    </a>
-                   <h2 class="media-heading" style="word-wrap: break-word;"> {{profileData.name}}
+                   <h2 class="media-heading" style="word-wrap: break-word;">{{profileData.name}}
                      <small style="word-wrap: break-word;"> - <i> {{profileData.username}} </i></small>
                      <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                      <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
@@ -439,4 +440,10 @@
 
     </div>
 
+
+
+
+
+
+    
 </div>

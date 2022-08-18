@@ -32,8 +32,6 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { ChatComponent } from './pages/chat/chat.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,9 +65,10 @@ import { ChatComponent } from './pages/chat/chat.component';
     HttpClientModule,
     BrowserAnimationsModule, 
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

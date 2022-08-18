@@ -523,9 +523,9 @@ export class ProfileComponent implements OnInit {
 
   //Redirections:
   redirectChats() { window.location.href = "/chat";  };
+  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
   redirectChatsWithUser(id: number){ window.location.href = "/chat?userId="+ id}
   redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy" };
-  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id  };
 
 
 
