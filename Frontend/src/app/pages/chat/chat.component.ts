@@ -297,7 +297,13 @@ export class ChatComponent implements OnInit {
       }
     )
   }
+  
   sendMessage(){
+    if(this.messageText.trim() == "") 
+    {
+      this.messageText = ""
+      return
+    }
     let message = {senderId: this.userId,
                    receiverId: this.selectedUser.id,
                    content: this.messageText,
@@ -311,6 +317,26 @@ export class ChatComponent implements OnInit {
         this.getMessages()
     })
   }
+
+
+  formatTextToTextWithHyperlinks(str: string){
+    let match = str.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+    let final=str;
+    if(match!=null){
+      match.map(url=>{
+        final=final.replace(url,"<a href=\""+url+"\" target=\"_BLANK\">"+url+"</a>")
+      })
+    }
+    return final;
+  }
+  linkify(text: string) {
+    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    });
+}
+
+
 
   //Reloads:
   reloadSite(){window.location.href = "/chat";}

@@ -23,10 +23,20 @@
 }
 
 .feed-component {
-
-	background-color: var(--dark-main);
-    color: var(--full-white);
-	margin-top: 20px;
+	background-color: var(--dark-navbar);
+	outline: solid 2px var(--dark-navbar);
+	color: var(--full-white);
+	min-height: 100vh;
+	margin-top: 0px;
+	border-radius: 2px;
+	padding: 20px;
+	height: 90%;
+	width: 60%;
+	left:20%;
+	position: fixed;
+	text-overflow: ellipsis;
+	overflow: auto; 
+	white-space: wrap;
 
 }
 

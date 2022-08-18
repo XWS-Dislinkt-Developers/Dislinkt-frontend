@@ -10,96 +10,219 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
-    <div class="search-bar" >
-      <div class="search-form">
-        <input  type="search" id="searchInput" class="search-input" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
-        <button type="submit" class="search-button" (click)="searchUsersByUsername()" >
-            <svg class="submit-button">
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
-            </svg>
-        </button>
+
+
+    <div class="row  rounded border border border-dark" style="height:80px; margin:0px; padding:5px; overflow:hidden; ">
+      <div class="col-2">
+        <button class="primary-menu-button" type="button" (click)="showNotification()"> <p style="font-size:15px;">Show notification</p> </button>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
-        <symbol id="search" viewBox="0 0 32 32">
-            <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
-        </symbol>
-      </svg>
-      <small style="float: right; margin: -15px 15px 0px 0px; color: #c4c4c4;">
-        <label class="label-text" for=""><b>Number of search results: <span style="color: #fff"> {{this.numberOfSearchResults}} </span></b></label>
-      </small>
-      <small style="float: left; margin: -15px 0px 0px 15px; color: #c4c4c4; "> 
-        <div style="text-align:left;">
-          <label class="label-text" for=""><b>Search for:</b></label>
-          <label class="label-text">
-              <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="true"> <span>users</span>
-          </label>
-          <label class="label-text">
-              <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="false"> <span>job offers</span>
-          </label>
+
+      <div class="col-8"> 
+        <div *ngIf="!isSomebodyLoggedIn">
+          <h3 style="opacity:0.5; text-align: center; margin:10px;"> Welcome!</h3>
         </div>
+        <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'user'">
+          <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome back, {{loggedUserProfileData.name}}!</h3>
+        </div>
+        <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'admin'">
+          <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome chief! :)</h3>
+        </div>
+      </div>
+
+
+
       
-      
-      </small>
+
 
     </div>
 
-    <section id="content" class="container" style="overflow:auto">
+    <div class="row" style="height:calc(100% - 90px)!important;  overflow:hidden; margin:0px; padding:0px;">
 
-      <div *ngIf="LoggedUser === false && isSearchForUsers===true">
-        <div class="page-heading " *ngFor="let user of users">
-            <div class="media clearfix" (click)="redirectToUserProfile(user.id)">
-              <div class="media-left pr30">
-                <a>
-                  <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-                  <img *ngIf="user.gender == 'female'"[src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-                </a>
+      <div class="col-lg-4 rounded border border-dark"  style="padding:0px; max-height: 100%;">
+
+        <div style="position: relative; overflow-y:auto; height:100%!important; padding:5px;">
+      
+          <div class="panel" style="padding-bottom:5px; margin-bottom:10px;" >
+            <div  class="panel-heading" (click)="togglePanelBody('aboutDislinktPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/logo-icon.svg" width="25"> &nbsp; About Dislinkt
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="aboutDislinktPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 13px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://youtube.com/embed/Sw1kNjInBbc"></iframe>
+                <h6 > <b>Our goal</b> is to create a business social network to connect employers and job seekers. </h6>
+                <h6></h6> <b>Participants/users </b> of the system and general opportunities for them:
+                <ul>
+                  <li> <i> Non-registered user </i>- Search and browse public profile posts.</li>
+                  <li> <i> Administrator</i> - Has full access and control of the system.</li>
+                  <li> <i> Non-registered user </i> - Search and view posts, upload own posts , search and create job offers, correspond with contacts and followers.</li>
+                </ul>
               </div>
-              <div class="media-body va-m">
-                <h2 class="media-heading"> {{user.name}}
-                  <small> - <i> {{user.username}} </i></small>
-                  <span *ngIf="user.isPrivateProfile === 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                  <span *ngIf="user.isPrivateProfile === 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                </h2>
-                <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.biography}} </p>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px;" >
+            <div  class="panel-heading" (click)="togglePanelBody('aboutUsPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-about-us.svg" width="25"> &nbsp; About us
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="aboutUsPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 12px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://www.youtube.com/embed/K4yoL9IHE4s"></iframe>
+                <h6 > <b>  We</b>,<b> the creators </b> <i>(a.k.a Dislinkt-Developers)</i> are four fourth-year students of the Department of Computer Science, Faculty of Technical Sciences, University of Novi Sad, Serbia </h6>
+                <h6 > <b>  We started  </b> developing the app <i> in February 2022.</i> <b> and we finished</b>.. <i> not yet.</i><b> But soon!</b>  </h6>
+                <h6></h6> <b> The creators: </b>
+                <ul>
+                  <li><i><a href="https://www.github.com/laslo-uri-ftn">Laslo Uri</a></i></li>
+                  <li><i><a href="https://www.github.com/milicasamardzija">Milica Samardžija </a></i></li>
+                  <li><i><a href="https://www.github.com/mihajlo-ostojic">Mihajlo Ostojić</a></i></li>
+                  <li><i><a href="https://www.github.com/nevenaatic">Nevena Atić </a></i></li>
+                </ul>
               </div>
-              <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px; margin-bottom:10px;" *ngIf="isSomebodyLoggedIn && loggedUserRole == 'user'" >
+            <div  class="panel-heading" (click)="togglePanelBody('recommendedJobsPanelBody')"  style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-recommended-jobs.svg" width="25"> &nbsp; Recommended jobs
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="recommendedJobsPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 12px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://youtube.com/embed/fRoG5CSlOT8"></iframe>
+                <h6 > <b>  This job offer is maybe for you</b> <i> - not implemented yet.</i> </h6>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px;" *ngIf="isSomebodyLoggedIn && loggedUserRole == 'user'" >
+            <div  class="panel-heading" (click)="togglePanelBody('recommendendUsersPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-recommended-users.svg" width="25"> &nbsp; Recommended users
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="recommendendUsersPanelBody" class="hide panel-body pb5" style="overflow: hidden; font-size: 12px; color: #a4a4a4">
+                <iframe width="100%" height="auto" src="https://youtube.com/embed/Xs-HbHCcK58"></iframe>
+                <h6 > <b>  You maybe know these gals and fellas</b> <i> - not implemented yet.</i> </h6>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+ 
+      <div  class="col-lg-8 rounded border border border-dark " style="padding: 10px 20px; max-height:100%; ">
+
+        <div class="search-bar" style="padding:10px;" >
+          <div class="search-form">
+            <input  type="search" id="searchInput" class="search-input" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
+            <button type="submit" class="search-button" (click)="searchUsersByUsername()" >
+                <svg class="submit-button">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                </svg>
+            </button>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+            <symbol id="search" viewBox="0 0 32 32">
+                <path d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z" />
+            </symbol>
+          </svg>
+          <!--
+          <small style="float: right; margin: -15px 15px 0px 0px; color: #c4c4c4;">
+            <label class="label-text" for=""><b>Number of search results: <span style="color: #fff"> {{this.numberOfSearchResults}} </span></b></label>
+          </small>
+        -->
+          <small style="float: left; margin: -15px 0px 0px 15px; color: #c4c4c4; "> 
+            <div style="text-align:left;">
+              <label class="label-text" for=""><b>Search for:</b></label>
+              <label class="label-text">
+                  <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="true"> <span>users</span>
+              </label>
+              <label class="label-text">
+                  <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="false"> <span>job offers</span>
+              </label>
+            </div>
+          
+          
+          </small>
+    
+        </div>
+
+        <section id="content" class="container" style="overflow:auto">
+
+          <div *ngIf="isSomebodyLoggedIn === false && isSearchForUsers===true">
+            <div class="page-heading " *ngFor="let user of users">
+                <div class="media clearfix" (click)="redirectToUserProfile(user.id)">
+                  <div class="media-left pr30">
+                    <a>
+                      <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                      <img *ngIf="user.gender == 'female'"[src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                    </a>
+                  </div>
+                  <div class="media-body va-m">
+                    <h2 class="media-heading"> {{user.name}}
+                      <small> - <i> {{user.username}} </i></small>
+                      <span *ngIf="user.isPrivateProfile === 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      <span *ngIf="user.isPrivateProfile === 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    </h2>
+                    <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.biography}} </p>
+                  </div>
+                  <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
+                    <button class="primary-menu-button" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button>
+                  </div>
+                </div>
+            </div> 
+          </div> 
+          <div *ngIf="isSomebodyLoggedIn === true && isSearchForUsers===true">
+            <div class="page-heading " *ngFor="let user of users">
+              <div class="media clearfix">
+                <div class="media-left pr30">
+                  <a>
+                    <img *ngIf="user.Gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                    <img *ngIf="user.Gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                  </a>
+                </div>
+                <div class="media-body" >
+                  <h2 class="media-heading"> {{user.Name}}
+                    <small> - <i> {{user.Username}} </i></small>
+                    <span *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                  </h2>
+                  <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.Biography}} </p>
+               </div>
+               <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
                 <button class="primary-menu-button" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button>
               </div>
-            </div>
-        </div> 
-      </div> 
-
-      <div *ngIf="LoggedUser === true && isSearchForUsers===true">
-        <div class="page-heading " *ngFor="let user of users">
-          <div class="media clearfix">
-            <div class="media-left pr30">
-              <a>
-                <img *ngIf="user.Gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-                <img *ngIf="user.Gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-              </a>
-            </div>
-            <div class="media-body" >
-              <h2 class="media-heading"> {{user.Name}}
-                <small> - <i> {{user.Username}} </i></small>
-                <span *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-              </h2>
-              <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.Biography}} </p>
-           </div>
-           <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
-            <button class="primary-menu-button" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button>
+              </div>
+            </div> 
           </div>
-          </div>
-        </div> 
-      </div>
-
-      <div *ngIf="numberOfSearchResults == 0" class="d-flex flex-column align-items-center">
-          <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
-          <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
-          <h3 style="opacity:0.5; text-align: center;"> Create your own business social network.</h3 >
-
-      </div>
-
-    </section>
     
+          <div *ngIf="numberOfSearchResults == 0" class="d-flex flex-column align-items-center">
+              <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
+              <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
+              <h3 style="opacity:0.5; text-align: center;"> Create your own business social network.</h3 >
+    
+          </div>
+    
+        </section>
+
+
+
+
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+
 </div>
+

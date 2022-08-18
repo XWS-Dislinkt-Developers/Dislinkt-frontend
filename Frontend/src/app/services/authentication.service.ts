@@ -25,7 +25,8 @@ export class AuthenticationService {
   }
 
   logIn(username: string, password: string) : Observable<ILogInInfo> {
-    var body = {"username": username, "password": password}
+    var body = {"username": username, 
+                "password": password}
    return   this._http.post<ILogInInfo>('https://localhost:8000/login', body).pipe();  
   }
 

@@ -250,16 +250,14 @@ export class ProfileComponent implements OnInit {
     }
 
   }
-  formatTextToTextWithHyperlinks(str: string){
-    let match = str.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
-    let final=str;
-    if(match!=null){
-      match.map(url=>{
-        final=final.replace(url,"<a href=\""+url+"\" target=\"_BLANK\">"+url+"</a>")
-      })
-    }
-    return final;
-  }
+  linkify(text: string) {
+    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    return text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+    });
+}
+
+
   // Toggles
   togglePanelBody(panelName: string){
     var el = document.getElementById(panelName)
@@ -455,6 +453,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   createPost(){
+    this.createPostText = this.createPostText.trim()
     if(this.createPostText == "" && this.postImageBase64 == "") return
     var userPost = 
       { "userId": this.loggedUserId,
@@ -464,11 +463,11 @@ export class ProfileComponent implements OnInit {
     this._postService.createUserPost(userPost).subscribe(
       response => {
         console.log("Response CHAT- ",response)
+        this.createPostText = "";
+        this.postImageBase64 = "";
+        this.postImageIsSelected = false;
         this.getProfileDataById()
       })
-      this.createPostText = "";
-      this.postImageBase64 = "";
-      this.postImageIsSelected = false;
   }
 
 
@@ -476,7 +475,6 @@ export class ProfileComponent implements OnInit {
     this.postImageIsSelected = false;
     this.postImageBase64 = "";
   }
-
 
 
   // Boolean helper methods
@@ -525,9 +523,9 @@ export class ProfileComponent implements OnInit {
 
   //Redirections:
   redirectChats() { window.location.href = "/chat";  };
+  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
   redirectChatsWithUser(id: number){ window.location.href = "/chat?userId="+ id}
   redirectSettingsAndPrivacy() { window.location.href = "/settings-and-privacy" };
-  redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id  };
 
 
 

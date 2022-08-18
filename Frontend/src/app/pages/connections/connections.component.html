@@ -108,9 +108,9 @@
                         </p>
                         <p class="user-button-text" *ngIf="isInConnections(user.ID)" style="color:#03A062; font-weight: 500; margin-top:-10px; padding:0px;">Friend 
                           <a>
-                            <button class="primary-menu-button button-shadow" type="button" (click)="redirectChatsWithUser(user.ID)">
+                            <button class="primary-menu-button button-shadow" style="margin:0px; padding:0 10px;" type="button" (click)="redirectChatsWithUser(user.ID)">
                               <div class="inline-left-align-container">
-                                  <img class="card-title-icon" style="width:auto; height:15px;" src = "/assets/images/icon-chats.svg" alt="personal-data-icon"/>
+                                  <img class="card-title-icon" style="width:auto; height:12px;" src = "/assets/images/icon-chats.svg" alt="personal-data-icon"/>
                               </div>
                           </button>
                           </a>
@@ -310,11 +310,11 @@
                         <span *ngIf="user.isPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                         <span *ngIf="user.isPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                       </h2>
-                      <p class="user-button-text" *ngIf="isMyProfile(user.userId)" style="color:#7c8b95; font-weight: 600; margin-top:-10px; padding:0px;"> You </p>
-                      <p class="user-button-text" *ngIf="isInConnections(user.userId)" style="color:#03A062 ; font-weight: 600; margin-top:-10px; padding:0px;">Friend </p>
-                      <p class="user-button-text" *ngIf="isUserWithRequest(user.userId)" style="color:#27A1AA; font-weight: 600; margin-top:-10px; padding:0px;">Sent a friend request for you</p>
-                      <p class="user-button-text" *ngIf="isPendingUser(user.userId)" style="color:#D48231; font-weight: 600; margin-top:-10px; padding:0px;">You already sent a friend request </p>
-                      <p class="user-button-text" *ngIf="isBlocked(user.userId)"style="color:#D43C31; font-weight: 600; margin-top:-10px; padding:0px;">Blocked user by you </p>
+                      <p class="user-button-text" *ngIf="isMyProfile(user.userId)" style="color:#7c8b95; font-weight: 600; margin-top:-10px; margin-bottom: 0px; padding:0px;"> You </p>
+                      <p class="user-button-text" *ngIf="isInConnections(user.userId)" style="color:#03A062 ; font-weight: 600; margin-top:-10px; margin-bottom: 0px; padding:0px;">Friend </p>
+                      <p class="user-button-text" *ngIf="isUserWithRequest(user.userId)" style="color:#27A1AA; font-weight: 600; margin-top:-10px; margin-bottom: 0px; padding:0px;">Sent a friend request for you</p>
+                      <p class="user-button-text" *ngIf="isPendingUser(user.userId)" style="color:#D48231; font-weight: 600; margin-top:-10px; margin-bottom: 0px; padding:0px;">You already sent a friend request </p>
+                      <p class="user-button-text" *ngIf="isBlocked(user.userId)"style="color:#D43C31; font-weight: 600; margin-top:-10px; margin-bottom: 0px; padding:0px;">Blocked user by you </p>
                       <p class="user-button-text" *ngIf="!isMyProfile(user.userId) && !isInConnections(user.userId) && !isUserWithRequest(user.userId) && !isPendingUser(user.userId) && !isBlocked(user.userId)"></p>
                       <h6 class="user-button-text truncate-2" style="margin:0px; padding:0px;"> 
                         {{user.biography}}

@@ -795,3 +795,12 @@ filter: brightness(30%);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
+.user-post-height-full{
+  height: 100;
+}
+.user-post-height-medium{
+  height: calc(100% - 10px - 105px);
+}
+.user-post-height-small{
+  height: calc(100% - 10px - 105px - 400px)
+}

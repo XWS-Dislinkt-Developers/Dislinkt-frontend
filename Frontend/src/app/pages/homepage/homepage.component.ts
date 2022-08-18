@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserPost } from 'src/app/models/userPost.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { ConnectionService } from 'src/app/services/connection.service';
+import { NotifierService } from 'angular-notifier';
+import Swal from 'sweetalert2';
+
 
 interface UserSearchResult{
   userId: string;
@@ -30,19 +33,28 @@ isSearchForUsers: boolean = true;
 searchText: string = "";
 numberOfSearchResults: number =0;
 
-constructor(
-  private _AuthenticationService: AuthenticationService, 
-  private _profileService: ProfileService,
-  private http: HttpClient) { }
+userPosts!: UserPost[];
+users: any[] = [];
+isSomebodyLoggedIn: boolean = false;
+loggedUserId: any = "";
+loggedUserRole: any ="";
+loggedUserData: any;
+loggedUserProfileData: any;
+loggedUserConnection: any;
 
-  userPosts!: UserPost[];
-  users: any[] = [];
-  LoggedUser: Boolean = false;
-  
+
+
+constructor(
+  private _authenticationService: AuthenticationService, 
+  private _profileService: ProfileService,
+  private _connectionService: ConnectionService,
+  private http: HttpClient) {}
+
   ngOnInit(): void { 
-    this.admin = this._AuthenticationService.adminAccess()
+    this.initialize()
+    this.admin = this._authenticationService.adminAccess()
     console.log(this.admin)
-    this.user = this._AuthenticationService.userAccess()
+    this.user = this._authenticationService.userAccess()
     console.log(this.user)
   }
 
@@ -51,12 +63,77 @@ constructor(
   }
 
   logIn() {
-    this._AuthenticationService.logIn(this.username, this.password).subscribe(
+    this._authenticationService.logIn(this.username, this.password).subscribe(
       response => {
         localStorage.setItem("userId", response.id);
         localStorage.setItem("userToken", response.token);
         localStorage.setItem("userRole", response.role);
     });
+  }
+  initialize(){
+  if(localStorage.getItem("userToken")!=null && localStorage.getItem("userId")!=null && localStorage.getItem("userRole")!=null){
+    this.isSomebodyLoggedIn = true;
+    this.loggedUserId = localStorage.getItem("userId")
+    this.loggedUserRole = localStorage.getItem("userRole")
+  }else{
+    this.isSomebodyLoggedIn = false;
+    this.loggedUserId = ""
+    this.loggedUserRole = ""
+    }
+    this.getLoggedUserDataById()
+  }
+  //  Get logged user's data
+  getLoggedUserDataById(){
+    this._profileService.getUserById(this.loggedUserId).subscribe(
+      response => {
+          console.log("Response - ",response)
+          this.getProfileDataById()
+      }
+    )
+  }
+  // Get user's profile data
+  getProfileDataById(){
+    this._profileService.getUserById(this.loggedUserId).subscribe(
+      response => {
+          console.log("Response - ",response)
+          this.loggedUserProfileData = response.user
+          if(this.loggedUserConnection){
+            this.getConnections()
+          }
+      }
+    )
+  }
+// Connection methods
+    getConnections(){
+      this._connectionService.getConnectionsByUserId(this.loggedUserId).subscribe(
+        (response: any) => {
+          console.log("getConnectionsByUserId - RESPONSE - ",response)
+          this.loggedUserConnection = response;
+        }
+      )
+    }
+
+
+    /* NOTIFICATION */
+  showNotification(){
+    const Toast = Swal.mixin({
+      toast: true,
+      background: '#1e2126',
+      color: '#c4c4c4',
+      position: 'bottom-start',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'Signed in successfully'
+    })
   }
 
   searchUsersByUsername(){
@@ -68,7 +145,7 @@ constructor(
         this.numberOfSearchResults = this.users.length
       })
     } else {
-      this.LoggedUser = true
+      this.isSomebodyLoggedIn = true
       this._profileService.searchLoggedUser(this.searchText).subscribe(
       response => {
         console.log("Response LOGGED USER- ",response)
@@ -79,9 +156,24 @@ constructor(
     }
   }
 
+  
+  // Toggles
+  togglePanelBody(panelName: string){
+    var el = document.getElementById(panelName)
+    if (el){
+      if (el.classList.contains('hide')) {
+        el.classList.remove('hide');
+      } else {
+        el.classList.add('hide');
+      }
+    }
+  }
 
   //Redirections:
   redirectToUserProfile(id: number) { window.location.href = "/profile/"+ id;  };
 
 
+
 }
+
+

@@ -239,8 +239,8 @@
                     <div *ngFor="let message of userMessages"> 
                         <div *ngIf="(message.senderId == userId && message.receiverId == selectedUser.userId) ||  
                                     (message.senderId == selectedUser.userId && message.receiverId == userId) ">
-                            <div *ngIf="message.senderId == userId" class="message my_message"> <p>{{message.content}} </p> </div>
-                            <div *ngIf="message.receiverId == userId" class="message others_message"> <p>{{message.content}} </p> </div>
+                            <div *ngIf="message.senderId == userId" class="message my_message"> <p [innerHTML]="linkify(message.content)"></p> </div>
+                            <div *ngIf="message.receiverId == userId" class="message others_message"> <p [innerHTML]="linkify(message.content)"> </p> </div>
                         </div>
                     </div>
                 </div>
