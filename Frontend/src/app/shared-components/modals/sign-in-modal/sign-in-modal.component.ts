@@ -47,7 +47,7 @@ export class SignInModalComponent implements OnInit {
           window.location.href = "/profile/"+ localStorage.getItem("userId"); 
           // this.router.navigate(['/profile/'+ localStorage.getItem("userId")]) //OVO RADI!!
         if(localStorage.getItem("userRole") == "admin")
-          this.router.navigate(['']) //OVO RADI!!
+        window.location.href = ""; 
 
         if(response.error){
           Swal.fire({

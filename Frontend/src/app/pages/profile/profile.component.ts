@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 import { ThrowStmt } from '@angular/compiler';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,13 +18,13 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ProfileComponent implements OnInit {
 
-  user: boolean=false;
-  admin: boolean=false;
-  username: any
+  ADMIN_ID = 9 // CONST
+
   userId: any
   loggedUserId: any
   loggedUserExists: any;
   profileExists: any;
+  profileIsAdmin:boolean =false
 
   // User Data
   profileData: any
@@ -74,6 +75,7 @@ export class ProfileComponent implements OnInit {
   users: Map<string, any> = new Map();
 
   constructor(
+    private _authenticationService: AuthenticationService,
     private _profileService: ProfileService,
     private _connectionService: ConnectionService,
     private _postService: PostService,
@@ -83,9 +85,9 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.username = this.route.snapshot.paramMap.get('userId')
     this.userId = this.route.snapshot.paramMap.get('userId')
     this.loggedUserId = localStorage.getItem('userId')
+    if (this.userId == this.ADMIN_ID) this.profileIsAdmin = true
     this.getLoggedUserDataById()
     }
   
