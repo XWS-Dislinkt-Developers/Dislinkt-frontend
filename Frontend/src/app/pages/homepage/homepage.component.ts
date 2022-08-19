@@ -52,16 +52,13 @@ constructor(
 
   ngOnInit(): void { 
     this.initialize()
-    this.admin = this._authenticationService.adminAccess()
-    console.log(this.admin)
-    this.user = this._authenticationService.userAccess()
-    console.log(this.user)
   }
 
+  /*
   getUserPosts(): Observable<UserPost[]> {
     return this.http.get<UserPost[]>('https://localhost:8000/userPosts');
   }
-
+*/
   logIn() {
     this._authenticationService.logIn(this.username, this.password).subscribe(
       response => {
@@ -75,21 +72,12 @@ constructor(
     this.isSomebodyLoggedIn = true;
     this.loggedUserId = localStorage.getItem("userId")
     this.loggedUserRole = localStorage.getItem("userRole")
+    this.getProfileDataById()
   }else{
     this.isSomebodyLoggedIn = false;
     this.loggedUserId = ""
     this.loggedUserRole = ""
     }
-    this.getLoggedUserDataById()
-  }
-  //  Get logged user's data
-  getLoggedUserDataById(){
-    this._profileService.getUserById(this.loggedUserId).subscribe(
-      response => {
-          console.log("Response - ",response)
-          this.getProfileDataById()
-      }
-    )
   }
   // Get user's profile data
   getProfileDataById(){
@@ -112,9 +100,8 @@ constructor(
         }
       )
     }
-
-
-    /* NOTIFICATION */
+  
+  /* NOTIFICATION */
   showNotification(){
     const Toast = Swal.mixin({
       toast: true,
@@ -137,7 +124,7 @@ constructor(
   }
 
   searchUsersByUsername(){
-    if (!localStorage.getItem("userToken")){
+    if (!this.isSomebodyLoggedIn){
       this._profileService.searchAnonymous(this.searchText).subscribe(
       response => {
         console.log("Response ANONYMOUS - ",response)
@@ -145,7 +132,6 @@ constructor(
         this.numberOfSearchResults = this.users.length
       })
     } else {
-      this.isSomebodyLoggedIn = true
       this._profileService.searchLoggedUser(this.searchText).subscribe(
       response => {
         console.log("Response LOGGED USER- ",response)

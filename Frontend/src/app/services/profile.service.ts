@@ -53,7 +53,9 @@ import { AuthenticationService } from './authentication.service';
     }
 
     searchAnonymous(searchText: string){
-        return this._http.post<any>('https://localhost:8000/getUsersBySearch', {name : searchText}).pipe();
+        console.log(searchText);
+        const url = this.url + '/getUsersBySearch';
+        return this._http.post<any>(url, {name : searchText}).pipe();
     }
 
     searchLoggedUser(searchText: string){
