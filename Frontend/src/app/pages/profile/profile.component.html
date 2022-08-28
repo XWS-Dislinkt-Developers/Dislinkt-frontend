@@ -32,7 +32,7 @@
                 <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                 <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
               </h2>
-              <div *ngIf="loggedUserExists">
+              <div *ngIf="loggedUserExists && loggedUserData.userId!=9">
                 <p class="user-button-text" *ngIf="isMyProfile(profileData.id)" style=" color:#7c8b95; margin:-10px 0px 0px 2px; padding:0px;"> You </p>
                 <p class="user-button-text" *ngIf="isInConnections(profileData.id)" style="color:#03A062; margin:-10px 0px 0px 2px; padding:0px;">Friend 
                   <a>

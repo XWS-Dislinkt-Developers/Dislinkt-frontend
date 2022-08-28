@@ -7,6 +7,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
+
+
 import { HomepageComponent } from './pages/homepage/homepage.component';
   import { LeftVerticalNavbarComponent } from './shared-components/navbars-and-statusbars/left-vertical-navbar/left-vertical-navbar.component';
   import { TopStatusBarComponent } from './shared-components/navbars-and-statusbars/top-status-bar/top-status-bar.component';
@@ -67,7 +70,7 @@ import { MidRightVerticalNavbarComponent } from './shared-components/navbars-and
     HttpClientModule,
     BrowserAnimationsModule, 
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

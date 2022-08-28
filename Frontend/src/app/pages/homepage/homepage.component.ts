@@ -8,6 +8,10 @@ import { ConnectionService } from 'src/app/services/connection.service';
 import { NotifierService } from 'angular-notifier';
 import Swal from 'sweetalert2';
 import { NotificationService } from 'src/app/services/notification.service';
+import { PostService } from 'src/app/services/post.service';
+import { MessageService } from 'src/app/services/message.service';
+import { Chart, ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { JobService } from 'src/app/services/job.service';
 
 
 interface UserSearchResult{
@@ -19,12 +23,54 @@ interface UserSearchResult{
   isPrivateProfile: string;
 }
 
+
+
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+
+
+  public lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July'
+    ],
+    datasets: [
+      {
+        data: [ 65, 59, 80, 81, 56, 55, 40 ],
+        label: 'Series A',
+        fill: true,
+        tension: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'rgba(255,0,0,0.3)'
+      }
+    ]
+  };
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: false
+  };
+  public lineChartLegend = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 admin: boolean=false;
 user: boolean=false;
@@ -45,13 +91,28 @@ loggedUserConnection: any;
 
 sortedShownNotifications: any[] = []
 
+// admin:
+usersForAdmin: any[]=[]
+messagesForAdmin: any[]=[]
+postsForAdmin: any[]=[]
+jobOffersForAdmin: any[]=[]
+
+usersWithPosts: Map<number, any> = new Map();
+jobOffers: any[]=[];
+
+
+
 
 constructor(
   private _authenticationService: AuthenticationService, 
   private _profileService: ProfileService,
   private _connectionService: ConnectionService,
   private _notificationService: NotificationService,
-  private http: HttpClient) {}
+  private _postService: PostService,
+  private _messageService: MessageService,
+  private _jobService: JobService,
+  private http: HttpClient) {
+  }
 
   ngOnInit(): void { 
     this.initialize()
@@ -75,7 +136,8 @@ constructor(
     this.isSomebodyLoggedIn = true;
     this.loggedUserId = localStorage.getItem("userId")
     this.loggedUserRole = localStorage.getItem("userRole")
-    this.getProfileDataById()
+    if(this.loggedUserRole == 'user')this.getProfileDataById()
+    if(this.loggedUserRole == 'admin')this.getAdminData()
   }else{
     this.isSomebodyLoggedIn = false;
     this.loggedUserId = ""
@@ -104,26 +166,96 @@ constructor(
       )
     }
 
-/*
-  getNotifications(){
-    this._notificationService.getConnectionNotifications().subscribe(
-      response => {
-        console.log("Response getConnectionNotifications - ",response)
-        this.connectionNotifications = response;
-        this._notificationService.getMessageNotifications().subscribe(
-          response => {
-            console.log("Response getMessageNotifications - ",response)
-            this.messageNotifications = response;
-            this._notificationService.getPostNotifications().subscribe(
-              response => {
-                console.log("Response getPostNotifications - ",response)
-                this.postNotifications = response;
-                console.log("Response ALL NOT - ",this.allNotifications)
+    getAdminData(){
+      this._profileService.getAllProfiles().subscribe(
+        (response: any) => {
+          console.log("usersForAdmin - RESPONSE - ",response)
+          this.usersForAdmin = response.users;
+          this.usersForAdmin.forEach( (item, index) => {
+            if(item.userId == 9) this.usersForAdmin.splice(index,1);
+          });
 
+        }
+      )
+      this._postService.getAllPosts().subscribe(
+        (response: any) => {
+          console.log("postsForAdmin - RESPONSE - ",response)
+          this.postsForAdmin = response.userPosts;
+          for(let i=0; i<this.postsForAdmin.length; i++){
+            let date = new Date(this.postsForAdmin[i].createdAt).getTime();
+            this.postsForAdmin[i].createdAt = this.formatDates(date)
+            this._profileService.getUserById(this.postsForAdmin[i].userId).subscribe(
+              response => {
+                this.usersWithPosts.set(this.postsForAdmin[i].userId, response.user)
               })
-          })
-      })
-  }*/
+
+          }
+        }
+      )
+      this._messageService.getAllMessages().subscribe(
+        (response: any) => {
+          console.log("messagesForAdmin - RESPONSE - ",response)
+          this.messagesForAdmin = response.messages;
+        }
+      )
+      this._jobService.getAllJobOffers().subscribe(
+        (response: any) => {
+          console.log("jobsForAdmin - RESPONSE - ",response)
+          this.jobOffersForAdmin = response.jobOffers;
+        }
+      )
+    }
+
+  formatDates(date: number) {
+      var now = new Date().getTime()
+      var seconds = Math.floor((now - date) / 1000);
+      var interval = seconds / 31536000;
+      if (interval > 1) {
+        let num = Math.floor(interval)
+        if(num <= 1){
+          return num + " year ago"
+        }
+        return num+ " years ago";
+      }
+      interval = seconds / 2592000;
+      if (interval > 1) {
+        let num = Math.floor(interval)
+        if(num <= 1){
+          return num+ " month ago"
+        }
+        return num + " months ago";
+      }
+      interval = seconds / 86400;
+      if (interval > 1) {
+        let num = Math.floor(interval)
+        if(num <= 1){
+          return num+ " day ago"
+        }
+        return num + " days ago";
+      }
+      interval = seconds / 3600;
+      if (interval > 1) {
+        let num = Math.floor(interval)
+        if(num <= 1){
+          return num+ " day ago"
+        }
+        return num + " days ago";
+      }
+      interval = seconds / 60;
+      if (interval > 1) {
+        let num = Math.floor(interval)
+        if(num <= 1){
+          return num+ " minute ago"
+        }
+        return num + " minutes ago";
+      }
+      if(seconds >= 1){
+      return Math.floor(seconds) + " seconds ago";
+      }else{
+        return "just now";
+      }
+  }
+
 
   getNotifications(){
     var notifications: any[] = [];
@@ -235,5 +367,6 @@ constructor(
 
 
 }
+
 
 
