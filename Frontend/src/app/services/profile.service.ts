@@ -63,6 +63,14 @@ import { AuthenticationService } from './authentication.service';
         return this._http.get<any>('https://localhost:8000/searchUsersForLoggedUser/' + searchText, { headers}).pipe();
     }
 
+
+    // Admin:
+    getAllProfiles(){ 
+        const url = this.url + '/users';
+        const headers = this.authService.getHeaders();
+        return  this._http.get<any>(url, { headers }).pipe();
+    }
+
   }
 
 

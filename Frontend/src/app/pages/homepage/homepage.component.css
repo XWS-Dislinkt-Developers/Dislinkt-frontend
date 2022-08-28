@@ -20,6 +20,11 @@
 	--color-grey-dark: #242629;
 	--color-actually-black: #000000;
 	--color-fantastic-green: #00ae7a;
+
+  --primary: #EB1616;
+  --secondary: #191C24;
+  --light: #6C7293;
+  --dark: #000000;
 }
 
 .homepage-component {
@@ -876,3 +881,7 @@ height: calc(100% - 10px - 105px - 400px)
 .custom-social-proof .custom-notification:hover .custom-close {
   opacity: 1;
 }
+
+
+/* For Admin page */
+

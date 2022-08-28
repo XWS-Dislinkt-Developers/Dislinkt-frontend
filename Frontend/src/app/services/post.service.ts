@@ -60,4 +60,11 @@ import { AuthenticationService } from './authentication.service';
       return  this._http.post<any>(url, body.userPost, {headers} ).pipe();
     }
 
+    //Admin:
+    getAllPosts(){ 
+      const url = this.url + '/userPosts';
+      const headers = this._authService.getHeaders();
+      return this._http.get<any>(url, { headers}).pipe();
+  }
+
   }

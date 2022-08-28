@@ -31,4 +31,11 @@ import { AuthenticationService } from './authentication.service';
 
     }
 
+    // Admin:
+    getAllMessages(){
+      const url = this.url + '/messages';
+      const headers = this._authService.getHeaders();
+      return  this._http.get<any>(url, { headers });
+    }
+
   }

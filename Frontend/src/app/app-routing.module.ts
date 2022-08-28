@@ -16,13 +16,13 @@ import { RoleGuardUser } from './services/role_guard_user/role.guard_user';
 const routes: Routes = [
   { path:'', component: HomepageComponent },
   { path:'settings-and-privacy', component: SettingsAndPrivacyComponent, canActivate: [AuthGuard, RoleGuardUser]},
-          { path: 'settings-and-privacy/update-personal-data', component: UpdatePersonalDataComponent, canActivate: [AuthGuard]},
-          { path: 'settings-and-privacy/update-skills-and-interests', component: UpdateSkillsAndInterestsComponent, canActivate: [AuthGuard]},
-          { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent, canActivate: [AuthGuard]},
+          { path: 'settings-and-privacy/update-personal-data', component: UpdatePersonalDataComponent, canActivate: [AuthGuard, RoleGuardUser]},
+          { path: 'settings-and-privacy/update-skills-and-interests', component: UpdateSkillsAndInterestsComponent, canActivate: [AuthGuard, RoleGuardUser]},
+          { path: 'settings-and-privacy/update-work-and-education', component: UpdateWorkAndEducationComponent, canActivate: [AuthGuard, RoleGuardUser]},
   { path: 'profile/:userId', component: ProfileComponent},
-  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
-  { path: 'connections', component: ConnectionsComponent},
-  { path: 'chat', component: ChatComponent},
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard, RoleGuardUser]},
+  { path: 'connections', component: ConnectionsComponent, canActivate: [AuthGuard, RoleGuardUser]},
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard, RoleGuardUser]},
   { path:'**', redirectTo: ''}
 ];
 
