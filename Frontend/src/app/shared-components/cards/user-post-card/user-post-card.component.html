@@ -1,0 +1,89 @@
+<div class="user-post-card">
+    <div class="user-post-card-content">
+         <!-- POST HEADER -->
+        <div class="post-header">
+            <!-- header left -->
+            <div class="post-header-left">
+                <a href="/profile"> <img src="./assets/images/placeholder-profile-picture.png" class="post-author-picture"/> </a>
+                <div class="post-author">
+                    <span class="post-author-name"> <a href="/profile"> Johnny Depp<i style="font-size: 10px; font-weight: 100x;"> theRealJackSparrow </i></a> </span>
+
+                </div>
+                    <span class="post-date"><a href="#"> October 13, 2020</a></span>
+                    <span class="post-date-privacy-separator">&nbsp;·&nbsp;</span>
+                    <span>   <img src="./assets/images/icon-private.svg" style="width:11px; height:11px;"/></span>
+            </div>
+            <!-- header right -->
+            <div class="post-header-right">
+                <div class="post-options">
+                    <span>   <img src="./assets/images/icon-options.svg" style="width:11px; height:11px;"/></span>
+                </div>
+            </div>
+
+        </div>
+        <!-- POST CONTENT-->
+        <div class="post-content">
+            <p class="content-paragraph">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pulvinar placerat commodo. Aenean rhoncus sagittis leo vitae ultrices. Aenean placerat ex a commodo venenatis.Aenean mattis arcu neque, sed egestas ante tempus in. 🐶🐶🐶🐶🐶
+            </p>
+            <img src="/assets/images/placeholder-post-photo.png" class="content-image">
+        </div>
+        <!-- POST FOOTER-->
+        <div class="post-footer">
+
+            <div class="footer-reactions">
+                <div class="reactions-emojis">
+                    <a><img src="/assets/images/icon-like-filled.svg" class="emoji-like"></a>
+                    <span><a>16</a></span>
+                    <a><img src="/assets/images/icon-dislike-filled.svg" class="emoji-dislike"></a>
+                    <span><a>16</a></span>
+                    <a><img src="/assets/images/icon-comments-read.svg" style="margin-left:8px" class="emoji-like"></a>
+                    <span class="comment-shares-comments"><a>2</a></span>
+                    <div class="mt-2 text-right">
+                        <button (click)="showComments = !showComments" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" style="margin: -10px 0px 0px 10px;" type="button">
+                            {{showComments ? 'Hide comments' : 'Show comments'}}</button>
+                    </div>
+                </div>
+                <div class="reactions-comment">
+
+                    <button (click)="showAddComment = !showAddComment" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" type="button">
+
+                        <a><img src="/assets/images/icon-comments-write.svg" style="margin-left:8px" class="emoji-like"></a>
+                        <span class="comment-shares-comments"><a>Add a comment</a></span>
+    
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="showComments" class=" p-2 read-comment">
+
+            <div class="d-flex flex-row align-items-start">
+                <img src="./assets/images/placeholder-profile-picture.png" class="post-author-picture"/> 
+                <p disabled class="form-control ml-1 shadow-none textarea input-text" 
+                         style="border-radius: 10px; border: 0px; height: fit-content;" 
+                        >  This is a somebody's comment.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris vitae laoreet odio, tempor pharetra velit. 
+                        Pellentesque blandit ligula lorem, quis blandit massa malesuada a. 
+                        Phasellus ut malesuada lorem. 😊😊😊
+                    </p>
+            </div>
+
+        </div>
+
+        <div *ngIf="showAddComment"  class=" p-2 write-comment">
+            <div class="d-flex flex-row align-items-start">
+                <img src="./assets/images/placeholder-profile-picture.png" class="post-author-picture"/> 
+                <textarea class="form-control ml-1 shadow-none textarea input-text" 
+                          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            </div>
+            <div class="mt-2 text-right">
+                <button class="btn btn-secondary btn-sm shadow-none" type="button">Post comment</button>
+                <button (click)="showAddComment = !showAddComment" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" style="margin-left:5px" type="button">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div id="id-sign-out-modal" class="modal">
+  
+    <form class="modal-content animate">
+      <div class="modal-title-container">
+        <span onclick="document.getElementById('id-sign-out-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img class="modal-title-icon" src = "/assets/images/icon-sign-out.svg" alt="sign-out-icon"/>
+        <span class="modal-title-text">Sign out</span>
+      </div>
+      <div class="form-container" style="text-align:center;">
+          <p class="modal-title-text" style="color:#f4f4f4; font-size:20px;">Are your sure you want to sign out?</p>
+      </div>
+
+      <div class="form-container" style="display:flex;justify-content: space-evenly;">
+        <button type="button" onclick="document.getElementById('id-sign-out-modal').style.display='none'" class="yes-button" (click)="signOut()">Yes</button>
+        <span><button type="button" onclick="document.getElementById('id-sign-out-modal').style.display='none'" class="no-button">No</button></span>
+      </div>
+    </form>
+  </div>

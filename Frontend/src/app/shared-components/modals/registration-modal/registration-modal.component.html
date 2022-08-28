@@ -1,0 +1,79 @@
+<div id="id-registration-modal" class="modal">
+  <form class="modal-content animate " [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="modal-title-container">
+      <span onclick="document.getElementById('id-registration-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img class="modal-title-icon" src = "/assets/images/icon-register.svg" alt="register-icon"/>
+      <span class="modal-title-text">Registration</span>
+    </div>
+    <div class="form-container">
+      <div class="form-group">
+        <label class="form-label label-text" for="username"  ><b>Username</b></label>
+          <input type="text" formControlName="username" [ngClass]="{'is-invalid':submitted && registerForm.controls.username.errors}" class="form-control input-text" placeholder="Enter Username" [(ngModel)]="username" >
+          <div *ngIf="submitted && registerForm.controls.username.errors" class="text-danger" >
+          <div *ngIf="submitted && registerForm.controls.username.errors.required"> Username is required. </div>
+          <div *ngIf="submitted && registerForm.controls.username.errors">  Username can include only numbers and digits. </div>
+          <div *ngIf="submitted && registerForm.controls.username.errors.usernameTaken"> Username is already taken. </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label label-text" for="name" ><b>Name</b></label>
+        <input type="text" formControlName="name" [ngClass]="{'is-invalid':submitted && registerForm.controls.name.errors}" class="form-control is-invalid input-text" placeholder="Enter Name" name="name"  [(ngModel)]="name" >
+        <div *ngIf="submitted && registerForm.controls.name.errors" class="text-danger" >
+          <div *ngIf="submitted && registerForm.controls.name.errors.required">Name is required. </div>
+        </div>
+      </div>
+      <div class="form-group"> 
+        <label class="form-label label-text" for="email"><b>E-mail</b></label>
+        <input type="text" formControlName="email" [ngClass]="{'is-invalid':submitted && registerForm.controls.email.errors}" class="form-control is-invalid input-text" placeholder="Enter Email" name="email" required [(ngModel)]="email" >
+        <div *ngIf="submitted && registerForm.controls.email.errors" class="text-danger" >
+          <div *ngIf="submitted  && registerForm.controls.email.errors.email "> E-mail is not correct. </div>
+          <div *ngIf="submitted && registerForm.controls.email.errors.required"> E-mail is required. </div>
+        </div>
+      </div>
+      <!-- TODO: GENDER AND DATE-->
+      <div class="form-group"> 
+        <div style="text-align:left;" >
+          <label class="label-text" for=""><b>Gender:</b></label>
+            <label class="label-text">
+                <input class="radio" type="radio" formControlName="gender" placeholder="" name="gender" id="gender" [(ngModel)]="isGenderMale" [value]="true"> <span>Male</span>
+            </label>
+            <label class="label-text">
+                <input class="radio" type="radio" formControlName="gender" placeholder="" name="gender" id="gender" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
+            </label>
+        </div>
+      </div>
+      <div class="form-group"> 
+        <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
+        <input class="input-text" type="date"  value="2013-10-24T20:36:00" step="1" min="1850-01-01" max="2020-01-01" formControlName="dateOfBirth" placeholder="" name="dateOfBirth" [(ngModel)]="dateOfBirth">
+      </div>
+      <!-- *********  -->
+      <div class="form-group">
+        <label class="form-label label-text" for="psw"><b>Password</b></label>
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && registerForm.controls.password.errors}" class="form-control is-invalid input-text" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
+        <div *ngIf="submitted && registerForm.controls.password.errors" class="text-danger">
+          <div *ngIf="submitted  && registerForm.controls.password.errors.minlength "> Password must be at least 10 characters long. </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.required"> Password is required. </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.checkPasswordRepeatingCharacters" > Password has too many repeating characters in a row. </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.checkPasswordWithUsernameEmail" > Password and confirm password cannot contain the user's e-mail or username. </div>
+          <div *ngIf="submitted && registerForm.controls.password.errors.pattern" > Password must contain at least one uppercase, lowercase, digit and a special character <i>(!@#$%^&*()_+~-)</i>.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label label-text" for="psw-repeat"><b>Confirm Password</b></label>
+        <input type="password" formControlName="confirmPassword" [ngClass]="{'is-invalid':submitted && registerForm.controls.confirmPassword.errors}" class="form-control is-invalid input-text" placeholder="Repeat Password" name="psw-repeat" required [(ngModel)]="confirmPassword" >
+        <div *ngIf="submitted && registerForm.controls.confirmPassword.errors" class="text-danger" >
+          <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.minlength"> Confirm password must be at least 10 characters long. </div>
+          <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.required"> Confirm password is required. </div>
+          <div *ngIf="submitted && registerForm.controls.confirmPassword.errors.checkPasswordWithConfirmedPassword" > Password and confirm password must be matched.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" ng-disabled="registerForm.$submitted" (click)="register()" >Register</button>
+      </div>
+    </div>
+    <div class="form-container">
+      <button type="button"  onclick="document.getElementById('id-registration-modal').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="psw"> <a onclick="document.getElementById('id-registration-modal').style.display='none';  document.getElementById('id-sign-in-modal').style.display = 'block'">Sign in.</a></span>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<div class="settings-and-privacy-component">
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-left-corner-logo></app-top-left-corner-logo>
+   
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
+    <app-sign-out-modal></app-sign-out-modal>
+
+    <div class="settings-and-privacy-content">
+
+        <div class="settings-and-privacy-card">
+
+            <div class="settings-and-privacy-card-content">
+
+                <div class="container">
+
+                    <div class="card-title">
+                        <img class="card-title-icon" src = "/assets/images/icon-settings-and-privacy.svg" alt="settings-and-privacy-icon"/>
+                        <span class="card-title-text">Settings & Privacy</span>
+                    </div>
+
+                    <div class="centralizer-containter">
+
+                        <button class="primary-menu-button" type="button" (click)="redirectUpdatePersonalData()">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" src = "/assets/images/icon-personal-data.svg" alt="personal-data-icon"/>
+                                <p>Update personal data</p>
+                            </div>
+                        </button>
+
+                        <button class="primary-menu-button" type="button" (click)="redirectUpdateSkillsAndInterests()">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" src = "/assets/images/icon-skills-and-interests.svg" alt="skills-and-interests-icon"/>
+                                <p>Update skills and interests</p>
+                            </div>
+                        </button>
+
+                        <button class="primary-menu-button" type="button" (click)="redirectUpdateWorkAndEducation()">
+                            <div class="inline-left-align-container">
+                                <img class="card-title-icon" src = "/assets/images/icon-work-and-education.svg" alt="work-and-education-icon"/>
+                                <p>Update work and education</p>
+                            </div>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

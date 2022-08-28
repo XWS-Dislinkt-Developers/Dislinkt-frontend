@@ -1,16 +1,16 @@
-.left-nav{
+.left-vertical-navbar{
     position: fixed;
     top: 0;
-    bottom: 0;
-    overflow-y: scroll;
-    width: 100%;
+    left:0;
+
+    z-index: 2;
+    width: 12vh;
+    margin: 0;
+    background: var(--full-black);
 }
 
-.left-nav::-webkit-scrollbar {
-    display: none;
-}
 
-.guilds-container {
+.left-vertical-navbar-content {
     background: var(--dark-navbar);
     margin: 0;
     display: flex;

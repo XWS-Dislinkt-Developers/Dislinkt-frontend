@@ -1,0 +1,197 @@
+
+<div class="feed-component" style="overflow: hidden">
+
+    <app-registration-modal></app-registration-modal>
+    <app-sign-in-modal></app-sign-in-modal>
+    <app-sign-out-modal></app-sign-out-modal>
+    <app-create-post-modal></app-create-post-modal>
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
+    <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
+
+
+
+    <div class="create-post-card">
+        <div class=" p-2 write-comment rounded" style="margin-bottom:2.5px;">
+          <div class="d-flex flex-row align-items-start"  >
+            <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
+            <img *ngIf="loggedUserData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+loggedUserData.id+'.jpg'" width="40"  class="media-object  rounded-circle shadow-4" style="margin: 5px;">
+            <textarea class="form-control ml-1 shadow-none textarea input-text" style="font-size:15px;  height:50px;" id="createPostTextId" 
+                      [(ngModel)]="createPostText" placeholder="Start a post" (keydown.enter)="createPost()" ngDefaultControl maxlength="5000"></textarea>
+            <button *ngIf="postImageIsSelected" (click)="cancelPostImage()"
+              class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+              <div class="inline-left-align-container">
+                <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-upload-image-cancel.svg" alt="chat-send-message"/>
+              </div>
+            </button>
+            <button *ngIf="!postImageIsSelected" (click)="selectPostImage()"
+              class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+              <div class="inline-left-align-container">
+                <input type="file" id="selectedFile" style="display: none;" (change)="CreateBase64String($event)"  />
+                <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-upload-image.svg" alt="chat-send-message"/>
+              </div>
+            </button>
+            <button (click)="createPost()"
+                class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+                  <div class="inline-left-align-container">
+                <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
+                </div>
+            </button>       
+          </div>
+        </div>
+        <!-- Add Comment -->
+        <div *ngIf="postImageIsSelected" class="rounded p-2 " 
+              style=" margin: 0px; padding:0px; width: 100%; height: 400px;
+              line-height: 375px;text-align: center;
+              background-color: #1e2126;
+              border: 1px solid #666666;">
+          <img id="postImageOutput" [src]="postImageBase64" 
+              style=" max-width:100%; margin:0px; padding: 0px;
+                      max-height:100%;
+                      vertical-align: middle;"/>
+        </div>
+      </div>
+      <div *ngIf="userPosts.length != 0 && usersWithPosts.size != 0" [ngClass]="{'user-post-height-medium': !postImageIsSelected ,
+                                                                                  'user-post-height-small': postImageIsSelected }" 
+             style="position: relative; overflow-y:auto; padding:5px;">
+        <div *ngFor="let post of userPosts" class="user-post-card">
+          <!-- POST HEADER -->
+          <div class="post-header">
+              <!-- header left -->
+              <div class="post-header-left" >
+                  <a (click)="redirectToUserProfile(post.UserId)"> 
+                    <img *ngIf="usersWithPosts.get(post.UserId).gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+post.UserId+'.jpg'" class="post-author-picture">
+                    <img *ngIf="usersWithPosts.get(post.UserId).gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+post.UserId+'.jpg'"  class="post-author-picture">
+                  </a>
+                  <h2 class="media-heading" style="word-wrap: break-word;"> {{usersWithPosts.get(post.UserId).name}}
+                    <small style="word-wrap: break-word;"> - <i> {{usersWithPosts.get(post.UserId).username}} </i></small>
+                    <span *ngIf="usersWithPosts.get(post.UserId).isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    <span *ngIf="usersWithPosts.get(post.UserId).isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                  </h2>
+                  <h6 style="margin:-5px 0px 0px 77px; color:#a3b5c1; word-wrap: break-word;">{{post.CreatedAt}} </h6>
+              </div>
+              <!-- header right -->
+              <div class="post-header-right">
+                  <div class="post-options">
+                      <span>   <img src="./assets/images/icon-options.svg" style="width:11px; height:11px;"/></span>
+                  </div>
+              </div>
+          </div>
+          <!-- POST CONTENT-->
+          <div class="post-content">
+              <p [innerHTML]="linkify(post.Text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
+              </p>
+            <div *ngIf="post.ImagePath !== ''" class="rounded p-2 " 
+                  style=" margin: 0px; padding:0px; width: 100%; height: 400px;
+                    line-height: 375px;text-align: center;
+                    background-color: #1e2126;
+                  border: 1px solid #666666;">
+              <img id="postImageOutput" [src]="post.ImagePath" 
+                      style=" max-width:100%; margin:0px; padding: 0px;
+                    max-height:100%;
+                    vertical-align: middle;"/>
+            </div>
+          </div>
+          <!-- POST FOOTER-->
+          <div class="post-footer" >
+            <div class="footer-reactions">
+              <div class="reactions-emojis" style="margin: -8px 0px -8px 5px; ">
+                <a><img src="/assets/images/icon-like-not-filled.svg" style="width:12px; height:12px;" class="emoji-like"></a>
+                <span><a style="font-size:9px;">{{post.Likes.length}} Likes</a></span>
+                <a><img src="/assets/images/icon-dislike-not-filled.svg" style="width:12px; height:12px; margin-left:5px;"  class="emoji-dislike"></a>
+                <span><a style="font-size:9px;">{{post.Dislikes.length}} Dislikes</a></span>
+                <a (click)="post.showComments = !post.showComments"><img src="/assets/images/icon-comments.svg" style="margin-left:8px; margin-right:-3px; width:12px; height:12px;" class="emoji-like"></a>
+                <span (click)="post.showComments = !post.showComments" c class="comment-shares-comments"><a style="font-size:9px;">{{post.Comments.length}} Comments</a></span>
+              </div>
+            </div>
+              <div *ngIf="loggedUserExists" class="footer-reactions">
+                  <div  class="reactions-emojis">
+                      <button  (click)="like(post.Id)"  class="primary-menu-button button-shadow " style="font-size:13px; margin:5px;padding:5px;"  
+                              type="button">
+                          <div class="inline-left-align-container">
+                              <a>
+                              <img *ngIf="post.isLikedByLoggedUser" src="/assets/images/icon-like-filled.svg" style="margin:0px 0px 0px 10px;" class="emoji-like">
+                              <img *ngIf="!post.isLikedByLoggedUser" src="/assets/images/icon-like-not.svg" style="margin:0px -5px 0px 10px;" class="emoji-like">
+                              </a>
+                              <span style="margin:0px;"> {{post.isLikedByLoggedUser ? 'Liked' : 'Like'}}
+                              </span>
+                          </div>
+                      </button>
+                      <button  (click)="dislike(post.Id)" class="primary-menu-button button-shadow" style="font-size:13px; margin:5px;padding:5px;"  
+                              type="button">
+                          <div class="inline-left-align-container">
+                              <a>
+                              <img *ngIf="post.isDislikedByLoggedUser" src="/assets/images/icon-dislike-filled.svg" style="margin:0px 0px 0px 10px;" class="emoji-like">
+                              <img  *ngIf="!post.isDislikedByLoggedUser" src="/assets/images/icon-dislike-not.svg" style="margin:0px -5px 0px 10px;" class="emoji-like">
+
+                              </a>
+                              <span style="margin:0px;"> {{post.isDislikedByLoggedUser ? 'Disliked' : 'Dislike'}}
+                              </span>
+                          </div>
+                      </button>
+                  </div>
+                  <div class="reactions-comment">
+                      <button
+                        (click)="post.showAddComment = !post.showAddComment" class="btn btn-outline-secondary btn-sm ml-1 shadow-none  tooltip-button" type="button">
+                          <a><img src="/assets/images/icon-comments-write.svg" style="margin-left:8px" class="emoji-like"></a>
+                          <span class="comment-shares-comments"><a>Comment</a></span>
+                      </button>
+                  </div>
+                  
+              </div>
+          </div>
+      <!-- Show comment -->
+        <div *ngIf="post.showAddComment"  class=" p-2 write-comment rounded" style="margin-bottom:2.5px">
+          <div class="d-flex flex-row align-items-start">
+              <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
+              <img *ngIf="loggedUserData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+loggedUserData.id+'.jpg'" width="40"  class="media-object  rounded-circle shadow-4" style="margin: 5px;">
+              <textarea class="form-control ml-1 shadow-none textarea input-text" 
+                (keydown.enter)="sendComment(post.addNewComment, post.Id);"
+                [(ngModel)]="post.addNewComment" placeholder="Write a comment" ngDefaultControl maxlength="5000"
+                oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+              <button 
+                    class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button" (click)="sendComment(post.addNewComment, post.Id);">
+                <div class="inline-left-align-container">
+                  <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
+                </div>
+              </button>    
+          </div>
+        </div>
+        <div *ngIf="post.showComments" class=" p-2 read-comment rounded"  style="padding:0px 5px; background-color:#1e2126">
+          <div *ngIf="post.Comments.length!=0">
+              <div *ngFor="let comment of post.Comments.slice().reverse()" class="rounded" style="padding:5px 5px; overflow-wrap: break-word;">
+              <div class="d-flex flex-row align-items-start" style="margin:10px">
+                <img *ngIf="usersWithComments.get(comment.UserId).gender === 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+comment.UserId+'.jpg'" width="40" class=" media-object rounded-circle">
+                <img *ngIf="usersWithComments.get(comment.UserId).gender  === 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+comment.UserId+'.jpg'"  width="40" class=" media-object rounded-circle">
+                <div class="d-lex flex-column align-items-start">
+                  <div class="rounded" style=" margin:2px; padding:4px; background-color:#2a2f35">
+                      <h5 style="margin:-2px 0px 0px 2px; font-weight: 100; font-size:10px;color:#c4c4c4">{{usersWithComments.get(comment.UserId).name}} - <i>{{usersWithComments.get(comment.UserId).username}}</i></h5>
+                      <h6 [innerHTML]="linkify(comment.Text)"  
+                      style="margin: -2px 0px 0px 3px; font-size: 12px; color:#c2c2c2;      word-break: break-all;
+                      white-space: pre-wrap;">
+                      </h6>
+                  </div>
+                  <h6 style="margin: -2px 0px 0px 10px; white-space: pre-line;font-size: 9px; color:#a3b5c1">{{comment.CreatedAt}} </h6>
+                </div>
+              </div>
+              </div>
+          </div>
+          <div *ngIf="post.Comments.length==0">
+            <div class="d-lex flex-column align-items-start">
+              <div class="rounded" style=" margin:2px; padding:4px; background-color:#2a2f35">
+                <h5 style="margin:-2px 0px 0px 2px; font-weight: 100; font-size:10px;color:#c4c4c4">No comments.</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </div>
+
+   
+
+</div>

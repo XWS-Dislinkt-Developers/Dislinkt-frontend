@@ -1,0 +1,58 @@
+<div id="id-sign-in-modal" class="modal">
+  
+    <form class="modal-content animate"  [formGroup]="signInForm" (ngSubmit)="logIn()">
+      <div class="modal-title-container">
+        <span onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img class="modal-title-icon" src = "/assets/images/icon-sign-in.svg" alt="sign-in-icon"/>
+        <span class="modal-title-text">Sign in</span>
+      </div>
+  
+      <div class="form-container">
+        <div class="form-group">
+        <label class="form-label label-text" for="uname" ><b>Username</b></label>
+        <input type="text" class="form-control input-text" placeholder="Enter Username" name="uname" required [(ngModel)]="username" formControlName="username" [ngClass]="{'is-invalid':submitted && signInForm.controls.username.errors}">
+        <div *ngIf="submitted && signInForm.controls.username.errors" class="text-danger" >
+          <div *ngIf="submitted && signInForm.controls.username.errors.required">
+            Username is required
+          </div>
+          <div *ngIf="submitted && signInForm.controls.username.errors">
+            Username can include only numbers and digits
+          </div>
+          
+        </div>
+      </div> 
+ <div class="form-group">
+        <label class="form-label label-text" for="psw"><b>Password</b></label>
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid':submitted && signInForm.controls.password.errors}" class="form-control input-text" placeholder="Enter Password" name="psw" required [(ngModel)]="password" >
+        
+        <div *ngIf="submitted && signInForm.controls.password.errors" class="text-danger" >
+          <div *ngIf="submitted  && signInForm.controls.password.errors.minlength ">
+            Password must have minimum 10 characters
+          </div>
+          <div *ngIf="submitted && signInForm.controls.password.errors.required">
+            Password is required
+          </div>
+    
+          <div *ngIf="submitted && signInForm.controls.password.errors" > Must contain at least one uppercase, lowercase, digit and a special character <i>(!@#$%^&*()_+~-)</i> </div>
+        </div>
+      </div>  
+        <button type="submit" data-dismiss="modal" ng-disabled="signInForm.$submitted" (click)="logIn()" >Sign in</button>
+        <!--<label>
+          <input type="checkbox" style="max-width: 10px;" class="form-control" checked="checked" name="remember"> Remember me
+        </label> -->
+        <div class="form-container">
+        <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+          document.getElementById('id-forgot-password-modal').style.display = 'block'"> Forgot password?</a></span>
+          
+            <span class="psw2"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+              document.getElementById('id-passwordless-modal').style.display = 'block'"> Passwordless sign in?</a></span>
+     </div> 
+    </div>
+  
+      <div class="form-container">
+        <button type="button" onclick="document.getElementById('id-sign-in-modal').style.display='none'" class="cancelbtn" data-dismiss="modal">Cancel</button>
+        <span class="psw"> <a onclick="document.getElementById('id-sign-in-modal').style.display='none'; 
+                                       document.getElementById('id-registration-modal').style.display = 'block'"> Register?</a></span>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,110 @@
+<div class="update-personal-data-component">
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-left-corner-logo></app-top-left-corner-logo>
+    
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
+    <app-sign-out-modal></app-sign-out-modal>
+
+    <div class="update-personal-data-content">
+
+        <div class="update-personal-data-card">
+
+            <div class="update-personal-data-card-content">
+
+                <div class="container">
+
+                    <div class="card-title">
+                        <div (click)="redirectSettingsAndPrivacy()" style="cursor: pointer">
+                            <img class="card-title-icon" src = "/assets/images/icon-settings-and-privacy.svg" alt="setting-and-privacy-icon"/>
+                            <span class="card-title-text">Settings & Privacy</span>
+                        </div>
+                        <div class="card-subtitle">
+                            <img class="card-subtitle-icon" src = "/assets/images/icon-personal-data.svg" alt="personal-data-icon"/>
+                            <span class="card-subtitle-text">Update personal data</span>
+                        </div>
+                    </div>
+
+                    <div class="centralizer-containter">
+
+                        <form >
+                            <div class="container">
+
+                                <div class="settings-section">
+
+                                    <label class="label-text" for="username">Username:</label>
+                                    <input class="input-text" type="text"  name="username" id="username" [(ngModel)]="profileData.username" >
+    
+                                    <label class="label-text" for="name">Name:</label>
+                                    <input class="input-text" type="text" placeholder="Mr. Firstname Lastname" name="name" id="name" [(ngModel)]="profileData.name">
+    
+                                    <label class="label-text" for="email">Email:</label>
+                                    <input class="input-text" type="email" placeholder="mail@mail.com" name="email" id="email" [(ngModel)]="profileData.email" >
+
+                                    <label class="label-text" for="address">Address:</label>
+                                    <input class="input-text" type="text" placeholder="Enter your address here" name="address" id="address" [(ngModel)]="profileData.address" >
+
+  
+                                    <label class="label-text" for="phone-number"><b>Phone number:</b></label>
+                                    <input class="input-text" type="tel" placeholder="" name="phone-number" id="phone-number" [(ngModel)]="profileData.phoneNumber" >
+
+
+                                    <label class="label-text" for=""><b>Gender:</b></label>
+                                    <div style="text-align:left;">
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="true"> <span>Male</span>
+                                        </label>
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="gender-radio" id="gender-radio" [(ngModel)]="isGenderMale" [value]="false"> <span>Female</span>
+                                        </label>
+                                    </div>
+                        
+                                    <label class="label-text" for="date-of-birth"><b>Date of birth:</b></label>
+                                    <input class="input-text" type="date" placeholder="" name="date-of-birth" id="date-of-birth" [(ngModel)]="profileData.dateOfBirth">
+                                    
+ 
+                                    <label class="label-text" for="biography" style="margin-top:3px;"><b>Biography:</b></label>
+                                    <textarea class="input-text" style="resize: none;" name="biography" id="biography" cols="30" rows="5"  [(ngModel)]="profileData.biography"></textarea>
+
+                                    <label class="label-text" for=""><b>Account privacy:</b></label>
+                                    <div style="text-align:left;">
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="isPrivateProfile" [value]="true"> <span>Private</span>
+                                        </label>
+                                        <label class="label-text">
+                                            <input class="radio" type="radio" placeholder="" name="privacy-radio" id="privacy-radio" [(ngModel)]="isPrivateProfile" [value]="false"> <span>Public</span>
+                                        </label>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="centralizer-containter p-3">
+                                    <input type="button" class="button yes-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Accept & Save" (click)=" updatePersonalData() ">
+                                    <input type="button" class="button no-button" style="font-size:clamp(1.8vh,15px,2.7vh);" value="Discard & Save" (click)="redirectSettingsAndPrivacy()">
+                                </div>
+                                
+
+                                <p class="info-txt"> When you're done, click on: 
+                                    <br> - <b>Accept & Save</b>, if you're pleased with the changes.  
+                                    <br> - <b>Discard & Save</b>, if you want to discard the changes.</p>
+
+                            </div>
+                                       
+                          </form>
+
+
+                      
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

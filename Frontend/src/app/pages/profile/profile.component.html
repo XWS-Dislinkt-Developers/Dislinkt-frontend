@@ -1,0 +1,469 @@
+<div class="profile-component">
+
+    <app-left-vertical-navbar></app-left-vertical-navbar>
+    <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
+    <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
+    <app-registration-modal></app-registration-modal>
+    <app-sign-in-modal></app-sign-in-modal>
+    <app-sign-out-modal></app-sign-out-modal>
+    <app-create-post-modal></app-create-post-modal>
+    <app-forgot-password></app-forgot-password>
+    <app-passwordless-login></app-passwordless-login>
+
+    <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
+
+
+    <div *ngIf="profileExists && !profileIsAdmin" class="row  rounded border border border-dark" style="height:120px; margin:0px; padding:0px; overflow:hidden;">
+    
+      <div class="col" style="margin:0px; padding:0px;">
+
+        <div class="page-heading" style="margin:5px; padding:10px; overflow:hidden;">
+          <div class="media clearfix">
+            <div class="media-left pr30">
+              <a>
+                <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="media-object mw100 rounded-circle shadow-4">
+                <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+              </a>
+            </div>                      
+            <div class="media-body va-m">
+              <h2 class="media-heading"> {{profileData.name}}
+                <small> - <i> {{profileData.username}} </i></small>
+                <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+              </h2>
+              <div *ngIf="loggedUserExists && loggedUserData.userId!=9">
+                <p class="user-button-text" *ngIf="isMyProfile(profileData.id)" style=" color:#7c8b95; margin:-10px 0px 0px 2px; padding:0px;"> You </p>
+                <p class="user-button-text" *ngIf="isInConnections(profileData.id)" style="color:#03A062; margin:-10px 0px 0px 2px; padding:0px;">Friend 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Unfriend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Unfriend</p>
+                      </div>
+                    </button>  
+                  </a>
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isUserWithRequest(profileData.id)" style="color:#27A1AA; margin:-10px 0px 0px 2px; padding:0px;">Sent a friend request for you 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Accept', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Accept</p>
+                      </div>
+                    </button>  
+                  </a>
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Decline', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Decline</p>
+                      </div>
+                    </button>  
+                  </a>  
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isPendingUser(profileData.id)" style="color:#D48231; margin:-10px 0px 0px 2px; padding:0px;">You already sent a friend request 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Cancel friend request', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Cancel</p>
+                      </div>
+                    </button>  
+                  </a> 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isBlocked(profileData.id)"style="color:#D43C31; margin:-10px 0px 0px 2px; padding:0px;">Blocked user by you </p>
+                <p class="user-button-text" *ngIf="!isMyProfile(profileData.userId) && !isInConnections(profileData.userId) && !isUserWithRequest(profileData.userId) && !isPendingUser(profileData.userId) && !isBlocked(profileData.userId)" 
+                    style="color:#7c8b95; font-weight: 600;  margin-top:-10px; padding:0px;">Non-friend user 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Add friend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Add friend</p>
+                      </div>
+                    </button>  
+                  </a> 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a> 
+                </p>
+              </div> 
+              <div class="d-xs-none d-none d-lg-block d-xl-block">
+                <p class="lead truncate-1"><i>Biography:</i>  &nbsp; {{profileData.biography}} </p>
+              </div>         
+                  
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngIf="profileExists &&  !profileIsAdmin" class="row" style="height:calc(100% - 120px)!important;  overflow:hidden; margin:0px; padding:0px;">
+    
+      <div class="col-lg-4 rounded border border-dark"  style="padding:0px; max-height: 100%;">
+
+        <div style="position: relative; overflow-y:auto; height:100%!important; padding:5px;">
+      
+          <div class="panel" style="padding-bottom:5px;  margin-bottom:10px" >
+            <div  class="panel-heading" (click)="togglePanelBody('aboutMePanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-about-us.svg" width="25"> &nbsp; About me
+                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="aboutMePanelBody" class="hide panel-body pb5" style="overflow: hidden;">
+                <h6 *ngIf="profileData.phoneNumber"  style="color:#c4c4c4"> <i>- Phone number:</i> <b>  {{profileData.phoneNumber}} </b> </h6>
+                <h6 *ngIf="profileData.dateOfBirth"  style="color:#c4c4c4"> <i>- Date of birth:</i> <b>  {{profileData.dateOfBirth}} </b> </h6>
+                <h6 *ngIf="profileData.address" style="color:#c4c4c4"> <i>- Address:</i> <b>  {{profileData.address}} </b> </h6>
+                <h6 *ngIf="profileData.email" style="color:#c4c4c4"> <i>- E-mail:</i> <b>  {{profileData.email}} </b> </h6>
+              </div>
+            </div>
+          </div>
+          <div class="panel"  style="padding-bottom:5px;">
+            <div class="panel-heading" (click)="togglePanelBody('biographyPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-biography.svg" width="25"> &nbsp; Full biography
+                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-personal-data">Edit</a> </span>
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="biographyPanelBody"  class="hide panel-body pb5" style="overflow: hidden;">
+                <h6  style="color:#c4c4c4">{{profileData.biography}}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px; margin-bottom:10px">
+            <div class="panel-heading" (click)="togglePanelBody('skillsInterestsPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-skills-and-interests.svg" width="25"> &nbsp; Skills & Interests
+                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-skills-and-interests">Edit</a> </span>
+              </span>
+            </div>
+            <div class="wrapper">
+              <div id="skillsInterestsPanelBody" class="hide panel-body pb5" style="overflow: hidden;">
+                <h6 style="color:#c4c4c4">Skills</h6>
+                <span *ngFor="let skill of profileData.skills" class="badge rounded-pill bg-light text-dark">{{skill}}</span>
+                <hr class="short br-lighter">
+                <h6 style="color:#c4c4c4">Interests</h6> 
+                <span *ngFor="let interest of profileData.interests" class="badge rounded-pill bg-light text-dark">{{interest}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="padding-bottom:5px;">
+            <div class="panel-heading" (click)="togglePanelBody('workAndEducationPanelBody')" style="cursor:pointer">
+              <span class="panel-title truncate-1"> 
+                <img src="./assets/images/icon-work-and-education.svg" width="25"> &nbsp; Work & Education
+                <span *ngIf="isMyProfile(profileData.id)" style="float:right; font-size:13px;"> <a href="settings-and-privacy/update-work-and-education">Edit</a> </span>
+              </span>
+            </div>
+            <div class="wrapper">
+              <div  id="workAndEducationPanelBody"  class="hide panel-body pb5" style="overflow: hidden; ">
+                <p style="color:#c4c4c4">Work</p>
+                <span *ngFor="let work of profileData.work" class="badge rounded-pill bg-dark" >{{work}}</span>
+                <hr class="short br-lighter">
+                <p style="color:#c4c4c4">Education</p>
+                <span *ngFor="let education of profileData.education" class="badge rounded-pill bg-dark">{{education}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div  class="col-lg-8 rounded border border border-dark " style="padding: 10px 20px 0px 20px; max-height:100%; ">
+
+        <div *ngIf="isMyProfile(profileData.id)" class="create-post-card">
+
+          <div class=" p-2 write-comment rounded" style="margin-bottom:2.5px;">
+            <div class="d-flex flex-row align-items-start"  >
+              <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
+              <img *ngIf="loggedUserData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+loggedUserData.id+'.jpg'" width="40"  class="media-object  rounded-circle shadow-4" style="margin: 5px;">
+              <textarea class="form-control ml-1 shadow-none textarea input-text" style="font-size:15px;  height:50px;" id="createPostTextId" 
+                        [(ngModel)]="createPostText" placeholder="Start a post" (keydown.enter)="createPost()" ngDefaultControl maxlength="5000"></textarea>
+              <button *ngIf="postImageIsSelected" (click)="cancelPostImage()"
+                class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+                <div class="inline-left-align-container">
+                  <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-upload-image-cancel.svg" alt="chat-send-message"/>
+                </div>
+              </button>
+              <button *ngIf="!postImageIsSelected" (click)="selectPostImage()"
+                class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+                <div class="inline-left-align-container">
+                  <input type="file" id="selectedFile" style="display: none;" (change)="CreateBase64String($event)"  />
+                  <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-upload-image.svg" alt="chat-send-message"/>
+                </div>
+              </button>
+              <button (click)="createPost()"
+                  class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button">
+                    <div class="inline-left-align-container">
+                  <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
+                  </div>
+              </button>       
+            </div>
+          </div>
+
+          <div *ngIf="postImageIsSelected" class="rounded p-2 " 
+                style=" margin: 0px; padding:0px; width: 100%; height: 400px;
+                line-height: 375px;text-align: center;
+                background-color: #1e2126;
+                border: 1px solid #666666;">
+            <img id="postImageOutput" [src]="postImageBase64" 
+                style=" max-width:100%; margin:0px; padding: 0px;
+                        max-height:100%;
+                        vertical-align: middle;"/>
+          </div>
+
+        </div>
+
+        <div *ngIf="userPosts.length != 0" [ngClass]="{'user-post-height-full': profileExists, 
+                                                        'user-post-height-medium': !postImageIsSelected && isMyProfile(profileData.id),
+                                                        'user-post-height-small': postImageIsSelected && isMyProfile(profileData.id)}"  
+               style="position: relative; overflow-y:auto; padding:5px;">
+
+          <div *ngFor="let post of userPosts.reverse()" class="user-post-card">
+            <!-- POST HEADER -->
+            <div class="post-header">
+                <!-- header left -->
+                <div class="post-header-left" >
+                    <a (click)="redirectToUserProfile(profileData.id)"> 
+                      <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="post-author-picture">
+                      <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="post-author-picture">
+                    </a>
+                    <h2 class="media-heading" style="word-wrap: break-word;">{{profileData.name}}
+                      <small style="word-wrap: break-word;"> - <i> {{profileData.username}} </i></small>
+                      <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    </h2>
+                    <h6 style="margin:-5px 0px 0px 77px; color:#a3b5c1; word-wrap: break-word;">{{post.createdAt}} </h6>
+                </div>
+                <!-- header right -->
+                <div class="post-header-right">
+                    <div class="post-options">
+                        <span>   <img src="./assets/images/icon-options.svg" style="width:11px; height:11px;"/></span>
+                    </div>
+                </div>
+    
+            </div>
+            <!-- POST CONTENT-->
+            <div class="post-content">
+                <p [innerHTML]="linkify(post.text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
+                </p>
+
+              <div *ngIf="post.imagePath !== ''" class="rounded p-2 " 
+                    style=" margin: 0px; padding:0px; width: 100%; height: 400px;
+                      line-height: 375px;text-align: center;
+                      background-color: #1e2126;
+                    border: 1px solid #666666;">
+                <img id="postImageOutput" [src]="post.imagePath" 
+                        style=" max-width:100%; margin:0px; padding: 0px;
+                      max-height:100%;
+                      vertical-align: middle;"/>
+              </div>
+
+
+                <!--
+                <img src="/assets/images/placeholder-post-photo.png" class="content-image">
+                -->
+            </div>
+            <!-- POST FOOTER-->
+            <div class="post-footer" >
+
+              <div class="footer-reactions">
+                <div class="reactions-emojis" style="margin: -8px 0px -8px 5px; ">
+
+                  <a><img src="/assets/images/icon-like-not-filled.svg" style="width:12px; height:12px;" class="emoji-like"></a>
+                  <span><a style="font-size:9px;">{{post.likes.length}} Likes</a></span>
+                  <a><img src="/assets/images/icon-dislike-not-filled.svg" style="width:12px; height:12px; margin-left:5px;"  class="emoji-dislike"></a>
+                  <span><a style="font-size:9px;">{{post.dislikes.length}} Dislikes</a></span>
+                  <a (click)="post.showComments = !post.showComments"><img src="/assets/images/icon-comments.svg" style="margin-left:8px; margin-right:-3px; width:12px; height:12px;" class="emoji-like"></a>
+                  <span (click)="post.showComments = !post.showComments" c class="comment-shares-comments"><a style="font-size:9px;">{{post.comments.length}} Comments</a></span>
+
+
+
+
+                </div>
+              </div>
+    
+                <div *ngIf="loggedUserExists" class="footer-reactions">
+                    <div  class="reactions-emojis">
+
+                    <button  (click)="like(post.id)"  class="primary-menu-button button-shadow " style="font-size:13px; margin:5px;padding:5px;"  
+                            type="button">
+                      <div class="inline-left-align-container">
+                        <a>
+                          <img *ngIf="post.isLikedByLoggedUser" src="/assets/images/icon-like-filled.svg" style="margin:0px 0px 0px 10px;" class="emoji-like">
+                          <img *ngIf="!post.isLikedByLoggedUser" src="/assets/images/icon-like-not.svg" style="margin:0px -5px 0px 10px;" class="emoji-like">
+                        </a>
+                          <span style="margin:0px;"> {{post.isLikedByLoggedUser ? 'Liked' : 'Like'}}
+                          </span>
+                      </div>
+                    </button>
+
+                    <button  (click)="dislike(post.id)" class="primary-menu-button button-shadow" style="font-size:13px; margin:5px;padding:5px;"  
+                            type="button">
+                      <div class="inline-left-align-container">
+                        <a>
+                          <img *ngIf="post.isDislikedByLoggedUser" src="/assets/images/icon-dislike-filled.svg" style="margin:0px 0px 0px 10px;" class="emoji-like">
+                          <img  *ngIf="!post.isDislikedByLoggedUser" src="/assets/images/icon-dislike-not.svg" style="margin:0px -5px 0px 10px;" class="emoji-like">
+
+                        </a>
+                          <span style="margin:0px;"> {{post.isDislikedByLoggedUser ? 'Disliked' : 'Dislike'}}
+                          </span>
+                      </div>
+                    </button>
+
+
+                <!--
+                        <a><img src="/assets/images/icon-like-filled.svg" class="emoji-like"></a>
+                        <span><a>{{post.numberOfLikes}}</a></span>
+                        <a><img src="/assets/images/icon-dislike-filled.svg" class="emoji-dislike"></a>
+                        <span><a>{{post.numberOfDislikes}}</a></span>
+                        <a (click)="post.showComments = !post.showComments"><img src="/assets/images/icon-comments-read.svg" style="margin-left:8px" class="emoji-like"></a>
+                        <span (click)="post.showComments = !post.showComments" c class="comment-shares-comments"><a>{{post.comments.length}}</a></span>
+        
+                        <div class="mt-2 text-right">
+                            <button (click)="post.showComments = !post.showComments" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" style="margin: -10px 0px 0px 10px;" type="button">
+                                {{post.showComments ? 'Hide comments' : 'Show comments'}}</button>
+                        </div>
+                      -->
+                    </div>
+                    <div class="reactions-comment">
+    
+                        <button
+                          [disabled]="(!isMyProfile(profileData.id) && (!isInConnections(profileData.id) || isUserWithRequest(profileData.id) || isPendingUser(profileData.id) || isBlocked(profileData.id)))"
+                          (click)="post.showAddComment = !post.showAddComment" class="btn btn-outline-secondary btn-sm ml-1 shadow-none  tooltip-button" type="button">
+                          
+                            <a><img src="/assets/images/icon-comments-write.svg" style="margin-left:8px" class="emoji-like"></a>
+                            <span class="comment-shares-comments"><a>Comment</a></span>
+        
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+    
+          <div *ngIf="post.showAddComment"  class=" p-2 write-comment rounded" style="margin-bottom:2.5px">
+            <div class="d-flex flex-row align-items-start">
+              <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
+              <img *ngIf="loggedUserData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+loggedUserData.id+'.jpg'" width="40"  class="media-object  rounded-circle shadow-4" style="margin: 5px;">
+              <textarea class="form-control ml-1 shadow-none textarea input-text" 
+                  (keydown.enter)="sendComment(post.addNewComment, post.id);"
+                  [(ngModel)]="post.addNewComment" placeholder="Write a comment" ngDefaultControl maxlength="5000"
+                  oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                <button 
+                      class="primary-menu-button button-shadow" style="font-size:15px; margin:5px;padding:5px;"  type="button" (click)="sendComment(post.addNewComment, post.id);">
+                  <div class="inline-left-align-container">
+                    <img class="card-title-icon" style="width:30px; padding:2.5px; height:auto;" src = "/assets/images/icon-chat-send-message.svg" alt="chat-send-message"/>
+                  </div>
+                </button>    
+            </div>
+          </div>
+
+          <div *ngIf="post.showComments" class=" p-2 read-comment rounded"  style="padding:0px 5px; background-color:#1e2126">
+    
+            <div *ngIf="post.comments.length!=0">
+                <div *ngFor="let comment of post.comments.slice().reverse()" class="rounded" style="padding:5px 5px; overflow-wrap: break-word;">
+                <div class="d-flex flex-row align-items-start" style="margin:10px">
+                  <img *ngIf="users.get(comment.userId).gender === 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+comment.userId+'.jpg'" width="40" class=" media-object rounded-circle">
+                  <img *ngIf="users.get(comment.userId).gender  === 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+comment.userId+'.jpg'"  width="40" class=" media-object rounded-circle">
+                  <div class="d-lex flex-column align-items-start">
+                    <div class="rounded" style=" margin:2px; padding:4px; background-color:#2a2f35">
+                      <h5 style="margin:-2px 0px 0px 2px; font-weight: 100; font-size:10px;color:#c4c4c4">{{users.get(comment.userId).name}} - <i>{{users.get(comment.userId).username}}</i></h5>
+                      <h6 [innerHTML]="linkify(comment.text)"  
+                      style="margin: -2px 0px 0px 3px; font-size: 12px; color:#c2c2c2;      word-break: break-all;
+                      white-space: pre-wrap;">
+                      
+                        </h6>
+                    </div>
+                    <h6 style="margin: -2px 0px 0px 10px; white-space: pre-line;font-size: 9px; color:#a3b5c1">{{comment.createdAt}} </h6>
+                  </div>
+                </div>
+                </div>
+            </div>
+
+            <div *ngIf="post.comments.length==0">
+              <div class="d-lex flex-column align-items-start">
+                <div class="rounded" style=" margin:2px; padding:4px; background-color:#2a2f35">
+                  <h5 style="margin:-2px 0px 0px 2px; font-weight: 100; font-size:10px;color:#c4c4c4">No comments.</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+
+
+          </div>
+    
+
+        </div>
+        
+      </div>
+
+    </div>
+
+    <div  *ngIf="profileExists && profileData.isPrivateProfile && !profileIsAdmin" class="d-flex justify-content-center align-items-center" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          background-size: 300px 300px;">
+          <div style="margin-top:50px;">
+            <h4 style="text-align: center; opacity: 50%">
+              {{profileData.name}}'s profile is
+            </h4>
+            <h3 style="text-align: center; opacity: 70%">
+              private.
+            </h3>
+          </div>
+    </div>
+
+    <div  *ngIf="!profileExists || profileIsAdmin" class="d-flex justify-content-center align-items-center" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          background-size: 300px 300px;">
+          <div style="margin-top:260px;">
+            <h4 style="text-align: center; opacity: 50%">
+              There's no user with this userId:
+            </h4>
+            <h3 style="text-align: center; opacity: 70%">
+              {{userId}}
+            </h3>
+          </div>
+    </div>
+
+
+    
+</div>

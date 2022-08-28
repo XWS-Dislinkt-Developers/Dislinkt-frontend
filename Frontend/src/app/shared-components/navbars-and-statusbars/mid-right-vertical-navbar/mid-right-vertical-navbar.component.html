@@ -1,0 +1,39 @@
+<div *ngIf="!admin && user" class="mid-right-menubar">
+    <ul class="mid-right-menubar-content"> 
+         <div *ngIf="!admin && user"> 
+            <li class="squircle" (click)="toggleNotifi()">
+                <img class="icons" src = "/assets/images/icon-notifications.svg" alt="my-profile-icon"/>
+                <div class="popper">
+                    <h4 class="popper-text">Notifications</h4>
+                </div>
+            </li>
+        </div>
+    </ul>
+
+    <div class="notifi-box" id="box">
+        <h2>Notifications <span>{{sortedShownNotifications.length}}</span>
+            <span style="float:right; cursor:pointer"><img (click)="popUpNotificationSettings()" src="/assets/images/icon-notification-settings.svg" alt="img" width="20"></span>
+        </h2>
+        <div *ngFor="let notification of sortedShownNotifications">
+            <div class="notifi-item">
+                <a (click)="redirectToUserProfile(notification.senderId)"> 
+                    <img *ngIf="usersWithNotifications.get(notification.senderId).gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+notification.senderId+'.jpg'" >
+                    <img *ngIf="usersWithNotifications.get(notification.senderId).gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+notification.senderId+'.jpg'">
+                  </a>
+                <div class="text">
+                <h4 > {{usersWithNotifications.get(notification.senderId).name}}</h4>
+                <p class="truncate-2" style="font-weight: 600; margin:0px; padding:0px;"> {{notification.content}}</p>
+                <p style="font-size:10px;"> {{notification.createdAt}}</p>
+                </div> 
+            </div>
+
+        </div>
+      
+    
+    
+    
+    </div>
+
+
+
+</div>

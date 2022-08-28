@@ -1,0 +1,84 @@
+.create-post-card{
+    position: fixed;
+    width: 6vw;
+    height: 30px;
+    max-height: 40px;
+
+    left: 78%;
+    top: 20px;
+
+    transform: translate(-50%,50%);
+    z-index: 2;
+
+}
+
+.create-post-card a{
+    text-decoration: none;
+    font-size: 15px;
+
+
+    font-weight: 400;
+    color: inherit;
+}
+
+.create-post-card-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.inline-left-align-container{
+    width: 100%;
+
+    display:flex;
+    text-align: left;
+    align-items: center;
+    height: min-content;
+}
+
+.primary-menu-button{
+    width: fit-content;
+    align-items: center;
+
+    background-color: #1E2126;
+    color: #A4A4A4;
+    border: 0px;
+    border-radius: 2vh;
+
+    font-family: Ubuntu;
+    font-weight: bold;
+    font-size: 12.5px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+
+    padding: 0px 1.5vh;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+    transition-duration: 0.4s;
+    transition-property: background-color, color;
+    cursor: pointer;
+}
+.primary-menu-button p {
+    margin:0;
+}
+
+
+.primary-menu-button:hover {
+    background-color: #A4A4A4;
+    color: #2A2F35;
+  }
+
+.primary-menu-button .card-title-icon{
+    transition-duration: 0.4s;
+    transition-property: filter;
+}
+
+.primary-menu-button:hover .card-title-icon {
+	filter: brightness(30%);
+}
