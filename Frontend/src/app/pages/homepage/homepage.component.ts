@@ -7,6 +7,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { NotifierService } from 'angular-notifier';
 import Swal from 'sweetalert2';
+import { NotificationService } from 'src/app/services/notification.service';
 
 
 interface UserSearchResult{
@@ -42,12 +43,14 @@ loggedUserData: any;
 loggedUserProfileData: any;
 loggedUserConnection: any;
 
+sortedShownNotifications: any[] = []
 
 
 constructor(
   private _authenticationService: AuthenticationService, 
   private _profileService: ProfileService,
   private _connectionService: ConnectionService,
+  private _notificationService: NotificationService,
   private http: HttpClient) {}
 
   ngOnInit(): void { 
@@ -100,6 +103,77 @@ constructor(
         }
       )
     }
+
+/*
+  getNotifications(){
+    this._notificationService.getConnectionNotifications().subscribe(
+      response => {
+        console.log("Response getConnectionNotifications - ",response)
+        this.connectionNotifications = response;
+        this._notificationService.getMessageNotifications().subscribe(
+          response => {
+            console.log("Response getMessageNotifications - ",response)
+            this.messageNotifications = response;
+            this._notificationService.getPostNotifications().subscribe(
+              response => {
+                console.log("Response getPostNotifications - ",response)
+                this.postNotifications = response;
+                console.log("Response ALL NOT - ",this.allNotifications)
+
+              })
+          })
+      })
+  }*/
+
+  getNotifications(){
+    var notifications: any[] = [];
+    var shownNotifications: any[] = [];
+    this._notificationService.getConnectionNotifications().subscribe(
+      response => {
+        console.log("Response getConnectionNotifications - ",response)
+        notifications = [];
+        notifications.push(response.response);
+        notifications.forEach(function(value: any){
+          shownNotifications.push(value)
+        })
+        this._notificationService.getMessageNotifications().subscribe(
+          response => {
+            console.log("Response getMessageNotifications - ",response)
+            notifications = [];
+            notifications.push(response.response);
+            notifications.forEach(function(value: any){
+              shownNotifications.push(value)
+            })
+            this._notificationService.getPostNotifications().subscribe(
+              response => {
+                console.log("Response getPostNotifications - ",response)
+                notifications = [];
+                notifications.push(response.response);
+                notifications.forEach(function(value: any){
+                  shownNotifications.push(value)
+                })
+                console.log("Response ALL NOT - ",shownNotifications)
+                var newArr: any[] = [];
+                for(var i = 0; i < shownNotifications.length; i++)
+                {
+                    newArr = newArr.concat(shownNotifications[i]);
+                }
+                console.log("Response ALL NOT after merge - ",newArr);
+                var beforeSortArr: any[] = [];
+                beforeSortArr = newArr.map((obj)=>{
+                  return { ...obj, date: new Date(obj.createdAt) };})
+                  console.log("Response ALL NOT before sort - ",beforeSortArr);
+
+                var sortArr: any[] = [];
+                sortArr = beforeSortArr.sort(
+                  (objA, objB) => objB.date.getTime() - objA.date.getTime(),
+                );
+                console.log("Response ALL NOT afer sort - ",sortArr);
+                this.sortedShownNotifications = sortArr
+              })
+          })
+      })
+  }
   
   /* NOTIFICATION */
   showNotification(){

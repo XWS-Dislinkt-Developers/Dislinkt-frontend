@@ -11,6 +11,9 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
+    <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
+
+
     <div *ngIf="profileExists && !profileIsAdmin" class="row  rounded border border border-dark" style="height:120px; margin:0px; padding:0px; overflow:hidden;">
     
       <div class="col" style="margin:0px; padding:0px;">
@@ -430,8 +433,6 @@
       </div>
 
     </div>
-
-
 
     <div  *ngIf="profileExists && profileData.isPrivateProfile && !profileIsAdmin" class="d-flex justify-content-center align-items-center" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
           background-repeat: no-repeat;

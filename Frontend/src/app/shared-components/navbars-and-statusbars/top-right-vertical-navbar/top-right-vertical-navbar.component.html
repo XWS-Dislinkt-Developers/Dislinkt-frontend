@@ -1,6 +1,6 @@
 <div class="top-right-corner-menubar">
     <ul class="top-right-corner-menubar-content"> 
-         <div *ngIf="admin || user"> 
+         <div *ngIf="!admin && user"> 
         <li class="squircle" (click)="redirectProfile()">
             <img class="icons" src = "/assets/images/icon-my-profile.svg" alt="my-profile-icon"/>
             <div class="popper">
@@ -15,7 +15,7 @@
                 <h4 class="popper-text">Register</h4>
             </div>
         </li></div>
-        <div *ngIf="admin || user "> 
+        <div *ngIf="!admin && user "> 
         <li class="squircle" (click)="redirectSettingsAndPrivacy()">
             <img class="icons" src = "/assets/images/icon-settings-and-privacy.svg" alt="settings-and-privacy-icon"/>
             <div class="popper">

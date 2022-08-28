@@ -10,6 +10,8 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
   
+    <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
+
    <!-- <p (click)="getConnections()"> aaaaaa </p> -->
 
     <div class="row" style="height:100%;" >
@@ -82,7 +84,7 @@
 
         <section style="position: relative; overflow-y:auto; height:calc(100% - 200px)!important; padding:5px;">
             <div>
-              <div class="page-heading user-button button-shadow" *ngFor="let user of searchedUsers" style="padding:5px;" >
+              <div class="page-heading user-button button-shadow" *ngFor="let user of searchedUsers" [ngStyle]="{'display':user.ID != 9 ? 'block':'none'}" style="padding:5px;" >
                 <div class="media clearfix">
                     <div class="media-left pr30" style="width:60px; max-width: 60px;">
                         <a>

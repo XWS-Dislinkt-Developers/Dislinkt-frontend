@@ -31,6 +31,7 @@ import { PasswordlessLoginComponent } from './shared-components/modals/passwordl
 import { AuthGuard } from './services/auth_guard/auth.guard';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { MidRightVerticalNavbarComponent } from './shared-components/navbars-and-statusbars/mid-right-vertical-navbar/mid-right-vertical-navbar.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ChatComponent } from './pages/chat/chat.component';
       PasswordlessLoginComponent,
       ConnectionsComponent,
       ChatComponent,
+      MidRightVerticalNavbarComponent,
   ],
   imports: [
     BrowserModule,
