@@ -16,7 +16,10 @@ export class SignOutModalComponent implements OnInit {
 
   signOut(){
     localStorage.clear();
-   window.location.reload(); //OVDE RADI
+    // this.router.navigate(['/profile/'+ localStorage.getItem("userId")])
+    // window.location.reload(); //OVDE RADI
+    window.location.href = ""; 
+
   
   }
 }

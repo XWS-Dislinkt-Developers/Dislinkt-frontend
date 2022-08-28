@@ -796,7 +796,7 @@ filter: brightness(30%);
 }
 
 .user-post-height-full{
-  height: 100;
+  height: 100%;
 }
 .user-post-height-medium{
   height: calc(100% - 10px - 105px);

@@ -12,9 +12,14 @@ import { AuthenticationService } from './authentication.service';
     url = 'https://localhost:8000'
 
     constructor(
-        private _http: HttpClient, 
-        private _authService: AuthenticationService){}
-        
+      private _http: HttpClient, 
+      private _authService: AuthenticationService){}
+    
+    getUserFeedForLoggedUser(){
+      const url = this.url + '/userFeed';
+      const headers = this._authService.getHeaders();
+      return  this._http.get<any>(url, { headers }).pipe();
+    }
 
     getAllPostsForLoggedUser(){
       const url = this.url + '/getPostsForLoggedUser';

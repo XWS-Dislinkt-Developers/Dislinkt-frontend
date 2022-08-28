@@ -719,6 +719,10 @@ color: #2a2f35 !important;
 border-radius: 10px;
 }
 
+.user-name:hover {
+  text-decoration: underline;
+}
+
 .primary-menu-button{
 background-color: #2a2f35;
 color: #A4A4A4;

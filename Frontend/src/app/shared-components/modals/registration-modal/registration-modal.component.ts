@@ -84,6 +84,8 @@ export class RegistrationModalComponent implements OnInit {
         Swal.fire({ icon: 'error',
                     title: 'Invalid password! 🙁',
                     text: "You have too many repeating characters in a row. Please, pick another password.",
+                    background: '#1e2126',
+                    color: '#c4c4c4',
         })
         return
         }
@@ -91,6 +93,8 @@ export class RegistrationModalComponent implements OnInit {
         Swal.fire({ icon: 'error',
                     title: 'Invalid password! 🙁',
                     text: "Your password contains your username. Please, pick another password.",
+                    background: '#1e2126',
+                    color: '#c4c4c4',
         })
         return
       }
@@ -98,13 +102,17 @@ export class RegistrationModalComponent implements OnInit {
         Swal.fire({ icon: 'error',
                     title: 'Invalid password! 🙁',
                     text: "Your password contains your e-mail. Please, pick another password.",
+                    background: '#1e2126',
+                    color: '#c4c4c4',
         })
       }
       this.submitted = true
       if(this.registerForm.invalid ){
           Swal.fire({ icon: 'error', 
                       title: 'Invalid input fortmat.',
-                      text: "Some of your inputs had invalid pattern. "
+                      text: "Some of your inputs had invalid pattern. ",
+                      background: '#1e2126',
+                      color: '#c4c4c4',
         })
         return
       } else {
@@ -121,6 +129,8 @@ export class RegistrationModalComponent implements OnInit {
             icon: 'success', 
             title: 'Yippee! 🐶',
             text: this.username + ', you are successfully registrated!',
+            background: '#1e2126',
+            color: '#c4c4c4',
             showCancelButton: false,
             showConfirmButton: false,
             timer: 2000,

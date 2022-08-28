@@ -11,7 +11,10 @@
     <app-forgot-password></app-forgot-password>
     <app-passwordless-login></app-passwordless-login>
 
-    <div class="row  rounded border border border-dark" style="height:120px; margin:0px; padding:0px; overflow:hidden;">
+    <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
+
+
+    <div *ngIf="profileExists && !profileIsAdmin" class="row  rounded border border border-dark" style="height:120px; margin:0px; padding:0px; overflow:hidden;">
     
       <div class="col" style="margin:0px; padding:0px;">
 
@@ -29,94 +32,95 @@
                 <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                 <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
               </h2>
-              <p class="user-button-text" *ngIf="isMyProfile(profileData.id)" style=" color:#7c8b95; margin:-10px 0px 0px 2px; padding:0px;"> You </p>
-              <p class="user-button-text" *ngIf="isInConnections(profileData.id)" style="color:#03A062; margin:-10px 0px 0px 2px; padding:0px;">Friend 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Unfriend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Unfriend</p>
-                    </div>
-                  </button>  
-                </a>
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Block', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
-                    </div>
-                  </button>  
-                </a>  
-              </p>
-
-
-              <p class="user-button-text" *ngIf="isUserWithRequest(profileData.id)" style="color:#27A1AA; margin:-10px 0px 0px 2px; padding:0px;">Sent a friend request for you 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Accept', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Accept</p>
-                    </div>
-                  </button>  
-                </a>
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Decline', profileData.userId, profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Decline</p>
-                    </div>
-                  </button>  
-                </a>  
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
-                    </div>
-                  </button>  
-                </a>  
-              </p>
-              <p class="user-button-text" *ngIf="isPendingUser(profileData.id)" style="color:#D48231; margin:-10px 0px 0px 2px; padding:0px;">You already sent a friend request 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Cancel friend request', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Cancel</p>
-                    </div>
-                  </button>  
-                </a> 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
-                    </div>
-                  </button>  
-                </a>  
-              </p>
-              <p class="user-button-text" *ngIf="isBlocked(profileData.id)"style="color:#D43C31; margin:-10px 0px 0px 2px; padding:0px;">Blocked user by you </p>
-              <p class="user-button-text" *ngIf="!isMyProfile(profileData.userId) && !isInConnections(profileData.userId) && !isUserWithRequest(profileData.userId) && !isPendingUser(profileData.userId) && !isBlocked(profileData.userId)" 
-                  style="color:#7c8b95; font-weight: 600;  margin-top:-10px; padding:0px;">Non-friend user 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Add friend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Add friend</p>
-                    </div>
-                  </button>  
-                </a> 
-                <a>
-                  <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
-                    (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
-                    <div class="inline-left-align-container">
-                        <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
-                    </div>
-                  </button>  
-                </a> 
-              </p>
+              <div *ngIf="loggedUserExists">
+                <p class="user-button-text" *ngIf="isMyProfile(profileData.id)" style=" color:#7c8b95; margin:-10px 0px 0px 2px; padding:0px;"> You </p>
+                <p class="user-button-text" *ngIf="isInConnections(profileData.id)" style="color:#03A062; margin:-10px 0px 0px 2px; padding:0px;">Friend 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Unfriend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Unfriend</p>
+                      </div>
+                    </button>  
+                  </a>
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isUserWithRequest(profileData.id)" style="color:#27A1AA; margin:-10px 0px 0px 2px; padding:0px;">Sent a friend request for you 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Accept', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Accept</p>
+                      </div>
+                    </button>  
+                  </a>
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Decline', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Decline</p>
+                      </div>
+                    </button>  
+                  </a>  
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isPendingUser(profileData.id)" style="color:#D48231; margin:-10px 0px 0px 2px; padding:0px;">You already sent a friend request 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Cancel friend request', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Cancel</p>
+                      </div>
+                    </button>  
+                  </a> 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a>  
+                </p>
+                <p class="user-button-text" *ngIf="isBlocked(profileData.id)"style="color:#D43C31; margin:-10px 0px 0px 2px; padding:0px;">Blocked user by you </p>
+                <p class="user-button-text" *ngIf="!isMyProfile(profileData.userId) && !isInConnections(profileData.userId) && !isUserWithRequest(profileData.userId) && !isPendingUser(profileData.userId) && !isBlocked(profileData.userId)" 
+                    style="color:#7c8b95; font-weight: 600;  margin-top:-10px; padding:0px;">Non-friend user 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Add friend', profileData.userId,  profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Add friend</p>
+                      </div>
+                    </button>  
+                  </a> 
+                  <a>
+                    <button class="primary-menu-button button-shadow" type="button" style="margin-top:-10px; padding:0px;"
+                      (click)="popUpAction('Block', profileData.userId, profileData.gender, profileData.name, profileData.username)">
+                      <div class="inline-left-align-container">
+                          <p style="font-size:0.7rem; margin:0px 5px;">Block</p>
+                      </div>
+                    </button>  
+                  </a> 
+                </p>
+              </div> 
               <div class="d-xs-none d-none d-lg-block d-xl-block">
                 <p class="lead truncate-1"><i>Biography:</i>  &nbsp; {{profileData.biography}} </p>
-              </div>              
+              </div>         
+                  
             </div>
           </div>
         </div>
@@ -125,7 +129,7 @@
 
     </div>
 
-    <div class="row" style="height:calc(100% - 120px)!important;  overflow:hidden; margin:0px; padding:0px;">
+    <div *ngIf="profileExists &&  !profileIsAdmin" class="row" style="height:calc(100% - 120px)!important;  overflow:hidden; margin:0px; padding:0px;">
     
       <div class="col-lg-4 rounded border border-dark"  style="padding:0px; max-height: 100%;">
 
@@ -243,65 +247,59 @@
           </div>
 
         </div>
-        <!--
 
-           [ngStyle]="{'height': postImageIsSelected === true ? 'calc(100% - 74.5px - 471.8px)' : 'calc(100% - 74.5px)'}"
-
-         -->
-
-        <div *ngIf="userPosts.length != 0" [ngClass]="{'user-post-height-full': !postImageIsSelected && !isMyProfile(profileData.id), 
-                                                       'user-post-height-medium': !postImageIsSelected && isMyProfile(profileData.id),
-                                                       'user-post-height-small': postImageIsSelected && isMyProfile(profileData.id)}"  
-        
-        style="position: relative; overflow-y:auto; padding:5px;">
+        <div *ngIf="userPosts.length != 0" [ngClass]="{'user-post-height-full': profileExists, 
+                                                        'user-post-height-medium': !postImageIsSelected && isMyProfile(profileData.id),
+                                                        'user-post-height-small': postImageIsSelected && isMyProfile(profileData.id)}"  
+               style="position: relative; overflow-y:auto; padding:5px;">
 
           <div *ngFor="let post of userPosts.reverse()" class="user-post-card">
             <!-- POST HEADER -->
-           <div class="post-header">
-               <!-- header left -->
-               <div class="post-header-left" >
-                   <a (click)="redirectToUserProfile(profileData.id)"> 
-                     <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="post-author-picture">
-                     <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="post-author-picture">
-                   </a>
-                   <h2 class="media-heading" style="word-wrap: break-word;">{{profileData.name}}
-                     <small style="word-wrap: break-word;"> - <i> {{profileData.username}} </i></small>
-                     <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                     <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                   </h2>
-                   <h6 style="margin:-5px 0px 0px 77px; color:#a3b5c1; word-wrap: break-word;">{{post.createdAt}} </h6>
-               </div>
-               <!-- header right -->
-               <div class="post-header-right">
-                   <div class="post-options">
-                       <span>   <img src="./assets/images/icon-options.svg" style="width:11px; height:11px;"/></span>
-                   </div>
-               </div>
-   
-           </div>
-           <!-- POST CONTENT-->
-           <div class="post-content">
-               <p [innerHTML]="linkify(post.text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
-               </p>
+            <div class="post-header">
+                <!-- header left -->
+                <div class="post-header-left" >
+                    <a (click)="redirectToUserProfile(profileData.id)"> 
+                      <img *ngIf="profileData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+profileData.id+'.jpg'" class="post-author-picture">
+                      <img *ngIf="profileData.gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+profileData.id+'.jpg'"  class="post-author-picture">
+                    </a>
+                    <h2 class="media-heading" style="word-wrap: break-word;">{{profileData.name}}
+                      <small style="word-wrap: break-word;"> - <i> {{profileData.username}} </i></small>
+                      <span *ngIf="profileData.isPrivateProfile == 'true'"> <img src="./assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      <span *ngIf="profileData.isPrivateProfile == 'false'"> <img src="./assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    </h2>
+                    <h6 style="margin:-5px 0px 0px 77px; color:#a3b5c1; word-wrap: break-word;">{{post.createdAt}} </h6>
+                </div>
+                <!-- header right -->
+                <div class="post-header-right">
+                    <div class="post-options">
+                        <span>   <img src="./assets/images/icon-options.svg" style="width:11px; height:11px;"/></span>
+                    </div>
+                </div>
+    
+            </div>
+            <!-- POST CONTENT-->
+            <div class="post-content">
+                <p [innerHTML]="linkify(post.text)" class="content-paragraph" style="margin-bottom:0px; white-space: pre-line; word-wrap: break-word;">
+                </p>
 
               <div *ngIf="post.imagePath !== ''" class="rounded p-2 " 
                     style=" margin: 0px; padding:0px; width: 100%; height: 400px;
-                     line-height: 375px;text-align: center;
-                     background-color: #1e2126;
+                      line-height: 375px;text-align: center;
+                      background-color: #1e2126;
                     border: 1px solid #666666;">
                 <img id="postImageOutput" [src]="post.imagePath" 
-                       style=" max-width:100%; margin:0px; padding: 0px;
+                        style=" max-width:100%; margin:0px; padding: 0px;
                       max-height:100%;
                       vertical-align: middle;"/>
               </div>
 
 
-               <!--
-               <img src="/assets/images/placeholder-post-photo.png" class="content-image">
-               -->
-           </div>
-           <!-- POST FOOTER-->
-           <div class="post-footer" >
+                <!--
+                <img src="/assets/images/placeholder-post-photo.png" class="content-image">
+                -->
+            </div>
+            <!-- POST FOOTER-->
+            <div class="post-footer" >
 
               <div class="footer-reactions">
                 <div class="reactions-emojis" style="margin: -8px 0px -8px 5px; ">
@@ -318,11 +316,11 @@
 
                 </div>
               </div>
-   
-               <div class="footer-reactions">
-                   <div class="reactions-emojis">
+    
+                <div *ngIf="loggedUserExists" class="footer-reactions">
+                    <div  class="reactions-emojis">
 
-                    <button (click)="like(post.id)"  class="primary-menu-button button-shadow " style="font-size:13px; margin:5px;padding:5px;"  
+                    <button  (click)="like(post.id)"  class="primary-menu-button button-shadow " style="font-size:13px; margin:5px;padding:5px;"  
                             type="button">
                       <div class="inline-left-align-container">
                         <a>
@@ -348,35 +346,35 @@
                     </button>
 
 
-               <!--
-                       <a><img src="/assets/images/icon-like-filled.svg" class="emoji-like"></a>
-                       <span><a>{{post.numberOfLikes}}</a></span>
-                       <a><img src="/assets/images/icon-dislike-filled.svg" class="emoji-dislike"></a>
-                       <span><a>{{post.numberOfDislikes}}</a></span>
-                       <a (click)="post.showComments = !post.showComments"><img src="/assets/images/icon-comments-read.svg" style="margin-left:8px" class="emoji-like"></a>
-                       <span (click)="post.showComments = !post.showComments" c class="comment-shares-comments"><a>{{post.comments.length}}</a></span>
+                <!--
+                        <a><img src="/assets/images/icon-like-filled.svg" class="emoji-like"></a>
+                        <span><a>{{post.numberOfLikes}}</a></span>
+                        <a><img src="/assets/images/icon-dislike-filled.svg" class="emoji-dislike"></a>
+                        <span><a>{{post.numberOfDislikes}}</a></span>
+                        <a (click)="post.showComments = !post.showComments"><img src="/assets/images/icon-comments-read.svg" style="margin-left:8px" class="emoji-like"></a>
+                        <span (click)="post.showComments = !post.showComments" c class="comment-shares-comments"><a>{{post.comments.length}}</a></span>
         
-                       <div class="mt-2 text-right">
-                           <button (click)="post.showComments = !post.showComments" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" style="margin: -10px 0px 0px 10px;" type="button">
-                               {{post.showComments ? 'Hide comments' : 'Show comments'}}</button>
-                       </div>
+                        <div class="mt-2 text-right">
+                            <button (click)="post.showComments = !post.showComments" class="btn btn-outline-secondary btn-sm ml-1 shadow-none" style="margin: -10px 0px 0px 10px;" type="button">
+                                {{post.showComments ? 'Hide comments' : 'Show comments'}}</button>
+                        </div>
                       -->
-                   </div>
-                   <div class="reactions-comment">
-   
-                       <button
+                    </div>
+                    <div class="reactions-comment">
+    
+                        <button
                           [disabled]="(!isMyProfile(profileData.id) && (!isInConnections(profileData.id) || isUserWithRequest(profileData.id) || isPendingUser(profileData.id) || isBlocked(profileData.id)))"
                           (click)="post.showAddComment = !post.showAddComment" class="btn btn-outline-secondary btn-sm ml-1 shadow-none  tooltip-button" type="button">
                           
-                           <a><img src="/assets/images/icon-comments-write.svg" style="margin-left:8px" class="emoji-like"></a>
-                           <span class="comment-shares-comments"><a>Comment</a></span>
-       
-                       </button>
+                            <a><img src="/assets/images/icon-comments-write.svg" style="margin-left:8px" class="emoji-like"></a>
+                            <span class="comment-shares-comments"><a>Comment</a></span>
+        
+                        </button>
 
-                   </div>
-               </div>
-           </div>
-   
+                    </div>
+                </div>
+            </div>
+    
           <div *ngIf="post.showAddComment"  class=" p-2 write-comment rounded" style="margin-bottom:2.5px">
             <div class="d-flex flex-row align-items-start">
               <img *ngIf="loggedUserData.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+loggedUserData.id+'.jpg'" width="40" class="media-object  rounded-circle shadow-4" style="margin: 5px;" >
@@ -395,9 +393,9 @@
           </div>
 
           <div *ngIf="post.showComments" class=" p-2 read-comment rounded"  style="padding:0px 5px; background-color:#1e2126">
-   
+    
             <div *ngIf="post.comments.length!=0">
-               <div *ngFor="let comment of post.comments.slice().reverse()" class="rounded" style="padding:5px 5px; overflow-wrap: break-word;">
+                <div *ngFor="let comment of post.comments.slice().reverse()" class="rounded" style="padding:5px 5px; overflow-wrap: break-word;">
                 <div class="d-flex flex-row align-items-start" style="margin:10px">
                   <img *ngIf="users.get(comment.userId).gender === 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+comment.userId+'.jpg'" width="40" class=" media-object rounded-circle">
                   <img *ngIf="users.get(comment.userId).gender  === 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+comment.userId+'.jpg'"  width="40" class=" media-object rounded-circle">
@@ -407,13 +405,13 @@
                       <h6 [innerHTML]="linkify(comment.text)"  
                       style="margin: -2px 0px 0px 3px; font-size: 12px; color:#c2c2c2;      word-break: break-all;
                       white-space: pre-wrap;">
-                     
-                       </h6>
+                      
+                        </h6>
                     </div>
                     <h6 style="margin: -2px 0px 0px 10px; white-space: pre-line;font-size: 9px; color:#a3b5c1">{{comment.createdAt}} </h6>
                   </div>
                 </div>
-               </div>
+                </div>
             </div>
 
             <div *ngIf="post.comments.length==0">
@@ -424,25 +422,47 @@
               </div>
             </div>
           </div>
-   
-  
-   
+    
+
 
           </div>
-   
+    
 
         </div>
-
-
-
         
       </div>
 
     </div>
 
+    <div  *ngIf="profileExists && profileData.isPrivateProfile && !profileIsAdmin" class="d-flex justify-content-center align-items-center" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          background-size: 300px 300px;">
+          <div style="margin-top:50px;">
+            <h4 style="text-align: center; opacity: 50%">
+              {{profileData.name}}'s profile is
+            </h4>
+            <h3 style="text-align: center; opacity: 70%">
+              private.
+            </h3>
+          </div>
+    </div>
 
-
-
+    <div  *ngIf="!profileExists || profileIsAdmin" class="d-flex justify-content-center align-items-center" style="margin:0px; height:100%; background-image:url(./../../../assets/images/logo-background.svg); 
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-position: center;
+          background-size: 300px 300px;">
+          <div style="margin-top:260px;">
+            <h4 style="text-align: center; opacity: 50%">
+              There's no user with this userId:
+            </h4>
+            <h3 style="text-align: center; opacity: 70%">
+              {{userId}}
+            </h3>
+          </div>
+    </div>
 
 
     

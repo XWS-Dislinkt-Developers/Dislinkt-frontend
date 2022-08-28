@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 import { ThrowStmt } from '@angular/compiler';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +18,13 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class ProfileComponent implements OnInit {
 
-  user: boolean=false;
-  admin: boolean=false;
-  username: any
+  ADMIN_ID = 9 // CONST
+
   userId: any
   loggedUserId: any
+  loggedUserExists: any;
+  profileExists: any;
+  profileIsAdmin:boolean =false
 
   // User Data
   profileData: any
@@ -72,6 +75,7 @@ export class ProfileComponent implements OnInit {
   users: Map<string, any> = new Map();
 
   constructor(
+    private _authenticationService: AuthenticationService,
     private _profileService: ProfileService,
     private _connectionService: ConnectionService,
     private _postService: PostService,
@@ -83,33 +87,43 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('userId')
     this.loggedUserId = localStorage.getItem('userId')
+    if (this.userId == this.ADMIN_ID) this.profileIsAdmin = true
     this.getLoggedUserDataById()
     }
   
   //  Get logged user's data
   getLoggedUserDataById(){
-    this._profileService.getUserById(this.loggedUserId).subscribe(
-      response => {
-          console.log("Response - ",response)
-          this.loggedUserData = response.user
-          console.log(this.loggedUserData.id)
-          console.log(this.userId)
-          this.getProfileDataById()
-      }
-    )
+    if(this.loggedUserId != null){
+      this.loggedUserExists = true;
+      this._profileService.getUserById(this.loggedUserId).subscribe(
+        response => {
+            console.log("Response - ",response)
+            this.loggedUserData = response.user
+            console.log(this.loggedUserData.id)
+            console.log(this.userId)    
+        }
+      )
+    }
+      else this.loggedUserExists = false;
+    this.getProfileDataById()
   }
   // Get user's profile data
   getProfileDataById(){
     this._profileService.getUserById(this.userId).subscribe(
-      response => {
-          console.log("Response - ",response)
-          this.profileData = response.user
-          console.log(this.profileData.id)
-          console.log(this.userId)
-          this.formatSkillsInterestsWorkEducation()
-          if(this.userConnections!){
-            this.getConnections()
-          }
+      (response) => {
+        this.profileExists = true;
+        this.profileData = response.user
+        console.log(this.profileData.id)
+        console.log(this.userId)
+        this.formatSkillsInterestsWorkEducation()
+        if(this.userConnections! && this.loggedUserExists){
+          this.getConnections()
+        }else{
+          this.findOutWhoIsThisUser()
+        }
+      },
+      (error) =>{
+        this.profileExists = false;
       }
     )
   }
@@ -160,24 +174,6 @@ export class ProfileComponent implements OnInit {
           this.userPosts[i].isDislikedByLoggedUser = true;
         }
       }
-/*
-
-      for(let j=0; j<this.userPosts[i].reactions.length; j++){
-        if(this.userPosts[i].likes){
-          this.userPosts[i].numberOfLikes++;
-          if(this.userPosts[i].reactions[j].userId == this.loggedUserId){
-            this.userPosts[i].isLikedByLoggedUser = true;
-          }
-        }
-        if(this.userPosts[i].reactions[j].disliked){
-          this.userPosts[i].numberOfDislikes++;
-          if(this.userPosts[i].reactions[j].userId == this.loggedUserId){
-            this.userPosts[i].isDislikedByLoggedUser = true;
-          }
-        }
-      }
-
-      */
       for(let j=0; j<this.userPosts[i].comments.length; j++){
         if(this.userPosts[i].comments[j].userId){
           this._profileService.getUserById(this.userPosts[i].comments[j].userId).subscribe(
@@ -284,9 +280,7 @@ export class ProfileComponent implements OnInit {
       this.getAllPostsForLoggedUser()
     }else if(this.isInConnections(this.profileData.id)){
       this.getAllFriendsPost('.')
-    }else if(this.isBlocked(this.profileData.id)){
-      return
-    }else if(this.profileData.isPrivateProfile === "false"){
+    }else if(this.profileData.isPrivateProfile === "false" && !this.isBlocked(this.profileData.id)){
       this.getAllFriendsPost('.')
     }
   }
