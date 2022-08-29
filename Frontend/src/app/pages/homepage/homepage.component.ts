@@ -344,24 +344,21 @@ constructor(
   }
 
   searchJobOfferByCompany(){
-    if(this.isSomebodyLoggedIn){
-      this._jobService.getAllJobOffers().subscribe(
-        response => {
-          this.jobs=[]
-          console.log("Response JobOffers - ",response)
-          var nonFilteredJobs = response.jobOffers
+    this._jobService.getAllJobOffers().subscribe(
+      response => {
+        this.jobs=[]
+        console.log("Response JobOffers - ",response)
+        var nonFilteredJobs = response.jobOffers
 
-          for(let i = 0; i < nonFilteredJobs.length; i++){
-            if(nonFilteredJobs[i].company.toLowerCase().includes(this.searchText.toLowerCase())){
-              this.jobs.push(nonFilteredJobs[i])
-            }
+        for(let i = 0; i < nonFilteredJobs.length; i++){
+          if(nonFilteredJobs[i].company.toLowerCase().includes(this.searchText.toLowerCase())){
+            this.jobs.push(nonFilteredJobs[i])
           }
-          console.log("Response JobOffers - ",this.jobs)
-          this.numberOfSearchResults = this.jobs.length
         }
-      )
-
-    }
+        console.log("Response JobOffers - ",this.jobs)
+        this.numberOfSearchResults = this.jobs.length
+      }
+    )
   }
 
   // Toggles

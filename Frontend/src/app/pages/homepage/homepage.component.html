@@ -142,7 +142,7 @@
               <label class="label-text">
                   <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="true"> <span>users</span>
               </label>
-              <label *ngIf="isSomebodyLoggedIn"  class="label-text">
+              <label class="label-text">
                   <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="false"> <span>job offers</span>
               </label>
             </div>
@@ -198,7 +198,7 @@
             </div> 
           </div>
    
-          <div *ngIf="isSomebodyLoggedIn === true && isSearchForUsers === false">
+          <div *ngIf="isSearchForUsers === false">
             <div class="page-heading button-shadow" *ngFor="let job of jobs">
               <div class="media clearfix">
                 <div class="media-left pr30">
@@ -212,6 +212,7 @@
                     <span> <button class="primary-menu-button button-shadow" style="margin:5px; font-size:12px" type="button"> <p>View job offer</p> </button> </span>
                   </h4>
                   <p class="lead truncate"><i>Description:</i>  &nbsp; {{job.description}} </p>
+                  <span *ngFor="let requirement of job.requirements" class="badge rounded-pill bg-dark text-light" style="margin-right: 5px; font-size:12px; font-weight:100">{{requirement}}</span>
                </div>
                <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
               </div>

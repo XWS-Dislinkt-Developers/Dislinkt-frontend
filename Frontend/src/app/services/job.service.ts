@@ -34,8 +34,7 @@ import { AuthenticationService } from './authentication.service';
     //Admin:
     getAllJobOffers(){ 
       const url = this.url + '/jobOffers';
-        const headers = this._authService.getHeaders();
-        return  this._http.get<any>(url, {headers} ).pipe();
+        return  this._http.get<any>(url).pipe();
   }
 
   }
