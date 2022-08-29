@@ -23,6 +23,12 @@ import { AuthenticationService } from './authentication.service';
     }
     */
 
+    getApiToken(){
+      const url = this.url + '/getToken';
+      const headers = this._authService.getHeaders();
+      return  this._http.get<any>(url, {headers}).pipe();
+    }
+
     createJobOffer(proposal: any){
       const url = this.url + '/postJob';
       const body = { "proposal" : proposal }

@@ -4,6 +4,7 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
+import { JobOffersComponent } from './pages/job-offers/job-offers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SettingsAndPrivacyComponent } from './pages/settings-and-privacy/settings-and-privacy.component';
 import { UpdatePersonalDataComponent } from './pages/settings-and-privacy/update-personal-data/update-personal-data.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuard, RoleGuardUser]},
   { path: 'connections', component: ConnectionsComponent, canActivate: [AuthGuard, RoleGuardUser]},
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard, RoleGuardUser]},
+  { path: 'job-offers', component: JobOffersComponent, canActivate: [AuthGuard, RoleGuardUser]},
   { path:'**', redirectTo: ''}
 ];
 

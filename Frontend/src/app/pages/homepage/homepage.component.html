@@ -4,6 +4,7 @@
     <!--<app-top-search-bar></app-top-search-bar> -->
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
     <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
     <app-registration-modal></app-registration-modal>
     <app-sign-in-modal></app-sign-in-modal>
     <app-sign-out-modal></app-sign-out-modal>
@@ -207,9 +208,8 @@
                   </a>
                 </div>
                 <div class="media-body" >
-                  <h4 class="media-heading user-button-text user-name" style="cursor:pointer;"> 
+                  <h4 class="media-heading user-button-text"> 
                     {{job.company}} - <i style="font-size:15px;"> {{job.position}} </i> 
-                    <span> <button class="primary-menu-button button-shadow" style="margin:5px; font-size:12px" type="button"> <p>View job offer</p> </button> </span>
                   </h4>
                   <p class="lead truncate"><i>Description:</i>  &nbsp; {{job.description}} </p>
                   <span *ngFor="let requirement of job.requirements" class="badge rounded-pill bg-dark text-light" style="margin-right: 5px; font-size:12px; font-weight:100">{{requirement}}</span>
