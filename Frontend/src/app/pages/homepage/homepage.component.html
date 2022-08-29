@@ -290,7 +290,8 @@
                         </div>
                         <div class="table-responsive" >
                           <table class="table text-start align-middle table-bordered table-hover table-dark mb-0"
-                          style="table-layout: fixed;  width: 100%; text-overflow: ellipsis; border: 1.5px solid #b83f42; color:#b83f42">                                      <thead style="border: 1.5px solid #b83f42;">
+                          style="table-layout: fixed;  width: 100%; text-overflow: ellipsis; border: 1.5px solid #b83f42; color:#b83f42">
+                          <thead style="border: 1.5px solid #b83f42;">
                                   <tr class="text-white">
                                       <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Name</th>
                                       <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Username</th>
@@ -299,9 +300,9 @@
                               </thead>
                               <tbody>
                                   <tr *ngFor="let user of usersForAdmin.reverse() | slice:0:20; let i=index" style="font-weight: 600; cursor:pointer; overflow-x:auto;" (click)="redirectToUserProfile(user.userId)">
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.username}}</td>
-                                    <td>{{user.gender}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.name}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.username}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.gender}}</td>
                                   </tr>
                               </tbody>
                           </table>
@@ -322,17 +323,22 @@
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Company</th>
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Position</th>
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Experience level</th> 
+                                    <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Requirements</th> 
                                 </tr>
                             </thead>
-                            <div *ngIf="jobOffersForAdmin.length !=0">
                               <tbody>
-                                <tr *ngFor="let job of jobOffersForAdmin.reverse() | slice:0:20; let i=index" style="font-weight: 600; cursor:pointer; overflow-x:auto;">
-                                  <td>{{job.company}}</td>
-                                  <td>{{job.position}}</td>
-                                  <td>{{job.experienceLevel}}</td>
+                                <tr *ngFor="let job of jobOffersForAdmin.reverse() | slice:0:20; let i=index" style="cursor:pointer; overflow-x:auto;">
+                                  <td style="font-weight:600; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.company}}</td>
+                                  <td style="font-weight:600; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.position}}</td>
+                                  <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.experienceLevel}}</td>
+                                  <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    <tr *ngFor="let requirements of job.requirements" style=" max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;"> 
+                                      <td style="max-width:100px; ">{{requirements}}</td>
+                                    </tr>
+                                  </td>
+
                                 </tr>
                               </tbody>
-                          </div>
                         </table>
                     </div>
                   </div>

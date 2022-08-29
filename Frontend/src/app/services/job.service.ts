@@ -15,18 +15,20 @@ import { AuthenticationService } from './authentication.service';
       private _http: HttpClient, 
       private _authService: AuthenticationService){}
     
+    /*
     searchJobOfferByCompany(companyName : string){
       const url = this.url + '/getOffer';
       const headers = {company: companyName}
       return  this._http.get<any>(url, { headers }).pipe();
     }
+    */
 
-    createJobOffer(comment: any){
-      const url = this.url + '/comment';
-      const body = { "addComment" : comment }
-      console.log(body.addComment)
+    createJobOffer(proposal: any){
+      const url = this.url + '/postJob';
+      const body = { "proposal" : proposal }
+      console.log(body.proposal)
       const headers = this._authService.getHeaders();
-      return  this._http.post<any>(url, body.addComment, {headers} ).pipe();
+      return  this._http.post<any>(url, body.proposal, {headers} ).pipe();
     }
  
     //Admin:
