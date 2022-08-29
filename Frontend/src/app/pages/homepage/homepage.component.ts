@@ -60,18 +60,6 @@ export class HomepageComponent implements OnInit {
   public lineChartLegend = true;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 admin: boolean=false;
 user: boolean=false;
 username: string = "";
@@ -82,6 +70,7 @@ numberOfSearchResults: number =0;
 
 userPosts!: UserPost[];
 users: any[] = [];
+jobs: any[] = [];
 isSomebodyLoggedIn: boolean = false;
 loggedUserId: any = "";
 loggedUserRole: any ="";
@@ -329,6 +318,12 @@ constructor(
     })
   }
 
+  search(){
+    if(this.isSearchForUsers === true) this.searchUsersByUsername()
+    else if(this.isSearchForUsers === false) this.searchJobOfferByCompany()
+
+  }
+
   searchUsersByUsername(){
     if (!this.isSomebodyLoggedIn){
       this._profileService.searchAnonymous(this.searchText).subscribe(
@@ -348,7 +343,27 @@ constructor(
     }
   }
 
-  
+  searchJobOfferByCompany(){
+    if(this.isSomebodyLoggedIn){
+      this._jobService.getAllJobOffers().subscribe(
+        response => {
+          this.jobs=[]
+          console.log("Response JobOffers - ",response)
+          var nonFilteredJobs = response.jobOffers
+
+          for(let i = 0; i < nonFilteredJobs.length; i++){
+            if(nonFilteredJobs[i].company.toLowerCase().includes(this.searchText.toLowerCase())){
+              this.jobs.push(nonFilteredJobs[i])
+            }
+          }
+          console.log("Response JobOffers - ",this.jobs)
+          this.numberOfSearchResults = this.jobs.length
+        }
+      )
+
+    }
+  }
+
   // Toggles
   togglePanelBody(panelName: string){
     var el = document.getElementById(panelName)

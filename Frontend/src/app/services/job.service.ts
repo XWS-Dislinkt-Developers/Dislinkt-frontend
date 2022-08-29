@@ -15,9 +15,9 @@ import { AuthenticationService } from './authentication.service';
       private _http: HttpClient, 
       private _authService: AuthenticationService){}
     
-    searchJobOfferByCompany(){
-      const url = this.url + '/userFeed';
-      const headers = this._authService.getHeaders();
+    searchJobOfferByCompany(companyName : string){
+      const url = this.url + '/getOffer';
+      const headers = {company: companyName}
       return  this._http.get<any>(url, { headers }).pipe();
     }
 
