@@ -360,3 +360,93 @@ label > input[type="radio"] {
     outline: inherit;
     margin:0;
 }
+
+.settings-section{
+  display:grid;
+  grid-template-columns: max-content max-content;
+  grid-gap:5px;
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 100%;
+  justify-content: center;
+}
+.container{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+.centralizer-containter{
+  text-align: center;
+}
+.info-txt{
+  font-size: clamp(1.1vh, 11px, 1.65vh);
+  color: #A4A4A4;
+  opacity: 0.75;
+}
+
+.button {
+	background-color: #04AA6D;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	border-radius: 5px;
+	font-family: Ubuntu;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.button:hover {
+	opacity: 0.8;
+}
+
+
+.no-button {
+	width: auto;
+	font-size:15px;
+	padding: 10px 18px;
+	background-color: #f44336;
+    margin: 1vh 
+}
+  
+.yes-button {
+	width: auto;
+	font-size:15px;
+	padding: 10px 18px;
+	background-color: #04AA6D;
+    margin: 1vh;
+
+}
+
+.reset-button{
+	width: auto;
+	font-size:15px;
+	padding: 10px 18px;
+    background-color: #A4A4A4;
+    color: #2A2F35;
+    margin: 1vh;
+}
+
+
+.label-text{
+  font-size: clamp(1.4vh, 13px, 1.8vh);
+  color: #A4A4A4;
+  font-weight: 600;
+  margin-right: 10px;
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+}
+
+.input-text{
+  font-size: clamp(1.4vh, 13px, 1.8vh);
+  background-color: #2A2F35; 
+  color: #A4A4A4;
+  border-radius: 2px;
+  font-family: Ubuntu;
+
+  margin-top: 0.2vh;
+  margin-bottom: 0.2vh;
+}

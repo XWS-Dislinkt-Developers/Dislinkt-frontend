@@ -26,9 +26,30 @@ export class JobOffersComponent implements OnInit {
   jobs: any[] = [];
   searchText: string = "";
 
+  createPanelActive: boolean = true;
+
+  userId: any;
+  loggedUserData: any;
+
+  createJobOfferData: any;
+  requirements: any[] = [];
+  position: string = "";
+  experienceLevel: string = "";
+  description: string = "";
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userId')
+    this.loggedUserData = this._profileService.getUserById(this.userId).subscribe(
+      response => {
+        console.log("Response - ",response)
+        this.loggedUserData = response.user
+        console.log(this.loggedUserData.id)
+
+    }
+  )
   
+  
+
   }
   searchJobOfferByCompany(){
     this._jobService.getAllJobOffers().subscribe(
@@ -45,6 +66,41 @@ export class JobOffersComponent implements OnInit {
         console.log("Response JobOffers - ",this.jobs)
       }
     )
+  }
+
+  addvalue(){
+    this.requirements.push({value: ""});
+  }
+
+  removevalue(i:any){
+    this.requirements.splice(i,1);
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
+  }
+
+
+  createJobOffer(){
+    var formattedRequirements: any[] = [];
+    for(let i=0; i<this.requirements.length; i++){
+      formattedRequirements.push(this.requirements[i].value)
+    }
+    console.log(formattedRequirements)
+    var proposal = {
+      username: this.loggedUserData.username,
+      position: this.position,
+      description: this.description,
+      experienceLevel: this.experienceLevel,
+      requirements: formattedRequirements,
+    }
+    console.log(proposal)
+    this._jobService.createJobOffer(proposal).subscribe(
+      response => {
+        console.log("Response createJobOffer- ",response)
+
+      })
+
   }
 
 

@@ -36,4 +36,7 @@ export class BottomLeftVerticalNavbarComponent implements OnInit {
       }
     )
   }
+
+
+
 }
