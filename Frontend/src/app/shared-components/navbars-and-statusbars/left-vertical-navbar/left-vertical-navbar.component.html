@@ -38,7 +38,7 @@
         </li></div>
         -->
         <div *ngIf="user">
-        <li class="squircle">
+        <li class="squircle" (click)="redirectJobOffers()">
             <img class="icons" src = "/assets/images/icon-jobs.svg" alt="jobs-icon"/>
             <div class="popper">
                 <h4 class="popper-text">Job offers</h4>

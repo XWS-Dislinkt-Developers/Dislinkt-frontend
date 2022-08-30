@@ -33,45 +33,6 @@ interface UserSearchResult{
 export class HomepageComponent implements OnInit {
 
 
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July'
-    ],
-    datasets: [
-      {
-        data: [ 65, 59, 80, 81, 56, 55, 40 ],
-        label: 'Series A',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
-      }
-    ]
-  };
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false
-  };
-  public lineChartLegend = true;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 admin: boolean=false;
 user: boolean=false;
 username: string = "";
@@ -82,6 +43,7 @@ numberOfSearchResults: number =0;
 
 userPosts!: UserPost[];
 users: any[] = [];
+jobs: any[] = [];
 isSomebodyLoggedIn: boolean = false;
 loggedUserId: any = "";
 loggedUserRole: any ="";
@@ -99,8 +61,6 @@ jobOffersForAdmin: any[]=[]
 
 usersWithPosts: Map<number, any> = new Map();
 jobOffers: any[]=[];
-
-
 
 
 constructor(
@@ -329,6 +289,12 @@ constructor(
     })
   }
 
+  search(){
+    if(this.isSearchForUsers === true) this.searchUsersByUsername()
+    else if(this.isSearchForUsers === false) this.searchJobOfferByCompany()
+
+  }
+
   searchUsersByUsername(){
     if (!this.isSomebodyLoggedIn){
       this._profileService.searchAnonymous(this.searchText).subscribe(
@@ -348,7 +314,24 @@ constructor(
     }
   }
 
-  
+  searchJobOfferByCompany(){
+    this._jobService.getAllJobOffers().subscribe(
+      response => {
+        this.jobs=[]
+        console.log("Response JobOffers - ",response)
+        var nonFilteredJobs = response.jobOffers
+
+        for(let i = 0; i < nonFilteredJobs.length; i++){
+          if(nonFilteredJobs[i].company.toLowerCase().includes(this.searchText.toLowerCase())){
+            this.jobs.push(nonFilteredJobs[i])
+          }
+        }
+        console.log("Response JobOffers - ",this.jobs)
+        this.numberOfSearchResults = this.jobs.length
+      }
+    )
+  }
+
   // Toggles
   togglePanelBody(panelName: string){
     var el = document.getElementById(panelName)

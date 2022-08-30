@@ -27,5 +27,6 @@ export class LeftVerticalNavbarComponent implements OnInit {
     redirectFeed() {window.location.href = "/feed";}
     redirectChat() {window.location.href = "/chat";}
     redirectConnections() {window.location.href = "/connections";}
-   
+    redirectJobOffers() {window.location.href = "/job-offers";}
+
 }

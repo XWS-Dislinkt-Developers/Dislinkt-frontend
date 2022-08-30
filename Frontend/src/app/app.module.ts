@@ -35,6 +35,8 @@ import { AuthGuard } from './services/auth_guard/auth.guard';
 import { ConnectionsComponent } from './pages/connections/connections.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { MidRightVerticalNavbarComponent } from './shared-components/navbars-and-statusbars/mid-right-vertical-navbar/mid-right-vertical-navbar.component';
+import { JobOffersComponent } from './pages/job-offers/job-offers.component';
+import { BottomLeftVerticalNavbarComponent } from './shared-components/navbars-and-statusbars/bottom-left-vertical-navbar/bottom-left-vertical-navbar.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,8 @@ import { MidRightVerticalNavbarComponent } from './shared-components/navbars-and
       ConnectionsComponent,
       ChatComponent,
       MidRightVerticalNavbarComponent,
+      JobOffersComponent,
+      BottomLeftVerticalNavbarComponent,
   ],
   imports: [
     BrowserModule,
