@@ -4,6 +4,7 @@
     <!--<app-top-search-bar></app-top-search-bar> -->
     <app-top-right-vertical-navbar></app-top-right-vertical-navbar>
     <app-bottom-right-vertical-navbar></app-bottom-right-vertical-navbar>
+
     <app-registration-modal></app-registration-modal>
     <app-sign-in-modal></app-sign-in-modal>
     <app-sign-out-modal></app-sign-out-modal>
@@ -11,9 +12,6 @@
     <app-passwordless-login></app-passwordless-login>
 
     <app-mid-right-vertical-navbar></app-mid-right-vertical-navbar>
-
-
-
 
     <div *ngIf="!isSomebodyLoggedIn || loggedUserRole == 'user'" class="row  rounded border border border-dark" style="height:80px; margin:0px; padding:5px; overflow:hidden; ">
 
@@ -25,11 +23,6 @@
         <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'user' && loggedUserProfileData ">
           <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome back, {{loggedUserProfileData.name}}!</h3>
         </div>
-        <!--
-        <div *ngIf="isSomebodyLoggedIn && loggedUserRole == 'admin'">
-          <h3 class="truncate-2" style="opacity:0.5; text-align: center; margin:10px;"> Welcome chief! :)</h3>
-        </div>
-      -->
     
       </div>
 
@@ -112,7 +105,7 @@
                 <!--
                 <iframe width="100%" height="auto" src="https://youtube.com/embed/Xs-HbHCcK58"></iframe>
                 -->
-                <h6 > <b>  You maybe know these gals and fellas</b> <i> - not implemented yet.</i> </h6>
+                <h6 > <b>  You maybe know these gals and fellas>:</b> </h6>
               </div>
             </div>
           </div>
@@ -127,8 +120,8 @@
 
         <div class="search-bar" style="padding:10px;" >
           <div class="search-form">
-            <input  type="search" id="searchInput" class="search-input" (keydown.enter)="searchUsersByUsername()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
-            <button type="submit" class="search-button" (click)="searchUsersByUsername()" >
+            <input  type="search" id="searchInput" class="search-input" (keydown.enter)="search()" [(ngModel)]="searchText" ngDefaultControl  autofocus>
+            <button type="submit" class="search-button" (click)="search()" >
                 <svg class="submit-button">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
                 </svg>
@@ -154,45 +147,41 @@
                   <input class="radio" type="radio" placeholder="" name="search-radio" id="search-radio" [(ngModel)]="isSearchForUsers" [value]="false"> <span>job offers</span>
               </label>
             </div>
-          
-          
           </small>
     
         </div>
 
         <section id="content" class="container" style="overflow:auto; height:calc(100% - 71px)" >
 
-          <div *ngIf="isSomebodyLoggedIn === false && isSearchForUsers===true">
-            <div class="page-heading " *ngFor="let user of users" [ngStyle]="{'display':user.userId != 9 ? 'block':'none'}">
-                <div class="media clearfix" (click)="redirectToUserProfile(user.id)">
+          <div *ngIf="isSomebodyLoggedIn === false && isSearchForUsers === true">
+            <div class="page-heading button-shadow" *ngFor="let user of users" [ngStyle]="{'display':user.userId != 9 ? 'block':'none'}">
+                <div class="media clearfix">
                   <div class="media-left pr30">
                     <a>
-                      <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-                      <img *ngIf="user.gender == 'female'"[src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                      <img *ngIf="user.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
+                      <img *ngIf="user.gender == 'female'"[src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.userId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
                     </a>
                   </div>
                   <div class="media-body va-m">
-                    <h4 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(user.ID)" style="cursor:pointer;"> 
+                    <h4 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(user.userId)" style="cursor:pointer;"> 
                       {{user.name}} - <i> {{user.username}} </i> 
-                      <span *ngIf="user.isPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
-                      <span *ngIf="user.isPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      <span *ngIf="user.isPrivateProfile == 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px; "/> </span>
+                      <span *ngIf="user.isPrivateProfile == 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      <span> <button class="primary-menu-button button-shadow" style="margin:5px; font-size:12px" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button> </span>
                     </h4>
                     <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.biography}} </p>
-                  </div>
-                  <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
-                    <button class="primary-menu-button" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button>
                   </div>
                 </div>
             </div> 
           </div> 
   
-          <div *ngIf="isSomebodyLoggedIn && isSearchForUsers">
-            <div class="page-heading " *ngFor="let user of users" [ngStyle]="{'display':user.UserId != 9 ? 'block':'none'}">
+          <div *ngIf="isSomebodyLoggedIn === true && isSearchForUsers === true">
+            <div class="page-heading button-shadow" *ngFor="let user of users" [ngStyle]="{'display':user.UserId != 9 ? 'block':'none'}">
               <div class="media clearfix">
                 <div class="media-left pr30">
                   <a>
-                    <img *ngIf="user.Gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
-                    <img *ngIf="user.Gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4">
+                    <img *ngIf="user.Gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
+                    <img *ngIf="user.Gender == 'female'" [src]="'http://xsgames.co/randomusers/assets/avatars/female/'+user.UserId+'.jpg'"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
                   </a>
                 </div>
                 <div class="media-body" >
@@ -200,16 +189,38 @@
                     {{user.Name}} - <i> {{user.Username}} </i> 
                     <span *ngIf="user.IsPrivateProfile === true"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
                     <span *ngIf="user.IsPrivateProfile === false"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                    <span> <button class="primary-menu-button button-shadow" style="margin:5px; font-size:12px" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button> </span>
                   </h4>
                   <p class="lead truncate"><i>Biography:</i>  &nbsp; {{user.Biography}} </p>
                </div>
                <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
-                <button class="primary-menu-button" type="button" (click)="redirectToUserProfile(user.ID)"> <p>View profile</p> </button>
               </div>
               </div>
             </div> 
           </div>
    
+          <div *ngIf="isSearchForUsers === false">
+            <div class="page-heading button-shadow" *ngFor="let job of jobs">
+              <div class="media clearfix">
+                <div class="media-left pr30">
+                  <a>
+                    <img [src]="'https://avatars.dicebear.com/api/initials/'+job.company.replaceAll(' ','')+'+.svg'" width="70"  class="media-object mw100 rounded shadow-4 button-shadow" style="filter: grayscale(33%);">
+                  </a>
+                </div>
+                <div class="media-body" >
+                  <h4 class="media-heading user-button-text"> 
+                    {{job.company}} - <i style="font-size:15px;"> {{job.position}} </i> 
+                  </h4>
+                  <p class="lead truncate"><i>Description:</i>  &nbsp; {{job.description}} </p>
+                  <span *ngFor="let requirement of job.requirements" class="badge rounded-pill bg-dark text-light" style="margin-right: 5px; font-size:12px; font-weight:100">{{requirement}}</span>
+               </div>
+               <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
+              </div>
+              </div>
+            </div> 
+            
+          </div>
+
           <div *ngIf="numberOfSearchResults == 0" class="d-flex flex-column align-items-center">
               <img src="./../../../assets/images/logo-icon.svg" style="width:30%; height:30%; opacity:0.3; margin-top:12%;">
               <img src="./../../../assets/images/logo-dislinkt-text.svg" style="width:30%; height:30%; opacity:0.4;"> <br>
@@ -280,7 +291,8 @@
                         </div>
                         <div class="table-responsive" >
                           <table class="table text-start align-middle table-bordered table-hover table-dark mb-0"
-                          style="table-layout: fixed;  width: 100%; text-overflow: ellipsis; border: 1.5px solid #b83f42; color:#b83f42">                                      <thead style="border: 1.5px solid #b83f42;">
+                          style="table-layout: fixed;  width: 100%; text-overflow: ellipsis; border: 1.5px solid #b83f42; color:#b83f42">
+                          <thead style="border: 1.5px solid #b83f42;">
                                   <tr class="text-white">
                                       <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Name</th>
                                       <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Username</th>
@@ -289,9 +301,9 @@
                               </thead>
                               <tbody>
                                   <tr *ngFor="let user of usersForAdmin.reverse() | slice:0:20; let i=index" style="font-weight: 600; cursor:pointer; overflow-x:auto;" (click)="redirectToUserProfile(user.userId)">
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.username}}</td>
-                                    <td>{{user.gender}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.name}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.username}}</td>
+                                    <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{user.gender}}</td>
                                   </tr>
                               </tbody>
                           </table>
@@ -312,17 +324,22 @@
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Company</th>
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Position</th>
                                     <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Experience level</th> 
+                                    <th scope="col" style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Requirements</th> 
                                 </tr>
                             </thead>
-                            <div *ngIf="jobOffersForAdmin.length !=0">
                               <tbody>
-                                <tr *ngFor="let job of jobOffersForAdmin.reverse() | slice:0:20; let i=index" style="font-weight: 600; cursor:pointer; overflow-x:auto;">
-                                  <td>{{job.company}}</td>
-                                  <td>{{job.position}}</td>
-                                  <td>{{job.experienceLevel}}</td>
+                                <tr *ngFor="let job of jobOffersForAdmin.reverse() | slice:0:20; let i=index" style="cursor:pointer; overflow-x:auto;">
+                                  <td style="font-weight:600; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.company}}</td>
+                                  <td style="font-weight:600; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.position}}</td>
+                                  <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;">{{job.experienceLevel}}</td>
+                                  <td style="max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                    <tr *ngFor="let requirements of job.requirements" style=" max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:wrap;"> 
+                                      <td style="max-width:100px; ">{{requirements}}</td>
+                                    </tr>
+                                  </td>
+
                                 </tr>
                               </tbody>
-                          </div>
                         </table>
                     </div>
                   </div>

@@ -21,6 +21,14 @@ import { AuthenticationService } from './authentication.service';
         return  this._http.get<any>(url, { headers }).pipe();
     }
 
+    changePrivacy(change: boolean){
+      const url = this.url + '/changeprivate';
+      const body = { "change" : change }
+      const headers = this._authService.getHeaders();
+      return  this._http.post<any>(url, body, { headers }).pipe();
+
+    }
+
     addFriend(userId: string){
       const url = this.url + '/follow/' + userId;
       const headers = this._authService.getHeaders();
@@ -61,6 +69,12 @@ import { AuthenticationService } from './authentication.service';
       const url = this.url + '/cancel/' + userId;
       const headers = this._authService.getHeaders();
       return  this._http.put<any>(url, null, { headers });
+    }
+
+    getRecommendedUsers(){
+      const url = this.url + '/userRecommendation';
+      const headers = this._authService.getHeaders();
+      return  this._http.get<any>(url,{ headers }).pipe();
     }
 
   }
