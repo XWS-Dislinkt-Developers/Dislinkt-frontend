@@ -21,6 +21,17 @@ import { AuthenticationService } from './authentication.service';
         return  this._http.get<any>(url, { headers }).pipe();
     }
 
+    changePrivacy(change: boolean){
+      const url = this.url + '/changeprivate';
+      const body = { "change" : change }
+      const headers = this._authService.getHeaders();
+      return  this._http.post<any>(url, body, { headers }).pipe();
+
+
+    }
+
+
+
     addFriend(userId: string){
       const url = this.url + '/follow/' + userId;
       const headers = this._authService.getHeaders();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ConnectionService } from 'src/app/services/connection.service';
 import { ProfileService } from 'src/app/services/profile.service';
 import Swal from 'sweetalert2';
 
@@ -18,6 +19,7 @@ export class UpdatePersonalDataComponent implements OnInit {
 
   constructor(   
     private profileService: ProfileService,
+    private connectionService: ConnectionService,
     private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -56,32 +58,46 @@ export class UpdatePersonalDataComponent implements OnInit {
         this.profileData.isPrivateProfile = false;
       }
 
-    this.profileService.updatePersonalData(this.profileData).subscribe(
+    this.connectionService.changePrivacy(this.isPrivateProfile).subscribe(
       response => {
-        if(response.error !="" && response.error != undefined){
-           console.log(response.error)
-           Swal.fire({ icon: 'error',
-                       title: "Something went wrong. 😒",
-                       background: '#1e2126',
-                       color: '#c4c4c4',
-                       footer: "Exact error: " + response.error,
-         })}
-        else{
-          Swal.fire({ 
-            icon: 'success', 
-            title: 'Yippee! 🐶',
-            text: this.profileData.username + ', your personal data are successfully updated!',
-            showCancelButton: false,
-            showConfirmButton: true,
-            background: '#1e2126',
-            color: '#c4c4c4',
-            footer: 'You will be redirected to your profile.'
-        }).then(() => {
-          window.location.href =  "/profile/" + this.userId;
-        })
-        }  
-        }
-      )
+        console.log("Change privacy: ", response)
+        this.profileService.updatePersonalData(this.profileData).subscribe(
+          response => {
+            /*
+            if(response.error !="" && response.error != undefined){
+               console.log(response.error)
+               Swal.fire({ icon: 'error',
+                           title: "Something went wrong. 😒",
+                           background: '#1e2126',
+                           color: '#c4c4c4',
+                           footer: "Exact error: " + response.error,
+             })}
+            else{
+              Swal.fire({ 
+                icon: 'success', 
+                title: 'Yippee! 🐶',
+                text: this.profileData.username + ', your personal data are successfully updated!',
+                showCancelButton: false,
+                showConfirmButton: true,
+                background: '#1e2126',
+                color: '#c4c4c4',
+                footer: 'You will be redirected to your profile.'
+            }).then(() => {
+              window.location.href =  "/profile/" + this.userId;
+            })
+            }  
+            */
+    window.location.href =  "/profile/" + this.userId;
+
+            }
+
+          )
+
+
+
+      }
+    )
+   
 
   }
 
