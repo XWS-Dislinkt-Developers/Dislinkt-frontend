@@ -110,9 +110,9 @@ constructor(
       response => {
           console.log("Response - ",response)
           this.loggedUserProfileData = response.user
-          if(this.loggedUserConnection){
+          //if(this.loggedUserConnection){
             this.getConnections()
-          }
+         //}
       }
     )
   }
@@ -122,6 +122,7 @@ constructor(
         (response: any) => {
           console.log("getConnectionsByUserId - RESPONSE - ",response)
           this.loggedUserConnection = response;
+          this.getRecommendedUsers()
         }
       )
     }
@@ -331,6 +332,16 @@ constructor(
       }
     )
   }
+
+  getRecommendedUsers(){
+    this._connectionService.getRecommendedUsers().subscribe(
+      response => {
+        console.log("Response RECOMMENDED USERS - ",response)
+      })
+
+  }
+
+
 
   // Toggles
   togglePanelBody(panelName: string){
