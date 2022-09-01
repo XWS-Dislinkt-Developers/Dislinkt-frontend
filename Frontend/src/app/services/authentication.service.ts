@@ -69,7 +69,7 @@ export class AuthenticationService {
  
  register(person: any){
    console.log(" -- Service for Registration...")
-   return this._http.post<IResponse>('https://localhost:8000/registerUser', person).subscribe(
+   return this._http.post<IResponse>('https://localhost:8000/register', person).subscribe(
      response => {
      if(response.error !="" && response.error != undefined){
         console.log(response.error)
