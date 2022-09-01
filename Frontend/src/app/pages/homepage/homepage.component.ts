@@ -62,6 +62,12 @@ jobOffersForAdmin: any[]=[]
 usersWithPosts: Map<number, any> = new Map();
 jobOffers: any[]=[];
 
+// reccommended users
+recommendedUsers: any[] = []
+recommendedUsersData: any[] = []
+
+// recommended jobs
+recommendedJobs: any[] = []
 
 constructor(
   private _authenticationService: AuthenticationService, 
@@ -111,11 +117,21 @@ constructor(
           console.log("Response - ",response)
           this.loggedUserProfileData = response.user
           //if(this.loggedUserConnection){
+            this.formatSkillsInterestsWorkEducation()
             this.getConnections()
+            this.getRecommendedJobs()
          //}
       }
     )
   }
+  formatSkillsInterestsWorkEducation(){
+    this.loggedUserProfileData.skills = this.loggedUserProfileData.skills.split(', ')
+    this.loggedUserProfileData.interests = this.loggedUserProfileData.interests.split(', ')
+    this.loggedUserProfileData.work = this.loggedUserProfileData.work.split(', ')
+    this.loggedUserProfileData.education = this.loggedUserProfileData.education.split(', ')
+  }
+
+
 // Connection methods
     getConnections(){
       this._connectionService.getConnectionsByUserId(this.loggedUserId).subscribe(
@@ -337,10 +353,44 @@ constructor(
     this._connectionService.getRecommendedUsers().subscribe(
       response => {
         console.log("Response RECOMMENDED USERS - ",response)
+        this.recommendedUsers = response.userConnections
+        for(let i =0; i< this.recommendedUsers.length; i++){
+
+          this._profileService.getUserById(this.recommendedUsers[i].UserId).subscribe(
+            response => {
+                console.log("Response - ",response)
+                this.recommendedUsersData.push(response.user)
+                console.log("Response RECOMMENDED USERS DATA - ", this.recommendedUsersData)
+
+              })
+        }
+
       })
 
   }
 
+  getRecommendedJobs(){
+    this._jobService.getAllJobOffers().subscribe(
+      response => {
+        this.recommendedJobs=[]
+        console.log("Response JobOffers - ",response)
+        var nonFilteredJobs = response.jobOffers
+
+        for(let i = 0; i < nonFilteredJobs.length; i++){
+          let intersection = nonFilteredJobs[i].requirements.some((item: string) => this.loggedUserProfileData.skills.includes(item))
+          //let intersection = nonFilteredJobs[i].requirements.filter((value: string) => this.loggedUserProfileData.skills.includes(value));
+          console.log("Intersection - ",intersection)
+          if(intersection){
+            this.recommendedJobs.push(nonFilteredJobs[i])
+            console.log("Response Recommended JobOffers - ",this.recommendedJobs)
+            console.log("Response Skills for JobOffers - ",this.loggedUserProfileData.skills)
+          }
+        }
+
+
+      }
+    )
+  }
 
 
   // Toggles

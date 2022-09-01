@@ -90,7 +90,25 @@
                 <!--
                 <iframe width="100%" height="auto" src="https://youtube.com/embed/fRoG5CSlOT8"></iframe>
                 -->
-                <h6 > <b>  This job offer is maybe for you</b> <i> - not implemented yet.</i> </h6>
+                <h6 > <b>  Your skills are good for these jobs:</b>  </h6>
+                <div class="page-heading" *ngFor="let recommendedJob of recommendedJobs" style="padding:2px; margin:5px; border-radius:5px;">
+                  <div class="media clearfix button-shadow" style="padding:15px;">
+                    <div class="media-left pr30">
+                      <a>
+                        <img [src]="'https://avatars.dicebear.com/api/initials/'+recommendedJob.company.replaceAll(' ','')+'+.svg'" width="40"  class="media-object mw100 rounded shadow-4 button-shadow" style="filter: grayscale(33%);">
+                      </a>
+                    </div>
+                    <div class="media-body" >
+                      <h5 class="media-heading user-button-text"> 
+                        {{recommendedJob.company}} - <i style="font-size:18px;"> {{recommendedJob.position}} </i> 
+                      </h5>
+                      <p class="lead truncate" style="font-size:15px"><i>Description:</i>  &nbsp; {{recommendedJob.description}} </p>
+                      <span *ngFor="let requirement of recommendedJob.requirements" class="badge rounded-pill bg-dark text-light" style="margin-right: 5px; font-size:12px; font-weight:100">{{requirement}}</span>
+                   </div>
+                   <div class="profile-options d-flex" style="float:right; flex:1; padding:2px;"> 
+                  </div>
+                  </div>
+                </div> 
               </div>
             </div>
           </div>
@@ -105,7 +123,27 @@
                 <!--
                 <iframe width="100%" height="auto" src="https://youtube.com/embed/Xs-HbHCcK58"></iframe>
                 -->
-                <h6 > <b>  You maybe know these gals and fellas>:</b> </h6>
+                <h6 style="margin-bottom:5px;"> <b>  You have mutual friends with these people:</b> </h6>
+
+                <div class="page-heading" *ngFor="let recommendedUser of recommendedUsersData" [ngStyle]="{'display':recommendedUser.userId != 9 ? 'block':'none'}" style="padding:2px; margin:5px; border-radius:5px;">
+                  <div class="media clearfix button-shadow"  style="padding:15px" >
+                    <div class="media-left pr30">
+                      <a>
+                        <img *ngIf="recommendedUser.gender == 'male'" [src]="'http://xsgames.co/randomusers/assets/avatars/male/'+recommendedUser.userId+'.jpg'" width="40"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
+                        <img *ngIf="recommendedUser.gender == 'female'"[src]="'http://xsgames.co/randomusers/assets/avatars/female/'+recommendedUser.userId+'.jpg'"  width="40"  class="media-object mw100 rounded-circle shadow-4 button-shadow">
+                      </a>
+                    </div>
+                    <div class="media-body va-m">
+                      <h4 class="media-heading user-button-text user-name" (click)="redirectToUserProfile(recommendedUser.userId)" style="cursor:pointer;font-size:25px;"> 
+                        {{recommendedUser.name}} - <i> {{recommendedUser.username}} </i> 
+                        <span *ngIf="recommendedUser.isPrivateProfile == 'true'"> <img src="./../../../assets/images/icon-private.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px; "/> </span>
+                        <span *ngIf="recommendedUser.isPrivateProfile == 'false'"> <img  src="./../../../assets/images/icon-public.svg" style="margin:-2px 0px 0px 2px; width:15px; height:15px;"/> </span>
+                      </h4>
+                    </div>
+                  </div>
+                </div> 
+
+
               </div>
             </div>
           </div>
